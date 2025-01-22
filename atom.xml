@@ -6,7 +6,7 @@
   <link href="https://zhr0529.cn/atom.xml" rel="self"/>
   
   <link href="https://zhr0529.cn/"/>
-  <updated>2024-12-20T04:46:30.937Z</updated>
+  <updated>2025-01-22T03:47:07.880Z</updated>
   <id>https://zhr0529.cn/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>（杂）旅游攻略合集</title>
+    <link href="https://zhr0529.cn/posts/f29f6b73.html"/>
+    <id>https://zhr0529.cn/posts/f29f6b73.html</id>
+    <published>2025-01-22T03:46:38.000Z</published>
+    <updated>2025-01-22T03:47:07.880Z</updated>
+    
+    
+    
+    
+    <category term="日记" scheme="https://zhr0529.cn/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>我的简历</title>
@@ -46,9 +61,9 @@
     <link href="https://zhr0529.cn/posts/67ec6277.html"/>
     <id>https://zhr0529.cn/posts/67ec6277.html</id>
     <published>2024-12-09T14:19:47.000Z</published>
-    <updated>2024-12-09T14:33:17.823Z</updated>
+    <updated>2025-01-22T03:45:33.815Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="《电路》-第五版"><a href="#《电路》-第五版" class="headerlink" title="《电路》-第五版"></a>《电路》-第五版</h2><h3 id="学习进度：掌握基本的电路分析方式"><a href="#学习进度：掌握基本的电路分析方式" class="headerlink" title="学习进度：掌握基本的电路分析方式"></a>学习进度：掌握基本的电路分析方式</h3><p>第一章    电路模型和电路定律</p><p>第二章    电阻电路的等效变换</p><p>第三章    电阻电路的一般分析</p><p>第四章    电路定理</p><h2 id="51单片机软硬件学习"><a href="#51单片机软硬件学习" class="headerlink" title="51单片机软硬件学习"></a>51单片机软硬件学习</h2><ul><li>软件安装</li><li>编程实现点亮LED</li><li>编程实现LED闪烁&amp;LED流水灯&amp;数码管显示</li><li>I/O输入与输出控制按键</li><li>定时器中断</li></ul><h2 id="焊接学习"><a href="#焊接学习" class="headerlink" title="焊接学习"></a>焊接学习</h2><p>焊接工具已购置，电路板已打好。本周末进行焊接培训</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="《电路》-第五版"><a href="#《电路》-第五版" class="headerlink" title="《电路》-第五版"></a>《电路》-第五版</h2><h3 id="学习进度：掌握基本的电路分析方式"><a href="#学习进度：掌握基本的电路分析方式" class="headerlink" title="学习进度：掌握基本的电路分析方式"></a>学习进度：掌握基本的电路分析方式</h3><p>第一章    电路模型和电路定律</p><p>第二章    电阻电路的等效变换</p><p>第三章    电阻电路的一般分析</p><p>第四章    电路定理</p><h2 id="51单片机软硬件学习"><a href="#51单片机软硬件学习" class="headerlink" title="51单片机软硬件学习"></a>51单片机软硬件学习</h2><ul><li>软件安装</li><li>编程实现点亮LED</li><li>编程实现LED闪烁&amp;LED流水灯&amp;数码管显示</li><li>I/O输入与输出控制按键</li><li>定时器中断</li><li>定时器的周期调用</li><li>数码管与定时器</li><li>PWM</li></ul><h2 id="焊接学习"><a href="#焊接学习" class="headerlink" title="焊接学习"></a>焊接学习</h2><p>已掌握贴片元件，插件元件，常见芯片封装焊接</p><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><ul><li>完成51循迹小车制作，备战校赛</li></ul><h2 id="硬件电路-电子工程师养成"><a href="#硬件电路-电子工程师养成" class="headerlink" title="硬件电路/电子工程师养成"></a>硬件电路/电子工程师养成</h2><p>致谢b站免费教程，致谢推荐给我该教程的某位大佬</p><div class="tag link"><a class="link-card" title="硬件工程师入门教程|电子工程师|零基础|全免费|2024全新课程|中文字幕|B站 点赞 收藏NO.1_哔哩哔哩_bilibili" href="https://www.bilibili.com/video/BV1gHSyY3E6q?spm_id_from=333.788.videopod.episodes&vd_source=3d97a7809f5a62237ccc7e9ebe372fa8"><div class="left"><img src="/img/siteicon/64.png"/></div><div class="right"><p class="text">硬件工程师入门教程|电子工程师|零基础|全免费|2024全新课程|中文字幕|B站 点赞 收藏NO.1_哔哩哔哩_bilibili</p><p class="url">https://www.bilibili.com/video/BV1gHSyY3E6q?spm_id_from=333.788.videopod.episodes&vd_source=3d97a7809f5a62237ccc7e9ebe372fa8</p></div></a></div>]]></content>
     
     
       
