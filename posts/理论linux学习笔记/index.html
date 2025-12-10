@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>【理论】Linux学习笔记 | Zhanghr</title>
+<meta name="keywords" content="">
+<meta name="description" content="Linux基础命令
+Linux的目录结构
+
+
+/，根目录是最顶级的目录了
+Linux只有一个顶级目录：/
+路径描述的层次关系同样适用/来表示
+/home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt
+
+ls命令
+功能：列出文件夹信息
+语法：ls [-l -h -a] [参数]
+
+参数：被查看的文件夹，不提供参数，表示查看当前工作目录
+-l，以列表形式查看
+-h，配合-l，以更加人性化的方式显示文件大小
+-a，显示隐藏文件
+
+隐藏文件、文件夹
+在Linux中以.开头的，均是隐藏的。
+默认不显示出来，需要-a选项才可查看到。
+pwd命令
+功能：展示当前工作目录
+语法：pwd
+cd命令
+功能：切换工作目录
+语法：cd [目标目录]
+参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录
+HOME目录
+每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。
+
+
+普通用户的HOME目录，默认在：/home/用户名
+
+
+root用户的HOME目录，在：/root
+
+
+FinalShell登陆终端后，默认的工作目录就是用户的HOME目录
+相对路径、绝对路径
+
+
+相对路径，==非==/开头的称之为相对路径
+相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件
+
+
+绝对路径，==以==/开头的称之为绝对路径
+绝对路径从根开始描述路径
+
+
+特殊路径符
+
+.，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件
+..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录
+~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录
+
+mkdir命令
+功能：创建文件夹
+语法：mkdir [-p] 参数
+
+参数：被创建文件夹的路径
+选项：-p，可选，表示创建前置路径
+
+touch命令
+功能：创建文件
+语法：touch 参数
+
+参数：被创建的文件路径
+
+cat命令
+功能：查看文件内容
+语法：cat 参数
+
+参数：被查看的文件路径
+
+more命令
+功能：查看文件，可以支持翻页查看
+语法：more 参数
+
+参数：被查看的文件路径
+在查看过程中：
+
+空格键翻页
+q退出查看
+
+
+
+cp命令
+功能：复制文件、文件夹">
+<meta name="author" content="ZHR">
+<link rel="canonical" href="https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://fad1ngwind.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://fad1ngwind.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://fad1ngwind.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://fad1ngwind.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://fad1ngwind.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="【理论】Linux学习笔记">
+  <meta property="og:description" content="Linux基础命令 Linux的目录结构 /，根目录是最顶级的目录了 Linux只有一个顶级目录：/ 路径描述的层次关系同样适用/来表示 /home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt ls命令 功能：列出文件夹信息
+语法：ls [-l -h -a] [参数]
+参数：被查看的文件夹，不提供参数，表示查看当前工作目录 -l，以列表形式查看 -h，配合-l，以更加人性化的方式显示文件大小 -a，显示隐藏文件 隐藏文件、文件夹 在Linux中以.开头的，均是隐藏的。
+默认不显示出来，需要-a选项才可查看到。
+pwd命令 功能：展示当前工作目录
+语法：pwd
+cd命令 功能：切换工作目录
+语法：cd [目标目录]
+参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录
+HOME目录 每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。
+普通用户的HOME目录，默认在：/home/用户名
+root用户的HOME目录，在：/root
+FinalShell登陆终端后，默认的工作目录就是用户的HOME目录
+相对路径、绝对路径 相对路径，==非==/开头的称之为相对路径
+相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件
+绝对路径，==以==/开头的称之为绝对路径
+绝对路径从根开始描述路径
+特殊路径符 .，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件 ..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录 ~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录 mkdir命令 功能：创建文件夹
+语法：mkdir [-p] 参数
+参数：被创建文件夹的路径 选项：-p，可选，表示创建前置路径 touch命令 功能：创建文件
+语法：touch 参数
+参数：被创建的文件路径 cat命令 功能：查看文件内容
+语法：cat 参数
+参数：被查看的文件路径 more命令 功能：查看文件，可以支持翻页查看
+语法：more 参数
+参数：被查看的文件路径 在查看过程中： 空格键翻页 q退出查看 cp命令 功能：复制文件、文件夹">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【理论】Linux学习笔记">
+<meta name="twitter:description" content="Linux基础命令
+Linux的目录结构
+
+
+/，根目录是最顶级的目录了
+Linux只有一个顶级目录：/
+路径描述的层次关系同样适用/来表示
+/home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt
+
+ls命令
+功能：列出文件夹信息
+语法：ls [-l -h -a] [参数]
+
+参数：被查看的文件夹，不提供参数，表示查看当前工作目录
+-l，以列表形式查看
+-h，配合-l，以更加人性化的方式显示文件大小
+-a，显示隐藏文件
+
+隐藏文件、文件夹
+在Linux中以.开头的，均是隐藏的。
+默认不显示出来，需要-a选项才可查看到。
+pwd命令
+功能：展示当前工作目录
+语法：pwd
+cd命令
+功能：切换工作目录
+语法：cd [目标目录]
+参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录
+HOME目录
+每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。
+
+
+普通用户的HOME目录，默认在：/home/用户名
+
+
+root用户的HOME目录，在：/root
+
+
+FinalShell登陆终端后，默认的工作目录就是用户的HOME目录
+相对路径、绝对路径
+
+
+相对路径，==非==/开头的称之为相对路径
+相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件
+
+
+绝对路径，==以==/开头的称之为绝对路径
+绝对路径从根开始描述路径
+
+
+特殊路径符
+
+.，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件
+..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录
+~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录
+
+mkdir命令
+功能：创建文件夹
+语法：mkdir [-p] 参数
+
+参数：被创建文件夹的路径
+选项：-p，可选，表示创建前置路径
+
+touch命令
+功能：创建文件
+语法：touch 参数
+
+参数：被创建的文件路径
+
+cat命令
+功能：查看文件内容
+语法：cat 参数
+
+参数：被查看的文件路径
+
+more命令
+功能：查看文件，可以支持翻页查看
+语法：more 参数
+
+参数：被查看的文件路径
+在查看过程中：
+
+空格键翻页
+q退出查看
+
+
+
+cp命令
+功能：复制文件、文件夹">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://fad1ngwind.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "【理论】Linux学习笔记",
+      "item": "https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【理论】Linux学习笔记",
+  "name": "【理论】Linux学习笔记",
+  "description": "Linux基础命令 Linux的目录结构 /，根目录是最顶级的目录了 Linux只有一个顶级目录：/ 路径描述的层次关系同样适用/来表示 /home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt ls命令 功能：列出文件夹信息\n语法：ls [-l -h -a] [参数]\n参数：被查看的文件夹，不提供参数，表示查看当前工作目录 -l，以列表形式查看 -h，配合-l，以更加人性化的方式显示文件大小 -a，显示隐藏文件 隐藏文件、文件夹 在Linux中以.开头的，均是隐藏的。\n默认不显示出来，需要-a选项才可查看到。\npwd命令 功能：展示当前工作目录\n语法：pwd\ncd命令 功能：切换工作目录\n语法：cd [目标目录]\n参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录\nHOME目录 每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。\n普通用户的HOME目录，默认在：/home/用户名\nroot用户的HOME目录，在：/root\nFinalShell登陆终端后，默认的工作目录就是用户的HOME目录\n相对路径、绝对路径 相对路径，==非==/开头的称之为相对路径\n相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件\n绝对路径，==以==/开头的称之为绝对路径\n绝对路径从根开始描述路径\n特殊路径符 .，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件 ..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录 ~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录 mkdir命令 功能：创建文件夹\n语法：mkdir [-p] 参数\n参数：被创建文件夹的路径 选项：-p，可选，表示创建前置路径 touch命令 功能：创建文件\n语法：touch 参数\n参数：被创建的文件路径 cat命令 功能：查看文件内容\n语法：cat 参数\n参数：被查看的文件路径 more命令 功能：查看文件，可以支持翻页查看\n语法：more 参数\n参数：被查看的文件路径 在查看过程中： 空格键翻页 q退出查看 cp命令 功能：复制文件、文件夹\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Linux基础命令 Linux的目录结构 /，根目录是最顶级的目录了 Linux只有一个顶级目录：/ 路径描述的层次关系同样适用/来表示 /home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt ls命令 功能：列出文件夹信息\n语法：ls [-l -h -a] [参数]\n参数：被查看的文件夹，不提供参数，表示查看当前工作目录 -l，以列表形式查看 -h，配合-l，以更加人性化的方式显示文件大小 -a，显示隐藏文件 隐藏文件、文件夹 在Linux中以.开头的，均是隐藏的。\n默认不显示出来，需要-a选项才可查看到。\npwd命令 功能：展示当前工作目录\n语法：pwd\ncd命令 功能：切换工作目录\n语法：cd [目标目录]\n参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录\nHOME目录 每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。\n普通用户的HOME目录，默认在：/home/用户名\nroot用户的HOME目录，在：/root\nFinalShell登陆终端后，默认的工作目录就是用户的HOME目录\n相对路径、绝对路径 相对路径，==非==/开头的称之为相对路径\n相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件\n绝对路径，==以==/开头的称之为绝对路径\n绝对路径从根开始描述路径\n特殊路径符 .，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件 ..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录 ~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录 mkdir命令 功能：创建文件夹\n语法：mkdir [-p] 参数\n参数：被创建文件夹的路径 选项：-p，可选，表示创建前置路径 touch命令 功能：创建文件\n语法：touch 参数\n参数：被创建的文件路径 cat命令 功能：查看文件内容\n语法：cat 参数\n参数：被查看的文件路径 more命令 功能：查看文件，可以支持翻页查看\n语法：more 参数\n参数：被查看的文件路径 在查看过程中： 空格键翻页 q退出查看 cp命令 功能：复制文件、文件夹\n语法：cp [-r] 参数1 参数2\n参数1，被复制的 参数2，要复制去的地方 选项：-r，可选，复制文件夹使用 示例：\ncp a.txt b.txt，复制当前目录下a.txt为b.txt cp a.txt test/，复制当前目录a.txt到test文件夹内 cp -r test test2，复制文件夹test到当前文件夹内为test2存在 mv命令 功能：移动文件、文件夹\n语法：mv 参数1 参数2\n参数1：被移动的 参数2：要移动去的地方，参数2如果不存在，则会进行改名 rm命令 功能：删除文件、文件夹\n语法：rm [-r -f] 参数...参数\n参数：支持多个，每一个表示被删除的，空格进行分隔 选项：-r，删除文件夹使用 选项：-f，强制删除，不会给出确认提示，一般root用户会用到 rm命令很危险，一定要注意，特别是切换到root用户的时候。\nwhich命令 功能：查看命令的程序本体文件路径\n语法：which 参数\n参数：被查看的命令 find命令 功能：搜索文件\n语法1按文件名搜索：find 路径 -name 参数\n路径，搜索的起始路径 参数，搜索的关键字，支持通配符*， 比如：*test表示搜索任意以test结尾的文件 grep命令 功能：过滤关键字\n语法：grep [-n] 关键字 文件路径\n选项-n，可选，表示在结果中显示匹配的行的行号。 参数，关键字，必填，表示过滤的关键字，带有空格或其它特殊符号，建议使用””将关键字包围起来 参数，文件路径，必填，表示要过滤内容的文件路径，可作为内容输入端口 参数文件路径，可以作为管道符的输入\nwc命令 功能：统计\n语法：wc [-c -m -l -w] 文件路径\n选项，-c，统计bytes数量 选项，-m，统计字符数量 选项，-l，统计行数 选项，-w，统计单词数量 参数，文件路径，被统计的文件，可作为内容输入端口 参数文件路径，可作为管道符的输入\n管道符| 写法：|\n功能：将符号左边的结果，作为符号右边的输入\n示例：\ncat a.txt | grep itheima，将cat a.txt的结果，作为grep命令的输入，用来过滤itheima关键字\n可以支持嵌套：\ncat a.txt | grep itheima | grep itcast\necho命令 功能：输出内容\n语法：echo 参数\n参数：被输出的内容 `反引号 功能：被两个反引号包围的内容，会作为命令执行\n示例：\necho `pwd`，会输出当前工作目录 tail命令 功能：查看文件尾部内容\n语法：tail [-f] 参数\n参数：被查看的文件 选项：-f，持续跟踪文件修改 head命令 功能：查看文件头部内容\n语法：head [-n] 参数\n参数：被查看的文件 选项：-n，查看的行数 重定向符 功能：将符号左边的结果，输出到右边指定的文件中去\n\u003e，表示覆盖输出 \u003e\u003e，表示追加输出 vi编辑器 命令模式快捷键 底线命令快捷键 命令的选项 我们学习的一系列Linux命令，它们所拥有的选项都是非常多的。\n比如，简单的ls命令就有：-a -A -b -c -C -d -D -f -F -g -G -h -H -i -I -k -l -L -m -n -N -o -p -q -Q -r-R -s -S -t -T -u -U -v -w -x -X -1等选项，可以发现选项是极其多的。\n课程中， 并不会将全部的选项都进行讲解，否则，一个ls命令就可能讲解2小时之久。\n课程中，会对常见的选项进行讲解， 足够满足绝大多数的学习、工作场景。\n查看命令的帮助 可以通过：命令 --help查看命令的帮助手册\n查看命令的详细手册 可以通过：man 命令查看某命令的详细手册\nLinux常用操作 软件安装 CentOS系统使用： yum [install remove search] [-y] 软件名称 install 安装 remove 卸载 search 搜索 -y，自动确认 Ubuntu系统使用 apt [install remove search] [-y] 软件名称 install 安装 remove 卸载 search 搜索 -y，自动确认 yum 和 apt 均需要root权限\nsystemctl 功能：控制系统服务的启动关闭等\n语法：systemctl start | stop | restart | disable | enable | status 服务名\nstart，启动 stop，停止 status，查看状态 disable，关闭开机自启 enable，开启开机自启 restart，重启 软链接 功能：创建文件、文件夹软链接（快捷方式）\n语法：ln -s 参数1 参数2\n参数1：被链接的 参数2：要链接去的地方（快捷方式的名称和存放位置） 日期 语法：date [-d] [+格式化字符串]\n-d 按照给定的字符串显示日期，一般用于日期计算\n格式化字符串：通过特定的字符串标记，来控制显示的日期格式\n%Y 年%y 年份后两位数字 (00..99) %m 月份 (01..12) %d 日 (01..31) %H 小时 (00..23) %M 分钟 (00..59) %S 秒 (00..60) %s 自 1970-01-01 00:00:00 UTC 到现在的秒数 示例：\n按照2022-01-01的格式显示日期\n按照2022-01-01 10:00:00的格式显示日期\n-d选项日期计算\n支持的时间标记为：\n时区 修改时区为中国时区\nntp 功能：同步时间\n安装：yum install -y ntp\n启动管理：systemctl start | stop | restart | status | disable | enable ntpd\n手动校准时间：ntpdate -u ntp.aliyun.com\nip地址 格式：a.b.c.d\nabcd为0~255的数字 特殊IP：\n127.0.0.1，表示本机 0.0.0.0 可以表示本机 也可以表示任意IP（看使用场景） 查看ip：ifconfig\n主机名 功能：Linux系统的名称\n查看：hostname\n设置：hostnamectl set-hostname 主机名\n配置VMware固定IP 修改VMware网络，参阅PPT，图太多\n设置Linux内部固定IP\n修改文件：/etc/sysconfig/network-scripts/ifcfg-ens33\n示例文件内容：\nTYPE=\"Ethernet\" PROXY_METHOD=\"none\" BROWSER_ONLY=\"no\" BOOTPROTO=\"static\"\t# 改为static，固定IP DEFROUTE=\"yes\" IPV4_FAILURE_FATAL=\"no\" IPV6INIT=\"yes\" IPV6_AUTOCONF=\"yes\" IPV6_DEFROUTE=\"yes\" IPV6_FAILURE_FATAL=\"no\" IPV6_ADDR_GEN_MODE=\"stable-privacy\" NAME=\"ens33\" UUID=\"1b0011cb-0d2e-4eaa-8a11-af7d50ebc876\" DEVICE=\"ens33\" ONBOOT=\"yes\" IPADDR=\"192.168.88.131\"\t# IP地址，自己设置，要匹配网络范围 NETMASK=\"255.255.255.0\"\t# 子网掩码，固定写法255.255.255.0 GATEWAY=\"192.168.88.2\"\t# 网关，要和VMware中配置的一致 DNS1=\"192.168.88.2\"\t# DNS1服务器，和网关一致即可 ps命令 功能：查看进程信息\n语法：ps -ef，查看全部进程信息，可以搭配grep做过滤：ps -ef | grep xxx\nkill命令 nmap命令 netstat命令 功能：查看端口占用\n用法：netstat -anp | grep xxx\nping命令 测试网络是否联通\n语法：ping [-c num] 参数\nwget命令 curl命令 top命令 功能：查看主机运行状态\n语法：top，查看基础信息\n可用选项：\n交互式模式中，可用快捷键：\ndf命令 查看磁盘占用\niostat命令 查看CPU、磁盘的相关信息\nsar命令 查看网络统计\n环境变量 临时设置：export 变量名=变量值 永久设置： 针对用户，设置用户HOME目录内：.bashrc文件 针对全局，设置/etc/profile PATH变量 记录了执行程序的搜索路径\n可以将自定义路径加入PATH内，实现自定义命令在任意地方均可执行的效果\n$符号 可以取出指定的环境变量的值\n语法：$变量名\n示例：\necho $PATH，输出PATH环境变量的值\necho ${PATH}ABC，输出PATH环境变量的值以及ABC\n如果变量名和其它内容混淆在一起，可以使用${}\n压缩解压 压缩 tar -zcvf 压缩包 被压缩1...被压缩2...被压缩N\n-z表示使用gzip，可以不写 zip [-r] 参数1 参数2 参数N\n解压 tar -zxvf 被解压的文件 -C 要解压去的地方\n-z表示使用gzip，可以省略 -C，可以省略，指定要解压去的地方，不写解压到当前目录 unzip [-d] 参数\nsu命令 切换用户\n语法：su [-] [用户]\nsudo命令 比如：\nitheima ALL=(ALL) NOPASSWD: ALL 在visudo内配置如上内容，可以让itheima用户，无需密码直接使用sudo\nchmod命令 修改文件、文件夹权限\n语法：chmod [-R] 权限 参数\n权限，要设置的权限，比如755，表示：rwxr-xr-x\n参数，被修改的文件、文件夹\n选项-R，设置文件夹和其内部全部内容一样生效\nchown命令 修改文件、文件夹所属用户、组\n语法：chown [-R] [用户][:][用户组] 文件或文件夹\n用户组管理 用户管理 genenv命令 getenv group，查看系统全部的用户组\ngetenv passwd，查看系统全部的用户\nenv命令 查看系统全部的环境变量\n语法：env\n",
+  "wordCount" : "530",
+  "inLanguage": "en",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "ZHR"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zhanghr",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fad1ngwind.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://fad1ngwind.github.io/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://fad1ngwind.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://fad1ngwind.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://fad1ngwind.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://fad1ngwind.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      【理论】Linux学习笔记
+    </h1>
+    <div class="post-meta"><span>3 min</span>&nbsp;·&nbsp;<span>ZHR</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="linux基础命令">Linux基础命令<a hidden class="anchor" aria-hidden="true" href="#linux基础命令">#</a></h1>
+<h2 id="linux的目录结构">Linux的目录结构<a hidden class="anchor" aria-hidden="true" href="#linux的目录结构">#</a></h2>
+<p><img alt="image-20221027214128453" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027214128.png"></p>
+<ul>
+<li><code>/</code>，根目录是最顶级的目录了</li>
+<li>Linux只有一个顶级目录：<code>/</code></li>
+<li>路径描述的层次关系同样适用<code>/</code>来表示</li>
+<li>/home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt</li>
+</ul>
+<h2 id="ls命令">ls命令<a hidden class="anchor" aria-hidden="true" href="#ls命令">#</a></h2>
+<p>功能：列出文件夹信息</p>
+<p>语法：<code>ls [-l -h -a] [参数]</code></p>
+<ul>
+<li>参数：被查看的文件夹，不提供参数，表示查看当前工作目录</li>
+<li>-l，以列表形式查看</li>
+<li>-h，配合-l，以更加人性化的方式显示文件大小</li>
+<li>-a，显示隐藏文件</li>
+</ul>
+<h3 id="隐藏文件文件夹">隐藏文件、文件夹<a hidden class="anchor" aria-hidden="true" href="#隐藏文件文件夹">#</a></h3>
+<p>在Linux中以<code>.</code>开头的，均是隐藏的。</p>
+<p>默认不显示出来，需要<code>-a</code>选项才可查看到。</p>
+<h2 id="pwd命令">pwd命令<a hidden class="anchor" aria-hidden="true" href="#pwd命令">#</a></h2>
+<p>功能：展示当前工作目录</p>
+<p>语法：<code>pwd</code></p>
+<h2 id="cd命令">cd命令<a hidden class="anchor" aria-hidden="true" href="#cd命令">#</a></h2>
+<p>功能：切换工作目录</p>
+<p>语法：<code>cd [目标目录]</code></p>
+<p>参数：目标目录，要切换去的地方，不提供默认切换到<code>当前登录用户HOME目录</code></p>
+<h2 id="home目录">HOME目录<a hidden class="anchor" aria-hidden="true" href="#home目录">#</a></h2>
+<p>每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。</p>
+<ul>
+<li>
+<p>普通用户的HOME目录，默认在：<code>/home/用户名</code></p>
+</li>
+<li>
+<p>root用户的HOME目录，在：<code>/root</code></p>
+</li>
+</ul>
+<p>FinalShell登陆终端后，默认的工作目录就是用户的HOME目录</p>
+<h2 id="相对路径绝对路径">相对路径、绝对路径<a hidden class="anchor" aria-hidden="true" href="#相对路径绝对路径">#</a></h2>
+<ul>
+<li>
+<p>相对路径，==非==<code>/</code>开头的称之为相对路径</p>
+<p>相对路径表示以<code>当前目录</code>作为起点，去描述路径，如<code>test/a.txt</code>，表示当前工作目录内的test文件夹内的a.txt文件</p>
+</li>
+<li>
+<p>绝对路径，==以==<code>/</code>开头的称之为绝对路径</p>
+<p>绝对路径从<code>根</code>开始描述路径</p>
+</li>
+</ul>
+<h2 id="特殊路径符">特殊路径符<a hidden class="anchor" aria-hidden="true" href="#特殊路径符">#</a></h2>
+<ul>
+<li><code>.</code>，表示当前，比如./a.txt，表示当前文件夹内的<code>a.txt</code>文件</li>
+<li><code>..</code>，表示上级目录，比如<code>../</code>表示上级目录，<code>../../</code>表示上级的上级目录</li>
+<li><code>~</code>，表示用户的HOME目录，比如<code>cd ~</code>，即可切回用户HOME目录</li>
+</ul>
+<h2 id="mkdir命令">mkdir命令<a hidden class="anchor" aria-hidden="true" href="#mkdir命令">#</a></h2>
+<p>功能：创建文件夹</p>
+<p>语法：<code>mkdir [-p] 参数</code></p>
+<ul>
+<li>参数：被创建文件夹的路径</li>
+<li>选项：-p，可选，表示创建前置路径</li>
+</ul>
+<h2 id="touch命令">touch命令<a hidden class="anchor" aria-hidden="true" href="#touch命令">#</a></h2>
+<p>功能：创建文件</p>
+<p>语法：<code>touch 参数</code></p>
+<ul>
+<li>参数：被创建的文件路径</li>
+</ul>
+<h2 id="cat命令">cat命令<a hidden class="anchor" aria-hidden="true" href="#cat命令">#</a></h2>
+<p>功能：查看文件内容</p>
+<p>语法：<code>cat 参数</code></p>
+<ul>
+<li>参数：被查看的文件路径</li>
+</ul>
+<h2 id="more命令">more命令<a hidden class="anchor" aria-hidden="true" href="#more命令">#</a></h2>
+<p>功能：查看文件，可以支持翻页查看</p>
+<p>语法：<code>more 参数</code></p>
+<ul>
+<li>参数：被查看的文件路径</li>
+<li>在查看过程中：
+<ul>
+<li><code>空格</code>键翻页</li>
+<li><code>q</code>退出查看</li>
+</ul>
+</li>
+</ul>
+<h2 id="cp命令">cp命令<a hidden class="anchor" aria-hidden="true" href="#cp命令">#</a></h2>
+<p>功能：复制文件、文件夹</p>
+<p>语法：<code>cp [-r] 参数1 参数2</code></p>
+<ul>
+<li>参数1，被复制的</li>
+<li>参数2，要复制去的地方</li>
+<li>选项：-r，可选，复制文件夹使用</li>
+</ul>
+<p>示例：</p>
+<ul>
+<li>cp a.txt b.txt，复制当前目录下a.txt为b.txt</li>
+<li>cp a.txt test/，复制当前目录a.txt到test文件夹内</li>
+<li>cp -r test test2，复制文件夹test到当前文件夹内为test2存在</li>
+</ul>
+<h2 id="mv命令">mv命令<a hidden class="anchor" aria-hidden="true" href="#mv命令">#</a></h2>
+<p>功能：移动文件、文件夹</p>
+<p>语法：<code>mv 参数1 参数2</code></p>
+<ul>
+<li>参数1：被移动的</li>
+<li>参数2：要移动去的地方，参数2如果不存在，则会进行改名</li>
+</ul>
+<h2 id="rm命令">rm命令<a hidden class="anchor" aria-hidden="true" href="#rm命令">#</a></h2>
+<p>功能：删除文件、文件夹</p>
+<p>语法：<code>rm [-r -f] 参数...参数</code></p>
+<ul>
+<li>参数：支持多个，每一个表示被删除的，空格进行分隔</li>
+<li>选项：-r，删除文件夹使用</li>
+<li>选项：-f，强制删除，不会给出确认提示，一般root用户会用到</li>
+</ul>
+<blockquote>
+<p>rm命令很危险，一定要注意，特别是切换到root用户的时候。</p>
+</blockquote>
+<h2 id="which命令">which命令<a hidden class="anchor" aria-hidden="true" href="#which命令">#</a></h2>
+<p>功能：查看命令的程序本体文件路径</p>
+<p>语法：<code>which 参数</code></p>
+<ul>
+<li>参数：被查看的命令</li>
+</ul>
+<h2 id="find命令">find命令<a hidden class="anchor" aria-hidden="true" href="#find命令">#</a></h2>
+<p>功能：搜索文件</p>
+<p>语法1按文件名搜索：<code>find 路径 -name 参数</code></p>
+<ul>
+<li>路径，搜索的起始路径</li>
+<li>参数，搜索的关键字，支持通配符*， 比如：<code>*</code>test表示搜索任意以test结尾的文件</li>
+</ul>
+<h2 id="grep命令">grep命令<a hidden class="anchor" aria-hidden="true" href="#grep命令">#</a></h2>
+<p>功能：过滤关键字</p>
+<p>语法：<code>grep [-n] 关键字 文件路径</code></p>
+<ul>
+<li>选项-n，可选，表示在结果中显示匹配的行的行号。</li>
+<li>参数，关键字，必填，表示过滤的关键字，带有空格或其它特殊符号，建议使用””将关键字包围起来</li>
+<li>参数，文件路径，必填，表示要过滤内容的文件路径，可作为内容输入端口</li>
+</ul>
+<blockquote>
+<p>参数文件路径，可以作为管道符的输入</p>
+</blockquote>
+<h2 id="wc命令">wc命令<a hidden class="anchor" aria-hidden="true" href="#wc命令">#</a></h2>
+<p>功能：统计</p>
+<p>语法：<code>wc [-c -m -l -w] 文件路径</code></p>
+<ul>
+<li>选项，-c，统计bytes数量</li>
+<li>选项，-m，统计字符数量</li>
+<li>选项，-l，统计行数</li>
+<li>选项，-w，统计单词数量</li>
+<li>参数，文件路径，被统计的文件，可作为内容输入端口</li>
+</ul>
+<blockquote>
+<p>参数文件路径，可作为管道符的输入</p>
+</blockquote>
+<h2 id="管道符">管道符|<a hidden class="anchor" aria-hidden="true" href="#管道符">#</a></h2>
+<p>写法：<code>|</code></p>
+<p>功能：将符号左边的结果，作为符号右边的输入</p>
+<p>示例：</p>
+<p><code>cat a.txt | grep itheima</code>，将cat a.txt的结果，作为grep命令的输入，用来过滤<code>itheima</code>关键字</p>
+<p>可以支持嵌套：</p>
+<p><code>cat a.txt | grep itheima | grep itcast</code></p>
+<h2 id="echo命令">echo命令<a hidden class="anchor" aria-hidden="true" href="#echo命令">#</a></h2>
+<p>功能：输出内容</p>
+<p>语法：<code>echo 参数</code></p>
+<ul>
+<li>参数：被输出的内容</li>
+</ul>
+<h2 id="反引号">`反引号<a hidden class="anchor" aria-hidden="true" href="#反引号">#</a></h2>
+<p>功能：被两个反引号包围的内容，会作为命令执行</p>
+<p>示例：</p>
+<ul>
+<li>echo `pwd`，会输出当前工作目录</li>
+</ul>
+<h2 id="tail命令">tail命令<a hidden class="anchor" aria-hidden="true" href="#tail命令">#</a></h2>
+<p>功能：查看文件尾部内容</p>
+<p>语法：<code>tail [-f] 参数</code></p>
+<ul>
+<li>参数：被查看的文件</li>
+<li>选项：-f，持续跟踪文件修改</li>
+</ul>
+<h2 id="head命令">head命令<a hidden class="anchor" aria-hidden="true" href="#head命令">#</a></h2>
+<p>功能：查看文件头部内容</p>
+<p>语法：<code>head [-n] 参数</code></p>
+<ul>
+<li>参数：被查看的文件</li>
+<li>选项：-n，查看的行数</li>
+</ul>
+<h2 id="重定向符">重定向符<a hidden class="anchor" aria-hidden="true" href="#重定向符">#</a></h2>
+<p>功能：将符号左边的结果，输出到右边指定的文件中去</p>
+<ul>
+<li><code>&gt;</code>，表示覆盖输出</li>
+<li><code>&gt;&gt;</code>，表示追加输出</li>
+</ul>
+<h2 id="vi编辑器">vi编辑器<a hidden class="anchor" aria-hidden="true" href="#vi编辑器">#</a></h2>
+<h3 id="命令模式快捷键">命令模式快捷键<a hidden class="anchor" aria-hidden="true" href="#命令模式快捷键">#</a></h3>
+<p><img alt="image-20221027215841573" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027215841.png"></p>
+<p><img alt="image-20221027215846581" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027215846.png"></p>
+<p><img alt="image-20221027215849668" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027215849.png"></p>
+<h3 id="底线命令快捷键">底线命令快捷键<a hidden class="anchor" aria-hidden="true" href="#底线命令快捷键">#</a></h3>
+<p><img alt="image-20221027215858967" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027215858.png"></p>
+<h2 id="命令的选项">命令的选项<a hidden class="anchor" aria-hidden="true" href="#命令的选项">#</a></h2>
+<p>我们学习的一系列Linux命令，它们所拥有的选项都是非常多的。</p>
+<p>比如，简单的ls命令就有：-a -A -b -c -C -d -D -f -F -g -G -h -H -i -I -k -l -L -m -n -N -o -p -q -Q -r-R -s -S -t -T -u -U -v -w -x -X -1等选项，可以发现选项是极其多的。</p>
+<p>课程中， 并不会将全部的选项都进行讲解，否则，一个ls命令就可能讲解2小时之久。</p>
+<p>课程中，会对常见的选项进行讲解， 足够满足绝大多数的学习、工作场景。</p>
+<h3 id="查看命令的帮助">查看命令的帮助<a hidden class="anchor" aria-hidden="true" href="#查看命令的帮助">#</a></h3>
+<p>可以通过：<code>命令 --help</code>查看命令的帮助手册</p>
+<p><img alt="image-20221027220005610" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220005.png"></p>
+<h3 id="查看命令的详细手册">查看命令的详细手册<a hidden class="anchor" aria-hidden="true" href="#查看命令的详细手册">#</a></h3>
+<p>可以通过：<code>man 命令</code>查看某命令的详细手册</p>
+<p><img alt="image-20221027220009949" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220010.png"></p>
+<h1 id="linux常用操作">Linux常用操作<a hidden class="anchor" aria-hidden="true" href="#linux常用操作">#</a></h1>
+<h2 id="软件安装">软件安装<a hidden class="anchor" aria-hidden="true" href="#软件安装">#</a></h2>
+<ul>
+<li>CentOS系统使用：
+<ul>
+<li>yum [install remove search] [-y] 软件名称
+<ul>
+<li>install 安装</li>
+<li>remove 卸载</li>
+<li>search 搜索</li>
+<li>-y，自动确认</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ubuntu系统使用
+<ul>
+<li>apt [install remove search] [-y] 软件名称
+<ul>
+<li>install 安装</li>
+<li>remove 卸载</li>
+<li>search 搜索</li>
+<li>-y，自动确认</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>yum 和 apt 均需要root权限</p>
+</blockquote>
+<h2 id="systemctl">systemctl<a hidden class="anchor" aria-hidden="true" href="#systemctl">#</a></h2>
+<p>功能：控制系统服务的启动关闭等</p>
+<p>语法：<code>systemctl start | stop | restart | disable | enable | status 服务名</code></p>
+<ul>
+<li>start，启动</li>
+<li>stop，停止</li>
+<li>status，查看状态</li>
+<li>disable，关闭开机自启</li>
+<li>enable，开启开机自启</li>
+<li>restart，重启</li>
+</ul>
+<h2 id="软链接">软链接<a hidden class="anchor" aria-hidden="true" href="#软链接">#</a></h2>
+<p>功能：创建文件、文件夹软链接（快捷方式）</p>
+<p>语法：<code>ln -s 参数1 参数2</code></p>
+<ul>
+<li>参数1：被链接的</li>
+<li>参数2：要链接去的地方（快捷方式的名称和存放位置）</li>
+</ul>
+<h2 id="日期">日期<a hidden class="anchor" aria-hidden="true" href="#日期">#</a></h2>
+<p>语法：<code>date [-d] [+格式化字符串]</code></p>
+<ul>
+<li>
+<p>-d 按照给定的字符串显示日期，一般用于日期计算</p>
+</li>
+<li>
+<p>格式化字符串：通过特定的字符串标记，来控制显示的日期格式</p>
+<ul>
+<li>%Y   年%y   年份后两位数字 (00..99)</li>
+<li>%m   月份 (01..12)</li>
+<li>%d   日 (01..31)</li>
+<li>%H   小时 (00..23)</li>
+<li>%M   分钟 (00..59)</li>
+<li>%S   秒 (00..60)</li>
+<li>%s   自 1970-01-01 00:00:00 UTC 到现在的秒数</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<ul>
+<li>
+<p>按照2022-01-01的格式显示日期</p>
+<p><img alt="image-20221027220514640" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220514.png"></p>
+</li>
+<li>
+<p>按照2022-01-01 10:00:00的格式显示日期</p>
+<p><img alt="image-20221027220525625" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220525.png"></p>
+</li>
+<li>
+<p>-d选项日期计算</p>
+<p><img alt="image-20221027220429831" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220429.png"></p>
+<ul>
+<li>
+<p>支持的时间标记为：</p>
+<p><img alt="image-20221027220449312" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220449.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="时区">时区<a hidden class="anchor" aria-hidden="true" href="#时区">#</a></h2>
+<p>修改时区为中国时区</p>
+<p><img alt="image-20221027220554654" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027220554.png"></p>
+<h2 id="ntp">ntp<a hidden class="anchor" aria-hidden="true" href="#ntp">#</a></h2>
+<p>功能：同步时间</p>
+<p>安装：<code>yum install -y ntp</code></p>
+<p>启动管理：<code>systemctl start | stop | restart | status | disable | enable ntpd</code></p>
+<p>手动校准时间：<code>ntpdate -u ntp.aliyun.com</code></p>
+<h2 id="ip地址">ip地址<a hidden class="anchor" aria-hidden="true" href="#ip地址">#</a></h2>
+<p>格式：a.b.c.d</p>
+<ul>
+<li>abcd为0~255的数字</li>
+</ul>
+<p>特殊IP：</p>
+<ul>
+<li>127.0.0.1，表示本机</li>
+<li>0.0.0.0
+<ul>
+<li>可以表示本机</li>
+<li>也可以表示任意IP（看使用场景）</li>
+</ul>
+</li>
+</ul>
+<p>查看ip：<code>ifconfig</code></p>
+<h2 id="主机名">主机名<a hidden class="anchor" aria-hidden="true" href="#主机名">#</a></h2>
+<p>功能：Linux系统的名称</p>
+<p>查看：<code>hostname</code></p>
+<p>设置：<code>hostnamectl set-hostname 主机名</code></p>
+<h2 id="配置vmware固定ip">配置VMware固定IP<a hidden class="anchor" aria-hidden="true" href="#配置vmware固定ip">#</a></h2>
+<ol>
+<li>
+<p>修改VMware网络，参阅PPT，图太多</p>
+</li>
+<li>
+<p>设置Linux内部固定IP</p>
+<p>修改文件：<code>/etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>示例文件内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>TYPE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Ethernet&#34;</span>
+</span></span><span style="display:flex;"><span>PROXY_METHOD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span>BROWSER_ONLY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;no&#34;</span>
+</span></span><span style="display:flex;"><span>BOOTPROTO<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;static&#34;</span>			<span style="color:#75715e"># 改为static，固定IP</span>
+</span></span><span style="display:flex;"><span>DEFROUTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>IPV4_FAILURE_FATAL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;no&#34;</span>
+</span></span><span style="display:flex;"><span>IPV6INIT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>IPV6_AUTOCONF<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>IPV6_DEFROUTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>IPV6_FAILURE_FATAL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;no&#34;</span>
+</span></span><span style="display:flex;"><span>IPV6_ADDR_GEN_MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stable-privacy&#34;</span>
+</span></span><span style="display:flex;"><span>NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ens33&#34;</span>
+</span></span><span style="display:flex;"><span>UUID<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1b0011cb-0d2e-4eaa-8a11-af7d50ebc876&#34;</span>
+</span></span><span style="display:flex;"><span>DEVICE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ens33&#34;</span>
+</span></span><span style="display:flex;"><span>ONBOOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>
+</span></span><span style="display:flex;"><span>IPADDR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.88.131&#34;</span>		<span style="color:#75715e"># IP地址，自己设置，要匹配网络范围</span>
+</span></span><span style="display:flex;"><span>NETMASK<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;255.255.255.0&#34;</span>		<span style="color:#75715e"># 子网掩码，固定写法255.255.255.0</span>
+</span></span><span style="display:flex;"><span>GATEWAY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.88.2&#34;</span>		<span style="color:#75715e"># 网关，要和VMware中配置的一致</span>
+</span></span><span style="display:flex;"><span>DNS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.88.2&#34;</span>			<span style="color:#75715e"># DNS1服务器，和网关一致即可</span>
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="ps命令">ps命令<a hidden class="anchor" aria-hidden="true" href="#ps命令">#</a></h2>
+<p>功能：查看进程信息</p>
+<p>语法：<code>ps -ef</code>，查看全部进程信息，可以搭配grep做过滤：<code>ps -ef | grep xxx</code></p>
+<h2 id="kill命令">kill命令<a hidden class="anchor" aria-hidden="true" href="#kill命令">#</a></h2>
+<p><img alt="image-20221027221303037" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221303.png"></p>
+<h2 id="nmap命令">nmap命令<a hidden class="anchor" aria-hidden="true" href="#nmap命令">#</a></h2>
+<p><img alt="image-20221027221241123" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221241.png"></p>
+<h2 id="netstat命令">netstat命令<a hidden class="anchor" aria-hidden="true" href="#netstat命令">#</a></h2>
+<p>功能：查看端口占用</p>
+<p>用法：<code>netstat -anp | grep xxx</code></p>
+<h2 id="ping命令">ping命令<a hidden class="anchor" aria-hidden="true" href="#ping命令">#</a></h2>
+<p>测试网络是否联通</p>
+<p>语法：<code>ping [-c num] 参数</code></p>
+<p><img alt="image-20221027221129782" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221129.png"></p>
+<h2 id="wget命令">wget命令<a hidden class="anchor" aria-hidden="true" href="#wget命令">#</a></h2>
+<p><img alt="image-20221027221148964" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221149.png"></p>
+<h2 id="curl命令">curl命令<a hidden class="anchor" aria-hidden="true" href="#curl命令">#</a></h2>
+<p><img alt="image-20221027221201079" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221201.png"></p>
+<p><img alt="image-20221027221210518" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221210.png"></p>
+<h2 id="top命令">top命令<a hidden class="anchor" aria-hidden="true" href="#top命令">#</a></h2>
+<p>功能：查看主机运行状态</p>
+<p>语法：<code>top</code>，查看基础信息</p>
+<p>可用选项：</p>
+<p><img alt="image-20221027221340729" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221340.png"></p>
+<p>交互式模式中，可用快捷键：</p>
+<p><img alt="image-20221027221354137" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221354.png"></p>
+<h2 id="df命令">df命令<a hidden class="anchor" aria-hidden="true" href="#df命令">#</a></h2>
+<p>查看磁盘占用</p>
+<p><img alt="image-20221027221413787" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221413.png"></p>
+<h2 id="iostat命令">iostat命令<a hidden class="anchor" aria-hidden="true" href="#iostat命令">#</a></h2>
+<p>查看CPU、磁盘的相关信息</p>
+<p><img alt="image-20221027221439990" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221440.png"></p>
+<p><img alt="image-20221027221514237" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221514.png"></p>
+<h2 id="sar命令">sar命令<a hidden class="anchor" aria-hidden="true" href="#sar命令">#</a></h2>
+<p>查看网络统计</p>
+<p><img alt="image-20221027221545822" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221545.png"></p>
+<h2 id="环境变量">环境变量<a hidden class="anchor" aria-hidden="true" href="#环境变量">#</a></h2>
+<ul>
+<li>临时设置：export 变量名=变量值</li>
+<li>永久设置：
+<ul>
+<li>针对用户，设置用户HOME目录内：<code>.bashrc</code>文件</li>
+<li>针对全局，设置<code>/etc/profile</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="path变量">PATH变量<a hidden class="anchor" aria-hidden="true" href="#path变量">#</a></h3>
+<p>记录了执行程序的搜索路径</p>
+<p>可以将自定义路径加入PATH内，实现自定义命令在任意地方均可执行的效果</p>
+<h2 id="符号">$符号<a hidden class="anchor" aria-hidden="true" href="#符号">#</a></h2>
+<p>可以取出指定的环境变量的值</p>
+<p>语法：<code>$变量名</code></p>
+<p>示例：</p>
+<p><code>echo $PATH</code>，输出PATH环境变量的值</p>
+<p><code>echo ${PATH}ABC</code>，输出PATH环境变量的值以及ABC</p>
+<p>如果变量名和其它内容混淆在一起，可以使用${}</p>
+<h2 id="压缩解压">压缩解压<a hidden class="anchor" aria-hidden="true" href="#压缩解压">#</a></h2>
+<h3 id="压缩">压缩<a hidden class="anchor" aria-hidden="true" href="#压缩">#</a></h3>
+<p><code>tar -zcvf 压缩包 被压缩1...被压缩2...被压缩N</code></p>
+<ul>
+<li>-z表示使用gzip，可以不写</li>
+</ul>
+<p><code>zip [-r] 参数1 参数2 参数N</code></p>
+<p><img alt="image-20221027221906247" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221906.png"></p>
+<h3 id="解压">解压<a hidden class="anchor" aria-hidden="true" href="#解压">#</a></h3>
+<p><code>tar -zxvf 被解压的文件 -C 要解压去的地方</code></p>
+<ul>
+<li>-z表示使用gzip，可以省略</li>
+<li>-C，可以省略，指定要解压去的地方，不写解压到当前目录</li>
+</ul>
+<p><code>unzip [-d] 参数</code></p>
+<p><img alt="image-20221027221939899" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027221939.png"></p>
+<h2 id="su命令">su命令<a hidden class="anchor" aria-hidden="true" href="#su命令">#</a></h2>
+<p>切换用户</p>
+<p>语法：<code>su [-] [用户]</code></p>
+<p><img alt="image-20221027222021619" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222021.png"></p>
+<h2 id="sudo命令">sudo命令<a hidden class="anchor" aria-hidden="true" href="#sudo命令">#</a></h2>
+<p><img alt="image-20221027222035337" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222035.png"></p>
+<p>比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>itheima ALL<span style="color:#f92672">=(</span>ALL<span style="color:#f92672">)</span>       NOPASSWD: ALL
+</span></span></code></pre></div><p>在visudo内配置如上内容，可以让itheima用户，无需密码直接使用<code>sudo</code></p>
+<h2 id="chmod命令">chmod命令<a hidden class="anchor" aria-hidden="true" href="#chmod命令">#</a></h2>
+<p>修改文件、文件夹权限</p>
+<p>语法：<code>chmod [-R] 权限 参数</code></p>
+<ul>
+<li>
+<p>权限，要设置的权限，比如755，表示：<code>rwxr-xr-x</code></p>
+<p><img alt="image-20221027222157276" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222157.png"></p>
+</li>
+<li>
+<p>参数，被修改的文件、文件夹</p>
+</li>
+<li>
+<p>选项-R，设置文件夹和其内部全部内容一样生效</p>
+</li>
+</ul>
+<h2 id="chown命令">chown命令<a hidden class="anchor" aria-hidden="true" href="#chown命令">#</a></h2>
+<p>修改文件、文件夹所属用户、组</p>
+<p>语法：<code>chown [-R] [用户][:][用户组] 文件或文件夹</code></p>
+<p><img alt="image-20221027222326192" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222326.png"></p>
+<h2 id="用户组管理">用户组管理<a hidden class="anchor" aria-hidden="true" href="#用户组管理">#</a></h2>
+<p><img alt="image-20221027222354498" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222354.png"></p>
+<h2 id="用户管理">用户管理<a hidden class="anchor" aria-hidden="true" href="#用户管理">#</a></h2>
+<p><img alt="image-20221027222407618" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222407.png"></p>
+<h2 id="genenv命令">genenv命令<a hidden class="anchor" aria-hidden="true" href="#genenv命令">#</a></h2>
+<ul>
+<li>
+<p><code>getenv group</code>，查看系统全部的用户组</p>
+<p><img alt="image-20221027222446514" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222446.png"></p>
+</li>
+<li>
+<p><code>getenv passwd</code>，查看系统全部的用户</p>
+<p><img alt="image-20221027222512274" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027222512.png"></p>
+</li>
+</ul>
+<h2 id="env命令">env命令<a hidden class="anchor" aria-hidden="true" href="#env命令">#</a></h2>
+<p>查看系统全部的环境变量</p>
+<p>语法：<code>env</code></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://fad1ngwind.github.io/posts/%E9%9A%8F%E6%83%B3/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>随想</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://fad1ngwind.github.io/">Zhanghr</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

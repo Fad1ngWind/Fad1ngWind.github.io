@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on 我的博客</title>
+    <title>Posts on Zhanghr</title>
     <link>https://fad1ngwind.github.io/posts/</link>
-    <description>Recent content in Posts on 我的博客</description>
+    <description>Recent content in Posts on Zhanghr</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 29 Nov 2025 23:01:15 +0800</lastBuildDate>
@@ -17,6 +17,101 @@
 &lt;p&gt;​      最后留在记忆深处的总是那些虚无缥缈的东西，就像你记住一个人往往不是因为她的美。很多年后你连她的样子都忘记了。可偶然在人流如织的街头闻到她惯用的香水味，你在惊悚中下意识地回过头去，却只看见万千过客的背影，你这才想起即便刚才和你擦肩而过的确实是她，即便你跟她四目相对，你也未必能认出她今天的样子了。&lt;/p&gt;
 &lt;p&gt;往事总在回忆中被赋予寓意🫠&lt;/p&gt;
 &lt;img src=&#34;https://s2.loli.net/2024/11/22/nWZo1f3zlrBY5EM.png&#34; alt=&#34;龙族&#34; style=&#34;zoom: 50%;&#34; /&gt;</description>
+    </item>
+    <item>
+      <title>【理论】Linux学习笔记</title>
+      <link>https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;h1 id=&#34;linux基础命令&#34;&gt;Linux基础命令&lt;/h1&gt;
+&lt;h2 id=&#34;linux的目录结构&#34;&gt;Linux的目录结构&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20221027214128453&#34; loading=&#34;lazy&#34; src=&#34;https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027214128.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/&lt;/code&gt;，根目录是最顶级的目录了&lt;/li&gt;
+&lt;li&gt;Linux只有一个顶级目录：&lt;code&gt;/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;路径描述的层次关系同样适用&lt;code&gt;/&lt;/code&gt;来表示&lt;/li&gt;
+&lt;li&gt;/home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ls命令&#34;&gt;ls命令&lt;/h2&gt;
+&lt;p&gt;功能：列出文件夹信息&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;ls [-l -h -a] [参数]&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：被查看的文件夹，不提供参数，表示查看当前工作目录&lt;/li&gt;
+&lt;li&gt;-l，以列表形式查看&lt;/li&gt;
+&lt;li&gt;-h，配合-l，以更加人性化的方式显示文件大小&lt;/li&gt;
+&lt;li&gt;-a，显示隐藏文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;隐藏文件文件夹&#34;&gt;隐藏文件、文件夹&lt;/h3&gt;
+&lt;p&gt;在Linux中以&lt;code&gt;.&lt;/code&gt;开头的，均是隐藏的。&lt;/p&gt;
+&lt;p&gt;默认不显示出来，需要&lt;code&gt;-a&lt;/code&gt;选项才可查看到。&lt;/p&gt;
+&lt;h2 id=&#34;pwd命令&#34;&gt;pwd命令&lt;/h2&gt;
+&lt;p&gt;功能：展示当前工作目录&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;pwd&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;cd命令&#34;&gt;cd命令&lt;/h2&gt;
+&lt;p&gt;功能：切换工作目录&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;cd [目标目录]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;参数：目标目录，要切换去的地方，不提供默认切换到&lt;code&gt;当前登录用户HOME目录&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;home目录&#34;&gt;HOME目录&lt;/h2&gt;
+&lt;p&gt;每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;普通用户的HOME目录，默认在：&lt;code&gt;/home/用户名&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;root用户的HOME目录，在：&lt;code&gt;/root&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;FinalShell登陆终端后，默认的工作目录就是用户的HOME目录&lt;/p&gt;
+&lt;h2 id=&#34;相对路径绝对路径&#34;&gt;相对路径、绝对路径&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;相对路径，==非==&lt;code&gt;/&lt;/code&gt;开头的称之为相对路径&lt;/p&gt;
+&lt;p&gt;相对路径表示以&lt;code&gt;当前目录&lt;/code&gt;作为起点，去描述路径，如&lt;code&gt;test/a.txt&lt;/code&gt;，表示当前工作目录内的test文件夹内的a.txt文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;绝对路径，==以==&lt;code&gt;/&lt;/code&gt;开头的称之为绝对路径&lt;/p&gt;
+&lt;p&gt;绝对路径从&lt;code&gt;根&lt;/code&gt;开始描述路径&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;特殊路径符&#34;&gt;特殊路径符&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.&lt;/code&gt;，表示当前，比如./a.txt，表示当前文件夹内的&lt;code&gt;a.txt&lt;/code&gt;文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;..&lt;/code&gt;，表示上级目录，比如&lt;code&gt;../&lt;/code&gt;表示上级目录，&lt;code&gt;../../&lt;/code&gt;表示上级的上级目录&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;~&lt;/code&gt;，表示用户的HOME目录，比如&lt;code&gt;cd ~&lt;/code&gt;，即可切回用户HOME目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mkdir命令&#34;&gt;mkdir命令&lt;/h2&gt;
+&lt;p&gt;功能：创建文件夹&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;mkdir [-p] 参数&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：被创建文件夹的路径&lt;/li&gt;
+&lt;li&gt;选项：-p，可选，表示创建前置路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;touch命令&#34;&gt;touch命令&lt;/h2&gt;
+&lt;p&gt;功能：创建文件&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;touch 参数&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：被创建的文件路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;cat命令&#34;&gt;cat命令&lt;/h2&gt;
+&lt;p&gt;功能：查看文件内容&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;cat 参数&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：被查看的文件路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;more命令&#34;&gt;more命令&lt;/h2&gt;
+&lt;p&gt;功能：查看文件，可以支持翻页查看&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;more 参数&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数：被查看的文件路径&lt;/li&gt;
+&lt;li&gt;在查看过程中：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;空格&lt;/code&gt;键翻页&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;q&lt;/code&gt;退出查看&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;cp命令&#34;&gt;cp命令&lt;/h2&gt;
+&lt;p&gt;功能：复制文件、文件夹&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
