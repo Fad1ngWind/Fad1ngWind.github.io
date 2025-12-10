@@ -392,7 +392,168 @@ cp命令
     <div class="post-meta"><span title='2024-07-08 14:34:24 +0800 CST'>July 8, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>ZHR</span>
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#linux%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4" aria-label="Linux基础命令">Linux基础命令</a><ul>
+                        
+                <li>
+                    <a href="#linux%e7%9a%84%e7%9b%ae%e5%bd%95%e7%bb%93%e6%9e%84" aria-label="Linux的目录结构">Linux的目录结构</a></li>
+                <li>
+                    <a href="#ls%e5%91%bd%e4%bb%a4" aria-label="ls命令">ls命令</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9a%90%e8%97%8f%e6%96%87%e4%bb%b6%e6%96%87%e4%bb%b6%e5%a4%b9" aria-label="隐藏文件、文件夹">隐藏文件、文件夹</a></li></ul>
+                </li>
+                <li>
+                    <a href="#pwd%e5%91%bd%e4%bb%a4" aria-label="pwd命令">pwd命令</a></li>
+                <li>
+                    <a href="#cd%e5%91%bd%e4%bb%a4" aria-label="cd命令">cd命令</a></li>
+                <li>
+                    <a href="#home%e7%9b%ae%e5%bd%95" aria-label="HOME目录">HOME目录</a></li>
+                <li>
+                    <a href="#%e7%9b%b8%e5%af%b9%e8%b7%af%e5%be%84%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" aria-label="相对路径、绝对路径">相对路径、绝对路径</a></li>
+                <li>
+                    <a href="#%e7%89%b9%e6%ae%8a%e8%b7%af%e5%be%84%e7%ac%a6" aria-label="特殊路径符">特殊路径符</a></li>
+                <li>
+                    <a href="#mkdir%e5%91%bd%e4%bb%a4" aria-label="mkdir命令">mkdir命令</a></li>
+                <li>
+                    <a href="#touch%e5%91%bd%e4%bb%a4" aria-label="touch命令">touch命令</a></li>
+                <li>
+                    <a href="#cat%e5%91%bd%e4%bb%a4" aria-label="cat命令">cat命令</a></li>
+                <li>
+                    <a href="#more%e5%91%bd%e4%bb%a4" aria-label="more命令">more命令</a></li>
+                <li>
+                    <a href="#cp%e5%91%bd%e4%bb%a4" aria-label="cp命令">cp命令</a></li>
+                <li>
+                    <a href="#mv%e5%91%bd%e4%bb%a4" aria-label="mv命令">mv命令</a></li>
+                <li>
+                    <a href="#rm%e5%91%bd%e4%bb%a4" aria-label="rm命令">rm命令</a></li>
+                <li>
+                    <a href="#which%e5%91%bd%e4%bb%a4" aria-label="which命令">which命令</a></li>
+                <li>
+                    <a href="#find%e5%91%bd%e4%bb%a4" aria-label="find命令">find命令</a></li>
+                <li>
+                    <a href="#grep%e5%91%bd%e4%bb%a4" aria-label="grep命令">grep命令</a></li>
+                <li>
+                    <a href="#wc%e5%91%bd%e4%bb%a4" aria-label="wc命令">wc命令</a></li>
+                <li>
+                    <a href="#%e7%ae%a1%e9%81%93%e7%ac%a6" aria-label="管道符|">管道符|</a></li>
+                <li>
+                    <a href="#echo%e5%91%bd%e4%bb%a4" aria-label="echo命令">echo命令</a></li>
+                <li>
+                    <a href="#%e5%8f%8d%e5%bc%95%e5%8f%b7" aria-label="`反引号">`反引号</a></li>
+                <li>
+                    <a href="#tail%e5%91%bd%e4%bb%a4" aria-label="tail命令">tail命令</a></li>
+                <li>
+                    <a href="#head%e5%91%bd%e4%bb%a4" aria-label="head命令">head命令</a></li>
+                <li>
+                    <a href="#%e9%87%8d%e5%ae%9a%e5%90%91%e7%ac%a6" aria-label="重定向符">重定向符</a></li>
+                <li>
+                    <a href="#vi%e7%bc%96%e8%be%91%e5%99%a8" aria-label="vi编辑器">vi编辑器</a><ul>
+                        
+                <li>
+                    <a href="#%e5%91%bd%e4%bb%a4%e6%a8%a1%e5%bc%8f%e5%bf%ab%e6%8d%b7%e9%94%ae" aria-label="命令模式快捷键">命令模式快捷键</a></li>
+                <li>
+                    <a href="#%e5%ba%95%e7%ba%bf%e5%91%bd%e4%bb%a4%e5%bf%ab%e6%8d%b7%e9%94%ae" aria-label="底线命令快捷键">底线命令快捷键</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%91%bd%e4%bb%a4%e7%9a%84%e9%80%89%e9%a1%b9" aria-label="命令的选项">命令的选项</a><ul>
+                        
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8b%e5%91%bd%e4%bb%a4%e7%9a%84%e5%b8%ae%e5%8a%a9" aria-label="查看命令的帮助">查看命令的帮助</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8b%e5%91%bd%e4%bb%a4%e7%9a%84%e8%af%a6%e7%bb%86%e6%89%8b%e5%86%8c" aria-label="查看命令的详细手册">查看命令的详细手册</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#linux%e5%b8%b8%e7%94%a8%e6%93%8d%e4%bd%9c" aria-label="Linux常用操作">Linux常用操作</a><ul>
+                        
+                <li>
+                    <a href="#%e8%bd%af%e4%bb%b6%e5%ae%89%e8%a3%85" aria-label="软件安装">软件安装</a></li>
+                <li>
+                    <a href="#systemctl" aria-label="systemctl">systemctl</a></li>
+                <li>
+                    <a href="#%e8%bd%af%e9%93%be%e6%8e%a5" aria-label="软链接">软链接</a></li>
+                <li>
+                    <a href="#%e6%97%a5%e6%9c%9f" aria-label="日期">日期</a></li>
+                <li>
+                    <a href="#%e6%97%b6%e5%8c%ba" aria-label="时区">时区</a></li>
+                <li>
+                    <a href="#ntp" aria-label="ntp">ntp</a></li>
+                <li>
+                    <a href="#ip%e5%9c%b0%e5%9d%80" aria-label="ip地址">ip地址</a></li>
+                <li>
+                    <a href="#%e4%b8%bb%e6%9c%ba%e5%90%8d" aria-label="主机名">主机名</a></li>
+                <li>
+                    <a href="#%e9%85%8d%e7%bd%aevmware%e5%9b%ba%e5%ae%9aip" aria-label="配置VMware固定IP">配置VMware固定IP</a></li>
+                <li>
+                    <a href="#ps%e5%91%bd%e4%bb%a4" aria-label="ps命令">ps命令</a></li>
+                <li>
+                    <a href="#kill%e5%91%bd%e4%bb%a4" aria-label="kill命令">kill命令</a></li>
+                <li>
+                    <a href="#nmap%e5%91%bd%e4%bb%a4" aria-label="nmap命令">nmap命令</a></li>
+                <li>
+                    <a href="#netstat%e5%91%bd%e4%bb%a4" aria-label="netstat命令">netstat命令</a></li>
+                <li>
+                    <a href="#ping%e5%91%bd%e4%bb%a4" aria-label="ping命令">ping命令</a></li>
+                <li>
+                    <a href="#wget%e5%91%bd%e4%bb%a4" aria-label="wget命令">wget命令</a></li>
+                <li>
+                    <a href="#curl%e5%91%bd%e4%bb%a4" aria-label="curl命令">curl命令</a></li>
+                <li>
+                    <a href="#top%e5%91%bd%e4%bb%a4" aria-label="top命令">top命令</a></li>
+                <li>
+                    <a href="#df%e5%91%bd%e4%bb%a4" aria-label="df命令">df命令</a></li>
+                <li>
+                    <a href="#iostat%e5%91%bd%e4%bb%a4" aria-label="iostat命令">iostat命令</a></li>
+                <li>
+                    <a href="#sar%e5%91%bd%e4%bb%a4" aria-label="sar命令">sar命令</a></li>
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" aria-label="环境变量">环境变量</a><ul>
+                        
+                <li>
+                    <a href="#path%e5%8f%98%e9%87%8f" aria-label="PATH变量">PATH变量</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%ac%a6%e5%8f%b7" aria-label="$符号">$符号</a></li>
+                <li>
+                    <a href="#%e5%8e%8b%e7%bc%a9%e8%a7%a3%e5%8e%8b" aria-label="压缩解压">压缩解压</a><ul>
+                        
+                <li>
+                    <a href="#%e5%8e%8b%e7%bc%a9" aria-label="压缩">压缩</a></li>
+                <li>
+                    <a href="#%e8%a7%a3%e5%8e%8b" aria-label="解压">解压</a></li></ul>
+                </li>
+                <li>
+                    <a href="#su%e5%91%bd%e4%bb%a4" aria-label="su命令">su命令</a></li>
+                <li>
+                    <a href="#sudo%e5%91%bd%e4%bb%a4" aria-label="sudo命令">sudo命令</a></li>
+                <li>
+                    <a href="#chmod%e5%91%bd%e4%bb%a4" aria-label="chmod命令">chmod命令</a></li>
+                <li>
+                    <a href="#chown%e5%91%bd%e4%bb%a4" aria-label="chown命令">chown命令</a></li>
+                <li>
+                    <a href="#%e7%94%a8%e6%88%b7%e7%bb%84%e7%ae%a1%e7%90%86" aria-label="用户组管理">用户组管理</a></li>
+                <li>
+                    <a href="#%e7%94%a8%e6%88%b7%e7%ae%a1%e7%90%86" aria-label="用户管理">用户管理</a></li>
+                <li>
+                    <a href="#genenv%e5%91%bd%e4%bb%a4" aria-label="genenv命令">genenv命令</a></li>
+                <li>
+                    <a href="#env%e5%91%bd%e4%bb%a4" aria-label="env命令">env命令</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><h1 id="linux基础命令">Linux基础命令<a hidden class="anchor" aria-hidden="true" href="#linux基础命令">#</a></h1>
 <h2 id="linux的目录结构">Linux的目录结构<a hidden class="anchor" aria-hidden="true" href="#linux的目录结构">#</a></h2>
 <p><img alt="image-20221027214128453" loading="lazy" src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/27/20221027214128.png"></p>
