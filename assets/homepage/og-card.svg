@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="portrait" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9f0f7"/>
+      <stop offset=".58" stop-color="#aebfd0"/>
+      <stop offset="1" stop-color="#778ca3"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#000" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#fafafa"/>
+  <g transform="translate(62 64)">
+    <rect width="280" height="280" rx="5" fill="url(#portrait)" filter="url(#shadow)"/>
+    <circle cx="140" cy="140" r="112" fill="none" stroke="#fff" stroke-opacity=".55"/>
+    <path d="M44 205 222 52M55 236 236 80" stroke="#fff" stroke-opacity=".28"/>
+    <circle cx="140" cy="140" r="57" fill="#516477" fill-opacity=".55" stroke="#fff" stroke-opacity=".75"/>
+    <text x="140" y="154" fill="#fff" font-family="Montserrat, sans-serif" font-size="40" font-weight="600" text-anchor="middle">ZH</text>
+    <text x="0" y="328" fill="#171717" font-family="Montserrat, sans-serif" font-size="28" font-weight="500">Huarui Zhang</text>
+    <text x="0" y="365" fill="#6b7280" font-family="Montserrat, sans-serif" font-size="17">Undergraduate at ZJUT</text>
+    <text x="0" y="427" fill="#0085ff" font-family="Montserrat, sans-serif" font-size="15">zhanghr@zjut.edu.cn</text>
+    <text x="0" y="460" fill="#6b7280" font-family="Montserrat, sans-serif" font-size="15">Hangzhou, China</text>
+  </g>
+  <g transform="translate(405 70)">
+    <text x="0" y="52" fill="#171717" font-family="Montserrat, sans-serif" font-size="56" font-weight="500">Huarui Zhang</text>
+    <text x="0" y="105" fill="#434343" font-family="Montserrat, sans-serif" font-size="20">GNSS/INS · Learning-based positioning · Robotics</text>
+    <g transform="translate(0 158)">
+      <rect width="330" height="260" rx="7" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+      <rect width="330" height="164" rx="7" fill="#d8e4ef"/>
+      <path d="M26 139c47-38 64-92 103-70 40 22 62 78 98 37 28-33 47-55 78-51" fill="none" stroke="#fff" stroke-width="5"/>
+      <path d="M26 135c47-37 66-84 103-65 40 21 62 69 99 33 30-29 49-48 77-46" fill="none" stroke="#2166a8" stroke-width="3"/>
+      <text x="20" y="190" fill="#171717" font-family="Montserrat, sans-serif" font-size="17" font-weight="600">GNSS positioning</text>
+      <text x="20" y="220" fill="#6b7280" font-family="Montserrat, sans-serif" font-size="14">IEEE UPINLBS 2025 · First author</text>
+    </g>
+    <g transform="translate(352 158)">
+      <rect width="330" height="260" rx="7" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+      <rect width="330" height="164" rx="7" fill="#a5c3bf"/>
+      <rect x="28" y="38" width="122" height="42" rx="4" fill="none" stroke="#fff" stroke-opacity=".72"/>
+      <rect x="180" y="38" width="122" height="42" rx="4" fill="none" stroke="#fff" stroke-opacity=".72"/>
+      <rect x="70" y="105" width="190" height="32" rx="4" fill="#3b6b68" fill-opacity=".65"/>
+      <text x="89" y="65" fill="#254c4b" font-family="Montserrat, sans-serif" font-size="12">GNSS</text>
+      <text x="226" y="65" fill="#254c4b" font-family="Montserrat, sans-serif" font-size="12">IMU</text>
+      <text x="165" y="126" fill="#fff" font-family="Montserrat, sans-serif" font-size="11" text-anchor="middle">FUSED STATE</text>
+      <text x="20" y="190" fill="#171717" font-family="Montserrat, sans-serif" font-size="17" font-weight="600">Physics-informed GNSS/INS</text>
+      <text x="20" y="220" fill="#6b7280" font-family="Montserrat, sans-serif" font-size="14">3D RMSE 36.03 m → 13.09 m</text>
+    </g>
+    <text x="0" y="472" fill="#6b7280" font-family="Montserrat, sans-serif" font-size="15">Research and engineering work · zhr0529.cn</text>
+  </g>
+</svg>

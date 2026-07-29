@@ -1,0 +1,90 @@
+.post-content img {
+  height: auto;
+  margin-inline: auto;
+}
+
+.post-content mark {
+  padding: 0.08em 0.22em;
+  border-radius: 0.2em;
+  background: color-mix(in srgb, #e7b85e 42%, transparent);
+  color: inherit;
+}
+
+.math-block {
+  margin: 1.25rem 0;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  text-align: center;
+}
+
+.math-block code {
+  padding: 0;
+  background: transparent;
+  white-space: pre-wrap;
+}
+
+.legacy-timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--border);
+}
+
+.legacy-timeline > h2 {
+  margin: 0 0 1.6rem;
+}
+
+.timeline-item {
+  position: relative;
+  margin: 0 0 1.75rem;
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: 0.45rem;
+  left: -1.7rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 2px solid var(--theme);
+  border-radius: 50%;
+  background: var(--primary);
+  content: "";
+}
+
+.timeline-date {
+  margin-bottom: 0.45rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.timeline-date span {
+  margin-left: 0.6rem;
+  color: var(--secondary);
+  font-size: 0.85em;
+  font-weight: 400;
+}
+
+.timeline-body {
+  color: var(--content);
+}
+
+.toc-level-3 {
+  margin-left: 1rem;
+}
+
+.toc-level-4 {
+  margin-left: 2rem;
+}
+
+@media (max-width: 640px) {
+  .legacy-timeline {
+    padding-left: 1.1rem;
+  }
+
+  .timeline-item::before {
+    left: -1.4rem;
+  }
+}

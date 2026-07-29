@@ -1,3 +1,4 @@
 User-agent: *
-Disallow:
-Sitemap: https://fad1ngwind.github.io/sitemap.xml
+Allow: /
+
+Sitemap: https://zhr0529.cn/sitemap.xml

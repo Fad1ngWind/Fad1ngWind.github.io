@@ -9,17 +9,17 @@
 <meta name="keywords" content="">
 <meta name="description" content="search">
 <meta name="author" content="ZHR">
-<link rel="canonical" href="https://fad1ngwind.github.io/search/">
+<link rel="canonical" href="https://zhr0529.cn/search/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
 <script defer crossorigin="anonymous" src="/assets/js/search.js"></script>
-<link rel="icon" href="https://fad1ngwind.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://fad1ngwind.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://fad1ngwind.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://fad1ngwind.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://fad1ngwind.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="https://zhr0529.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zhr0529.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zhr0529.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zhr0529.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zhr0529.cn/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://fad1ngwind.github.io/search/">
+<link rel="alternate" hreflang="en" href="https://zhr0529.cn/search/">
 <noscript>
     <style>
         #theme-toggle,
@@ -71,7 +71,7 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://fad1ngwind.github.io/search/">
+</script><meta property="og:url" content="https://zhr0529.cn/search/">
   <meta property="og:site_name" content="Zhanghr">
   <meta property="og:title" content="搜索">
   <meta property="og:description" content="search">
@@ -91,7 +91,7 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "搜索",
-      "item": "https://fad1ngwind.github.io/search/"
+      "item": "https://zhr0529.cn/search/"
     }
   ]
 }
@@ -104,7 +104,7 @@
   "name": "搜索",
   "description": "search",
   "keywords": [
-    
+
   ],
   "articleBody": "",
   "wordCount" : "0",
@@ -117,14 +117,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://fad1ngwind.github.io/search/"
+    "@id": "https://zhr0529.cn/search/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Zhanghr",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://fad1ngwind.github.io/favicon.ico"
+      "url": "https://zhr0529.cn/favicon.ico"
     }
   }
 }
@@ -134,7 +134,7 @@
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://fad1ngwind.github.io/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+            <a href="https://zhr0529.cn/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -160,12 +160,12 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://fad1ngwind.github.io/archives/" title="归档">
+                <a href="https://zhr0529.cn/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="https://fad1ngwind.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                <a href="https://zhr0529.cn/search/" title="搜索 (Alt &#43; /)" accesskey=/>
                     <span class="active">搜索</span>
                 </a>
             </li>
@@ -190,9 +190,9 @@
     <ul id="searchResults" aria-label="search results"></ul>
 </div>
     </main>
-    
+
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://fad1ngwind.github.io/">Zhanghr</a></span> · 
+        <span>&copy; 2025 <a href="https://zhr0529.cn/">Zhanghr</a></span> ·
 
     <span>
         Powered by
@@ -209,12 +209,12 @@
 <script>
     let menu = document.getElementById('menu');
     if (menu) {
-        
+
         const scrollPosition = localStorage.getItem("menu-scroll-position");
         if (scrollPosition) {
             menu.scrollLeft = parseInt(scrollPosition, 10);
         }
-        
+
         menu.onscroll = function () {
             localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
@@ -265,6 +265,72 @@
         }
     })
 
+</script>
+<script>
+    (() => {
+        const input = document.getElementById("searchInput");
+        const results = document.getElementById("searchResults");
+        const index = fetch("/index.json").then((response) => {
+            if (!response.ok) {
+                throw new Error(`Search index request failed: ${response.status}`);
+            }
+            return response.json();
+        });
+
+        function resultPath(permalink) {
+            try {
+                return new URL(permalink, window.location.origin).pathname;
+            } catch {
+                return permalink;
+            }
+        }
+
+        function render(items) {
+            results.replaceChildren();
+            for (const item of items) {
+                const entry = document.createElement("li");
+                const link = document.createElement("a");
+                const title = document.createElement("header");
+                const summary = document.createElement("p");
+
+                link.href = resultPath(item.permalink);
+                title.textContent = item.title;
+                summary.textContent = item.summary || "";
+                link.append(title, summary);
+                entry.append(link);
+                results.append(entry);
+            }
+        }
+
+        input.addEventListener("input", async () => {
+            const query = input.value.trim().toLocaleLowerCase();
+            if (!query) {
+                results.replaceChildren();
+                return;
+            }
+
+            try {
+                const posts = await index;
+                const matches = posts
+                    .map((post) => {
+                        const title = post.title.toLocaleLowerCase();
+                        const content = post.content.toLocaleLowerCase();
+                        const score = title === query ? 3 : title.includes(query) ? 2 : content.includes(query) ? 1 : 0;
+                        return { post, score };
+                    })
+                    .filter(({ score }) => score > 0)
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 10)
+                    .map(({ post }) => post);
+                render(matches);
+            } catch {
+                results.replaceChildren();
+                const message = document.createElement("li");
+                message.textContent = "搜索索引暂时无法加载，请稍后重试。";
+                results.append(message);
+            }
+        });
+    })();
 </script>
 </body>
 

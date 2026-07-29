@@ -1,279 +1,139 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto" data-theme="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Posts | Zhanghr</title>
-<meta name="keywords" content="">
-<meta name="description" content="Posts - Zhanghr">
-<meta name="author" content="ZHR">
-<link rel="canonical" href="https://fad1ngwind.github.io/posts/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://fad1ngwind.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://fad1ngwind.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://fad1ngwind.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://fad1ngwind.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://fad1ngwind.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://fad1ngwind.github.io/posts/index.xml" title="rss">
-<link rel="alternate" hreflang="en" href="https://fad1ngwind.github.io/posts/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script><meta property="og:url" content="https://fad1ngwind.github.io/posts/">
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>博客｜ZHR</title>
+  <meta name="description" content="记录技术学习、竞赛之外的探索与生活。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/">
   <meta property="og:site_name" content="Zhanghr">
-  <meta property="og:title" content="Posts">
-  <meta property="og:description" content="这里是我的个人博客，记录技术与生活。">
-  <meta property="og:locale" content="zh-cn">
+  <meta property="og:title" content="博客">
+  <meta property="og:description" content="记录技术学习、竞赛之外的探索与生活。">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Posts">
-<meta name="twitter:description" content="这里是我的个人博客，记录技术与生活。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://fad1ngwind.github.io/posts/"
-    }
-  ]
-}
-</script>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="博客">
+  <meta name="twitter:description" content="记录技术学习、竞赛之外的探索与生活。">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
 </head>
 <body class="list" id="top">
-    <header class="header">
+  <header class="header">
     <nav class="nav">
-        <div class="logo">
-            <a href="https://fad1ngwind.github.io/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://fad1ngwind.github.io/archives/" title="归档">
-                    <span>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://fad1ngwind.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span>搜索</span>
-                </a>
-            </li>
-        </ul>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
     </nav>
-</header>
-<main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://fad1ngwind.github.io/">Home</a></div>
-  <h1>
-    Posts
-  </h1>
-</header>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">随想
-    </h2>
   </header>
-  <div class="entry-content">
-    <p>迎着阳光盛大逃亡 ​ 最后留在记忆深处的总是那些虚无缥缈的东西，就像你记住一个人往往不是因为她的美。很多年后你连她的样子都忘记了。可偶然在人流如织的街头闻到她惯用的香水味，你在惊悚中下意识地回过头去，却只看见万千过客的背影，你这才想起即便刚才和你擦肩而过的确实是她，即便你跟她四目相对，你也未必能认出她今天的样子了。
-往事总在回忆中被赋予寓意🫠
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-11-29 23:01:15 +0800 CST'>November 29, 2024</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
-  <a class="entry-link" aria-label="post link to 随想" href="https://fad1ngwind.github.io/posts/%E9%9A%8F%E6%83%B3/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">【理论】Linux学习笔记
-    </h2>
+  <main class="main"><header class="page-header">
+    <div class="breadcrumbs"><a href="/">首页</a></div>
+    <h1>博客</h1>
+    <p>记录技术学习、竞赛之外的探索与生活。</p>
   </header>
-  <div class="entry-content">
-    <p>Linux基础命令 Linux的目录结构 /，根目录是最顶级的目录了 Linux只有一个顶级目录：/ 路径描述的层次关系同样适用/来表示 /home/itheima/a.txt，表示根目录下的home文件夹内有itheima文件夹，内有a.txt ls命令 功能：列出文件夹信息
-语法：ls [-l -h -a] [参数]
-参数：被查看的文件夹，不提供参数，表示查看当前工作目录 -l，以列表形式查看 -h，配合-l，以更加人性化的方式显示文件大小 -a，显示隐藏文件 隐藏文件、文件夹 在Linux中以.开头的，均是隐藏的。
-默认不显示出来，需要-a选项才可查看到。
-pwd命令 功能：展示当前工作目录
-语法：pwd
-cd命令 功能：切换工作目录
-语法：cd [目标目录]
-参数：目标目录，要切换去的地方，不提供默认切换到当前登录用户HOME目录
-HOME目录 每一个用户在Linux系统中都有自己的专属工作目录，称之为HOME目录。
-普通用户的HOME目录，默认在：/home/用户名
-root用户的HOME目录，在：/root
-FinalShell登陆终端后，默认的工作目录就是用户的HOME目录
-相对路径、绝对路径 相对路径，==非==/开头的称之为相对路径
-相对路径表示以当前目录作为起点，去描述路径，如test/a.txt，表示当前工作目录内的test文件夹内的a.txt文件
-绝对路径，==以==/开头的称之为绝对路径
-绝对路径从根开始描述路径
-特殊路径符 .，表示当前，比如./a.txt，表示当前文件夹内的a.txt文件 ..，表示上级目录，比如../表示上级目录，../../表示上级的上级目录 ~，表示用户的HOME目录，比如cd ~，即可切回用户HOME目录 mkdir命令 功能：创建文件夹
-语法：mkdir [-p] 参数
-参数：被创建文件夹的路径 选项：-p，可选，表示创建前置路径 touch命令 功能：创建文件
-语法：touch 参数
-参数：被创建的文件路径 cat命令 功能：查看文件内容
-语法：cat 参数
-参数：被查看的文件路径 more命令 功能：查看文件，可以支持翻页查看
-语法：more 参数
-参数：被查看的文件路径 在查看过程中： 空格键翻页 q退出查看 cp命令 功能：复制文件、文件夹
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-07-08 14:34:24 +0800 CST'>July 8, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
-  <a class="entry-link" aria-label="post link to 【理论】Linux学习笔记" href="https://fad1ngwind.github.io/posts/%E7%90%86%E8%AE%BAlinux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2025 <a href="https://fad1ngwind.github.io/">Zhanghr</a></span> · 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+  <article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">STM32第一部分学习</h2></header>
+    <div class="entry-content"><p>STM32 外设学习笔记：GPIO、定时器、串口、ADC 与 DMA。</p></div>
+    <footer class="entry-footer"><span title="2025-04-26 14:48:45 +0800 CST">April 26, 2025</span>&nbsp;·&nbsp;<span>28 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 STM32第一部分学习" href="/posts/stm32第一部分学习/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【理论】Linux学习笔记</h2></header>
+    <div class="entry-content"><p>Linux 命令、权限、网络与进程管理。</p></div>
+    <footer class="entry-footer"><span title="2025-04-09 14:29:05 +0800 CST">April 9, 2025</span>&nbsp;·&nbsp;<span>9 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【理论】Linux学习笔记" href="/posts/linux学习笔记-2025/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【理论】51单片机学习笔记（AI8051U，32bit）</h2></header>
+    <div class="entry-content"><p>AI8051U 32bit 单片机学习笔记。</p></div>
+    <footer class="entry-footer"><span title="2025-03-30 11:07:22 +0800 CST">March 30, 2025</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【理论】51单片机学习笔记（AI8051U，32bit）" href="/posts/51单片机学习笔记/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">（杂）旅游攻略合集</h2></header>
+    <div class="entry-content"><p>天津、广州、澳门、香港等地的旅行路线备忘。</p></div>
+    <footer class="entry-footer"><span title="2025-01-22 11:46:38 +0800 CST">January 22, 2025</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 （杂）旅游攻略合集" href="/posts/旅游攻略合集/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">随想</h2></header>
+    <div class="entry-content"><p>往事总在回忆中被赋予寓意。</p></div>
+    <footer class="entry-footer"><span title="2024-11-29 23:01:15 +0800 CST">November 29, 2024</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 随想" href="/posts/随想/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【理论】《ARM Cortex-M3 权威指南》学习笔记</h2></header>
+    <div class="entry-content"><p>《ARM Cortex-M3 权威指南》阅读笔记。</p></div>
+    <footer class="entry-footer"><span title="2024-11-29 22:59:42 +0800 CST">November 29, 2024</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【理论】《ARM Cortex-M3 权威指南》学习笔记" href="/posts/arm-cortex-m3学习笔记/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【前端】个人博客开发日记 - 基于 Hexo + Butterfly</h2></header>
+    <div class="entry-content"><p>第一版个人博客的搭建过程，基于 Hexo + Butterfly。</p></div>
+    <footer class="entry-footer"><span title="2024-11-19 23:41:57 +0800 CST">November 19, 2024</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【前端】个人博客开发日记 - 基于 Hexo + Butterfly" href="/posts/个人博客开发日记/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【日记】</h2></header>
+    <div class="entry-content"><p>关于大学、专业选择和个人网站的第一篇日记。</p></div>
+    <footer class="entry-footer"><span title="2024-11-19 14:50:31 +0800 CST">November 19, 2024</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【日记】" href="/posts/日记-第一篇/"></a>
+  </article>
+<article class="post-entry">
+    <header class="entry-header"><h2 class="entry-hint-parent">【理论】Linux学习笔记</h2></header>
+    <div class="entry-content"><p>Linux 基础命令、目录结构、文件操作与权限管理。</p></div>
+    <footer class="entry-footer"><span title="2024-07-08 14:34:24 +0800 CST">July 8, 2024</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>ZHR</span></footer>
+    <a class="entry-link" aria-label="阅读 【理论】Linux学习笔记" href="/posts/理论linux学习笔记/"></a>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
     });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        const html = document.querySelector("html");
-        if (html.dataset.theme === "dark") {
-            html.dataset.theme = 'light';
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            html.dataset.theme = 'dark';
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
 </body>
-
 </html>
