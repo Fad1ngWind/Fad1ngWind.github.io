@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>STM32第二部分学习（待命中） | Zhanghr</title>
+  <meta name="description" content="STM32 寄存器、串口、总线与常用外设学习笔记。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/stm32第二部分学习/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/stm32第二部分学习/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="STM32第二部分学习（待命中）">
+  <meta property="og:description" content="STM32 寄存器、串口、总线与常用外设学习笔记。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2025-07-11T00:00:00+08:00">
+  <meta property="article:modified_time" content="2025-07-11T00:00:00+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="STM32第二部分学习（待命中）">
+  <meta name="twitter:description" content="STM32 寄存器、串口、总线与常用外设学习笔记。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"STM32第二部分学习（待命中）","datePublished":"2025-07-11T00:00:00+08:00","dateModified":"2025-07-11T00:00:00+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/stm32第二部分学习/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">STM32第二部分学习（待命中）</h1>
+      <div class="post-meta"><span title="2025-07-11 00:00:00 +0800 CST">July 11, 2025</span>&nbsp;·&nbsp;<span>51 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#一-uart串口通信" aria-label="一、UART串口通信">一、UART串口通信</a></li><li class="toc-level-3"><a href="#stm32的接收功能" aria-label="STM32的接收功能">STM32的接收功能</a></li><li class="toc-level-3"><a href="#strcpy函数" aria-label="strcpy函数">strcpy函数</a></li><li class="toc-level-3"><a href="#memset函数" aria-label="memset函数">memset函数</a></li><li class="toc-level-3"><a href="#a-的含义" aria-label="&amp;amp;a 的含义">&amp;amp;a 的含义</a></li><li class="toc-level-2"><a href="#二-多串口同时工作" aria-label="二、多串口同时工作">二、多串口同时工作</a></li><li class="toc-level-3"><a href="#strcat函数" aria-label="strcat函数">strcat函数</a></li><li class="toc-level-2"><a href="#三-外部中断" aria-label="三、外部中断">三、外部中断</a></li><li class="toc-level-2"><a href="#四-独立看门狗和窗口看门狗" aria-label="四、独立看门狗和窗口看门狗">四、独立看门狗和窗口看门狗</a></li><li class="toc-level-3"><a href="#独立看门狗" aria-label="独立看门狗">独立看门狗</a></li><li class="toc-level-3"><a href="#窗户开门狗" aria-label="窗户开门狗">窗户开门狗</a></li><li class="toc-level-2"><a href="#五-蓝牙串口与at指令" aria-label="五、蓝牙串口与AT指令">五、蓝牙串口与AT指令</a></li><li class="toc-level-3"><a href="#uart1-send-string" aria-label="UART1 Send String">UART1 Send String</a></li><li class="toc-level-3"><a href="#strcmp函数" aria-label="strcmp函数">strcmp函数</a></li><li class="toc-level-2"><a href="#六-lora远距离无线电通信" aria-label="六、LoRa远距离无线电通信">六、LoRa远距离无线电通信</a></li><li class="toc-level-3"><a href="#透明传输和定向传输" aria-label="透明传输和定向传输">透明传输和定向传输</a></li><li class="toc-level-2"><a href="#七-rtc时钟毫秒级万年历" aria-label="七、RTC时钟毫秒级万年历">七、RTC时钟毫秒级万年历</a></li><li class="toc-level-3"><a href="#volatile-类型修饰符" aria-label="Volatile 类型修饰符">Volatile 类型修饰符</a></li><li class="toc-level-2"><a href="#八-adc模数转换" aria-label="八、ADC模数转换">八、ADC模数转换</a></li><li class="toc-level-2"><a href="#九-输入捕获" aria-label="九、输入捕获">九、输入捕获</a></li><li class="toc-level-2"><a href="#十-hal库与cubemx" aria-label="十、hal库与cubemx">十、hal库与cubemx</a></li><li class="toc-level-3"><a href="#systick定时器" aria-label="systick定时器">systick定时器</a></li><li class="toc-level-2"><a href="#十一-极速上手hal库-基于stm32f407vet6" aria-label="十一、极速上手hal库 基于STM32F407VET6">十一、极速上手hal库 基于STM32F407VET6</a></li><li class="toc-level-3"><a href="#1-gpio输出" aria-label="（1）GPIO输出">（1）GPIO输出</a></li><li class="toc-level-3"><a href="#2-通用定时器pwm输出" aria-label="（2）通用定时器PWM输出">（2）通用定时器PWM输出</a></li><li class="toc-level-3"><a href="#3-编码器模式" aria-label="（3）编码器模式">（3）编码器模式</a></li><li class="toc-level-3"><a href="#4-sys-c文件-待命中" aria-label="（4）sys.c文件（待命中）">（4）sys.c文件（待命中）</a></li><li class="toc-level-3"><a href="#5-定时器中断" aria-label="（5）定时器中断">（5）定时器中断</a></li><li class="toc-level-3"><a href="#6-高级定时器-互补pwm输出" aria-label="（6）高级定时器 互补PWM输出">（6）高级定时器 互补PWM输出</a></li><li class="toc-level-3"><a href="#7-uart串口" aria-label="（7）uart串口">（7）uart串口</a></li><li class="toc-level-3"><a href="#8-adc" aria-label="（8）ADC">（8）ADC</a></li><li class="toc-level-4"><a href="#8-1-单通道规则输入" aria-label="8.1 单通道规则输入">8.1 单通道规则输入</a></li><li class="toc-level-4"><a href="#8-2-多通道规则输入" aria-label="8.2 多通道规则输入">8.2 多通道规则输入</a></li><li class="toc-level-4"><a href="#8-3-多路注入通道-事件触发adc" aria-label="8.3 多路注入通道：事件触发ADC">8.3 多路注入通道：事件触发ADC</a></li><li class="toc-level-3"><a href="#9-gpio输入与外部中断" aria-label="（9）GPIO输入与外部中断">（9）GPIO输入与外部中断</a></li><li class="toc-level-3"><a href="#10-i2c通信" aria-label="（10）I2C通信">（10）I2C通信</a></li><li class="toc-level-3"><a href="#11-独立看门狗" aria-label="（11）独立看门狗">（11）独立看门狗</a></li><li class="toc-level-3"><a href="#12-rtc时钟" aria-label="（12）RTC时钟">（12）RTC时钟</a></li><li class="toc-level-3"><a href="#13-输入捕获" aria-label="（13）输入捕获">（13）输入捕获</a></li><li class="toc-level-2"><a href="#十二-更标准高效的串口全双工通信" aria-label="十二、更标准高效的串口全双工通信">十二、更标准高效的串口全双工通信</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><blockquote>
+<p>接触寄存器，使用指针，接触单片机地址的概念，接触精确到对一个字节的里的一位的读写</p>
+</blockquote>
+<h2 id="一-uart串口通信">一、UART串口通信<a hidden class="anchor" aria-hidden="true" href="#一-uart串口通信">#</a></h2>
+<blockquote>
+<p>uart串口通信底层原理<a href="/posts/%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE/">SPI、UART、RS232、RS485、IIC 通信总线协议</a></p>
+</blockquote>
+<p>关于UART和USART：
+UART串口通信协议全称叫<strong>通用异步收发传输器</strong>
+（Universal Asynchronous Receiver/Transmitter）
+USART串口通信协议全称叫做<strong>通用同步异步收发传输器</strong>
+（universal synchronous asynchronous receiver and transmitter）</p>
+<p>串口相关的项目绝大多数情况下都使用异步模式，所以stm32串口也是<mark>uart</mark>类型的异步串口通信</p>
+<ul>
+<li><p>USB转TTL：
+<a href="https://baike.baidu.com/item/TTL/13973249?fromModule=lemma_inlink" target="_blank" rel="noopener noreferrer">TTL</a><a href="https://baike.baidu.com/item/%E7%94%B5%E5%B9%B3/5695184?fromModule=lemma_inlink" target="_blank" rel="noopener noreferrer">电平</a>信号规定，+5V等价于逻辑“1”，0V等价于逻辑“0”(采用二进制来表示数据时)。这样的数据通信及电平规定方式，被称做TTL（<a href="https://baike.baidu.com/item/%E6%99%B6%E4%BD%93%E7%AE%A1/569042?fromModule=lemma_inlink" target="_blank" rel="noopener noreferrer">晶体管</a>-晶体管逻辑电平）<a href="https://baike.baidu.com/item/%E4%BF%A1%E5%8F%B7%E7%B3%BB%E7%BB%9F/22324481?fromModule=lemma_inlink" target="_blank" rel="noopener noreferrer">信号系统</a>。
+  <strong>高电平是逻辑“1”，是3.3V或5V；</strong>
+  <strong>低电平是逻辑“0”，是0V。</strong></p>
+</li>
+<li><p>电路接线：注意是交叉接线
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20110718.png" alt="屏幕截图 2025-07-11 110718">
+TXD：发送数据Transmit(tx) Data，TXD和TX是完全一样的。
+RXD ：接受数据 Receive(rx) Data，RXD和RX是完全一样的。
+TTL模块的TXD相当于电脑的发送接口，连STM32的RXD接收接口，也就是RX。</p>
+</li>
+</ul>
+<p><mark><strong>一端是发送TX，另一端就应该是接收RX</strong></mark></p>
+<ul>
+<li><p>看代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20140655.png" alt="屏幕截图 2025-07-11 140655">
+uart_init(9600);
+9600是串口的<strong>波特率</strong>：
+<a href="https://so.csdn.net/so/search?q=%E6%B3%A2%E7%89%B9%E7%8E%87&spm=1001.2101.3001.7020" target="_blank" rel="noopener noreferrer">波特率</a>(Baud Rate)单位bps -- 每秒传送的二进制位数 bit Per Second。
+9600bps就是每秒传输9600位。
+一个字节是8个bit，一个字节可以表达一个ASCII码，9600波特率的信道（信号的传递通道，理论上每秒可以传输9600/8个英文字母的数据量，1200字节，约1.2KB）
+（1字节=1B=8位=8bit）。
+p.s. 如果1.2KB/s的网速，可以想象通信有多慢，所以uart通信并不是高速通信。</p>
+</li>
+<li><p>uart_init内部：
+分段看<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20141307.png" alt="屏幕截图 2025-07-11 141307">串口一（usart1）用到了PA9和PA10，所以有GPIO结构体：
+GPIO_InitTypeDef GPIO_InitStructure;
+Usart1有串口相关的配置，关于串口的结构体：
+USART_InitTypeDef USART_InitStructure;
+Usart都有一个串口中断，所以有NVIC结构体：
+NVIC_InitTypeDef NVIC_InitStructure;</p>
+</li>
+</ul>
+<p>使能总线时钟，Usart1在APB2总线上</p>
+<p>A9口是复用推挽
+复用的意思就是这个IO口把自己的推挽输出功能给串口一这个外设使用
+使用推挽输出是因为PA9是TX，发送方
+PA10是浮空输入，接受方
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20153425.png" alt="屏幕截图 2025-07-11 153425">
+串口接收信息时会频繁进入串口接受中断，为了不影响其他程序正常运行，一般把中断两位优先级调到最低。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20153616.png" alt="屏幕截图 2025-07-11 153616">串口的配置：
+Bound是波特率，作为uart_init的形参输入
+数据长度就是8位（一个字节的长度）
+1位停止位；无奇偶校验位</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20154150.png" alt="屏幕截图 2025-07-11 154150">
+第一句可以保留跳过
+串口模式：可收可发</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250711154315.png" alt="Pasted image 20250711154315"></p>
+<ol>
+<li>配置串口结构体</li>
+<li>开启中断：USART_IT_RXNE是<mark>串口接受中断</mark>，是串口最常用，也是接受数据必须用的中断</li>
+<li>使能串口1</li>
+</ol>
+<ul>
+<li><p>如何使用使用串口2或者串口3
+  打开usart.c，翻到上面：
+  <img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20154828.png" alt="屏幕截图 2025-07-11 154828">
+  把这里的串口改成USART2或者USART3即可</p>
+</li>
+<li><p>去main函数看while(1)
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20154533.png" alt="屏幕截图 2025-07-11 154533">
+按下K1键，printf。<mark>printf使用后，会将内容通过串口1发送出去</mark>
+\r和\n等大多数转义字符的大小都是<mark><strong>一个字节</strong></mark>
+加了这这个回车+换行，xcom端的数据很美观</p>
+</li>
+</ul>
+<p>功能：按下K1，电脑端xcom接收栏收到Hello和“1”，同时OLED显示发送成功；</p>
+<p>下一个功能：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20160634.png" alt="屏幕截图 2025-07-11 160634">
+功能：按下K2，在RCOM串口绘图软件上绘图
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20161219.png" alt="屏幕截图 2025-07-11 161219">
+注意：绘图这里printf的发送格式是RCOM这个软件的作者定的，所以printf函数要遵守软件作者的规定。就是数据最后要加\r\n，数据之间逗号隔开，并且一组数据要用小括号包裹起来。
+那么如果需要画多路数据，printf数据的格式：
+举例，三路数据：”(%d,%.2f,%.1f\r\n)”</p>
+<h3 id="stm32的接收功能"><em>STM32的接收功能</em><a hidden class="anchor" aria-hidden="true" href="#stm32的接收功能">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20161535.png" alt="屏幕截图 2025-07-11 161535">
+功能：在XCOM中发送内容，在OLED上会<strong>实时</strong>显示（不能发中文，因为ASCII码没中文）<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20163219.png" alt="屏幕截图 2025-07-11 163219">注意取消勾选“16进制发送”，勾上“发送新行”
+发送新行：给准备发送的字符串最后两位都默认加上\r\n</p>
+<ul>
+<li><p>go to definition一下这三个变量<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20164344.png" alt="屏幕截图 2025-07-11 164344">发现它们主要使用在串口中断里，也就是usart.c里面的USART1_IRQHandler函数
+  其次，strcpy和memset是C标准库里string库的函数，所以引入了string库：“string.h”</p>
+</li>
+<li><p>串口1的中断函数<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20164920.png" alt="屏幕截图 2025-07-11 164920"><strong>功能</strong>：来一次串口接收中断就代表接收到了<mark>一个字符，也就是一个字节的ASCII码</mark>；把每次接收到的字符ASCII码按顺序一个一个存在数组里，就组成了一句字符串，这样就得到了上位机发来的消息</p>
+</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20232904.png" alt="屏幕截图 2025-07-11 232904">首先，这六句是为了操作系统的移植做准备，可以不管</p>
+<p>第一个判断：<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20233237.png" alt="屏幕截图 2025-07-11 233237"><em><strong>USART_IT_RXNE是串口接受中断，来一个接收中断代表电脑发来一个字节的内容，这个字节的内容已经存到USART1-&gt;DR寄存器里了。</strong></em>
+!=RESET，RESET就是二进制0，代表“否”，所以<mark>!=RESET等同于 </mark> SET==
+所以这句if的意思就是，串口接收中断来了
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20234100.png" alt="屏幕截图 2025-07-11 234100">中断来了马上就读取接收到的一个字节的数据，USART_ReceiveData函数作用就是读取了DR寄存器的相应位，得到了那一个字节的数据。2025.7.11，暂时还不知道DR寄存器是什么，再说吧
+一个字节是8位，所以变量Res：<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-11%20234543.png" alt="屏幕截图 2025-07-11 234543">就必须要u8，严格的一个字节的存储空间，来接收这个数据。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713101208.png" alt="Pasted image 20250713101208">
+0x8000转化为二进制→1000 0000 0000 0000<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-13%20101301.png" alt="屏幕截图 2025-07-13 101301">
+USART_RX_STA是自己定义的一个16位寄存器
+USART_RX_STA&amp;1000 0000 0000 0000，这个运算是除了最高位，其他位全部置零
+(USART_RX_STA&amp;0x8000) == 0 就是接受未完成，也就是最高位是0，没接收完成，也就是：
+<strong>最高位是1代表接收完成</strong></p>
+<p><mark>判断接收完成的方法</mark>：
+	<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713101711.png" alt="Pasted image 20250713101711">
+	0x0d：\r 回车      0x0a：\n 换行
+	\r是回车，\n是换行。按下一个空格键是回车+换行，回车是把光标移到开始,换行是跳到下一行。
+	<strong>接收到一对连续的回车+换行，代表一句的结束</strong>
+	\r\n总是成对出现，如果单独收到了\r，下一个字符不是\n，那代表接收错误</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713102004.png" alt="Pasted image 20250713102004">接收到0x0d，USART_RX_STA次高位会置1
+如果是普通的内容信息，就进else，就把这次接受的字符存进数组：
+USART_RX_BUF里：<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-13%20102130.png" alt="屏幕截图 2025-07-13 102130">一个字符是8位（一个字节）
+USART_REC_LEN=200，字符有长度限制，理论上改多大都不影响功能</p>
+<p>USART_RX_STA&amp;0X3FFF
+USART_RX_STA&amp;0011 1111 1111 1111
+最高位和次高位置0，因为这两位是标志位。其余的14位存的就是当前字符串长度。</p>
+<p>回到主函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713102450.png" alt="Pasted image 20250713102450">
+(USART_RX_STA&gt;&gt;15)== 1
+&gt;&gt;右移是位操作，意思是最高位是1，代表接收完成，数据可用</p>
+<h3 id="strcpy函数">strcpy函数<a hidden class="anchor" aria-hidden="true" href="#strcpy函数">#</a></h3>
+<p>Strcpy函数就是字符串复制（copy），函数输入是两个<strong>char类型</strong>字符串的头指针，<strong>后者的值复制给前者</strong>。
+<mark>（众所周知，数组名就是数组的头指针）</mark></p>
+<pre><code class="language-C">char a[100];
+printf(&quot;%p\n&quot;, a);// 输出数组首地址
+printf(&quot;%p\n&quot;, &amp;a[0]);  // 输出数组第一个元素的地址
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-C">0x7ffee4b5c6a0
+0x7ffee4b5c6a0
+</code></pre>
+<p>a 和 &amp;a[0] 的值是相同的
+因为USART_RX_BUF的数据类型是u8，而strcpy函数必须要输入char类型的字符串首地址，需要(char * )强制转换一下。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-13%20102846.png" alt="屏幕截图 2025-07-13 102846">
+后三句跟OLED清屏有异曲同工之处。
+标志位置0，开启下次数据的接收。</p>
+<h3 id="memset函数">memset函数<a hidden class="anchor" aria-hidden="true" href="#memset函数">#</a></h3>
+<p>memset就是清空一段内存（RAM）的值
+memset函数的参数：</p>
+<pre><code class="language-C">memset(&amp;text,0,sizeof(text)); //写法1
+memset(text,0,sizeof(text));  //写法2
+</code></pre>
+<p>第一个参数是要清空的一段空间的起始地址（以上两种写法都可以，更推荐写法2）
+第二个是参数一般都是0，内存（RAM）存储中没存数据的地方都是0，<mark>填0起到清空数据的作用</mark>
+第三个参数是要清空的字节长度，用sizeof函数得到数组长度。</p>
+<ul>
+<li>为什么写法2？<pre><code class="language-c++">char a[100];
+printf(&quot;%p\n&quot;, (void*)&amp;a);     // 输出数组的地址
+printf(&quot;%p\n&quot;, (void*)a);      // 输出数组首地址
+</code></pre>
+</li>
+</ul>
+<pre><code>输出：
+```c++
+0x7ffee4b5c6a0
+0x7ffee4b5c6a0
+</code></pre>
+<h3 id="a-的含义"><code>&amp;a</code> <strong>的含义</strong><a hidden class="anchor" aria-hidden="true" href="#a-的含义">#</a></h3>
+<ul>
+<li>上面代码示例中<code>&amp;a</code> 是数组的地址。</li>
+<li>类型是 <code>char (*)[100]</code>（指向 <code>char[100]</code> 数组的指针）。</li>
+<li><code>&amp;a</code> 表示整个数组的地址，而不是数组第一个元素的地址。</li>
+<li>虽然 <code>&amp;a</code> 和 <code>a</code> 的值相同，但它们的类型不同。<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713103448.png" alt="Pasted image 20250713103448">
+指针运算示例：</li>
+</ul>
+<pre><code class="language-c++">char a[100];
+printf(&quot;%p\n&quot;, (void*)(a + 1));    // a + 1 指向 a[1]，地址增加 1 字节
+printf(&quot;%p\n&quot;, (void*)(&amp;a + 1));   // &amp;a + 1 指向下一个 char[100]，地址增加 100 字节
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-c++">0x7ffee4b5c6a1  // a + 1
+0x7ffee4b5c704  // &amp;a + 1（0x7ffee4b5c6a0 + 100）
+</code></pre>
+<p><strong>对于数组来说，&amp;a这种写法真的很少见，很少用</strong></p>
+<hr>
+<h2 id="二-多串口同时工作">二、多串口同时工作<a hidden class="anchor" aria-hidden="true" href="#二-多串口同时工作">#</a></h2>
+<blockquote>
+<p>uart3将一个字符串发给uart1，然后由uart2把uart1收到的内容发给上位机XCOM</p>
+</blockquote>
+<ul>
+<li>main函数代码</li>
+<li><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713114230.png" alt="Pasted image 20250713114230"></li>
+</ul>
+<h3 id="strcat函数">strcat函数<a hidden class="anchor" aria-hidden="true" href="#strcat函数">#</a></h3>
+<p>Strcat函数的作用就是拼接字符串，在一个字符串的后面接上另一个字符串，这里用到主要是因为BUF数组里没有存0X0D和0X0A，所以没有回车换行，要自己加上回车和换行符。</p>
+<ul>
+<li><p>usart.h
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713114609.png" alt="Pasted image 20250713114609">
+除了最大字符长度限制之外，其他的变量分身成了三个，分别给三个串口用，
+USART_REC_LEN变量不修改是因为没什么必要让三个串口接收数组的最大长度各不相同，都设置为200就行。但是200还是太大了，占内存，真实使用时可以缩小到20，够存数据就行。</p>
+</li>
+<li><p>usart.c
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713124528.png" alt="Pasted image 20250713124528">
+把printf的功能给串口3</p>
+</li>
+<li><p>usart1的代码
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713124713.png" alt="Pasted image 20250713124713"><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713124744.png" alt="Pasted image 20250713124744">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713124802.png" alt="Pasted image 20250713124802">
+之前usart1数组的名称都没有加1，比如USART_RX_STA，现在串口变成了三个，就需要把变量分开来，所以将相关的变量名都加上1/2/3这样的后缀，便于区分。
+后面的代码都是用uart1的代码复制粘贴然后修改串口号得到的，<mark>但是注意！</mark></p>
+</li>
+</ul>
+<p>下面是usart1的总线时钟使能代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713124939.png" alt="Pasted image 20250713124939">
+下面是usart2的总线时钟使能代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713125000.png" alt="Pasted image 20250713125000">
+下面是usart3的总线时钟使能代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713125019.png" alt="Pasted image 20250713125019">
+Usart1与usart2/usart3的APB总线不一样，要注意。</p>
+<p>然后是优先级问题：
+Usart1的优先级：0/0
+Usart2的优先级：0/1
+Usart3的优先级：0/2</p>
+<p>==如果是自己写硬件代码，切记修改优先级，串口的优先级不能过低，如果程序量很大，定时器中断占用时间过多，会导致串口接收中断进不去，从而使串口接收不全。
+但优先级也不能过高，比如串口接收数据量非常大，还很频繁，这样反而会影响到其他中断或主函数。
+<strong>优先级根据项目灵活调节。</strong>==</p>
+<ul>
+<li>最后是main函数里的延时200us
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713125335.png" alt="Pasted image 20250713125335">
+因为串口三的printf刚刚发送完就判断串口一是否接收完成，时间间隔太短，此时串口一还没有接收完成，结果就会导致跳过了if，不加延时就会导致下面这种情况：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713125433.png" alt="Pasted image 20250713125433">
+后面数字都是偶数，证明了前面说的错误，所以尝试增加延时：
+当delay_us(100)时，发现正常了，所以为了使接收更保险，delay_us(200)，双倍保险的延时，就没有任何问题了。</li>
+</ul>
+<hr>
+<h2 id="三-外部中断">三、外部中断<a hidden class="anchor" aria-hidden="true" href="#三-外部中断">#</a></h2>
+<p><strong>外部中断是什么</strong>
+外部中断通俗来讲就是用普通的IO口的“外部中断功能”来监测外部电路（如按键电路）的 一次高低电平的跳变，检测到就会触发一次外部中断；</p>
+<p>在外部中断里可以做自定义的任何事情，比如串口发一串字符等</p>
+<p>外部中断是接触到的第二个中断，本质还是中断，也就是打断main函数做点事情</p>
+<ul>
+<li>外部中断触发按键相对于按键实验<mark>有何区别，有何优点</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713193728.png" alt="Pasted image 20250713193728">
+K1~K4接对应的IO口，如果配置IO口都是上拉输入，那么按下按键，对应的IO口就会产生<mark>下降沿</mark>
+上升沿和下降沿的概念是数电里的一个基本概念
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713193854.png" alt="Pasted image 20250713193854">
+按键实验中的代码是通过<mark>软件的逻辑语句</mark>来判断下降沿的到来<mark>（while(1)里每10ms检测一次按键状态）</mark>，但是用了外部中断就不用写这些判断程序了，<mark>通过单片机自己专门检测电平跳变的一个外设——外部中断</mark>自己检测，测到了上升/下降沿就<mark>自动进中断</mark>，这一点比普通按键**更方便、更实时、更节约资源</li>
+</ul>
+<p>因为随着程序越来越大，代码越来越复杂，while(1)里的程序越攒越多，while(1)内部代码循环一次的执行时间也越来越长甚至发生阻塞<mark>（阻塞就是执行到一句代码处卡住一直执行这一句，后面的程序都要等这一句代码结束才能继续执行）</mark>，就会影响key_scan函数的实时性，所以就可能出现按下按键没反应的情况。</p>
+<p>而外部中断方式不存在这个问题，中断的优先级高于main函数，并且可以独立于main函数之外进行判断，非常节省资源。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713200430.png" alt="Pasted image 20250713200430">
+由上图可知：外部中断的资源非常多，跟IO口的下标有关，比如PA0，PB0（更高级的STM32型号可能还有PC0，PD0，PE0……）同时对应着中断线0（EXTI0）；PA1,PB1同时对应着中断线1，以此类推，一直到15。
+每一个io口都可以拿来做外部中断。</p>
+<ul>
+<li>看代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713200650.png" alt="Pasted image 20250713200650">
+比之前多了个EXTIX_init，外部中断初始化</li>
+</ul>
+<p>外部中断初始化函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713201931.png" alt="Pasted image 20250713201931">
+多了个新的结构体变量：EXTI_InitTypeDef EXTI_InitStructure;
+RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//外部中断，需要使能AFIO时钟
+AFIO时钟是复用时钟，也就是IO口复用作外部中断口。
+复用就是把IO口借给外部中断外设使用。</p>
+<p>GPIO_EXTILineConfig中断线路配置，改参数即可B4口就GPIO_PortSourceGPIOB,GPIO_PinSource4，其他以此类推。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713202318.png" alt="Pasted image 20250713202318">
+因为B4口后缀是4，所以EXTI_Line选择EXTI_Line4。
+EXTI_Mode是选择中断模式还是事件模式，选择中断模式。
+EXTI_Trigger是触发方式，上升沿触发、下降沿触发，还是上升下降都触发，根据实际情况选择，选下降沿。</p>
+<p><mark>关于外部中断的重点服务，注意：</mark>
+EXTI_Line0到EXTI_Line4，这五个通道每个通道都享有一个中断服务函数，
+但是EXTI_Line5到EXTI_Line9，这五个通道共用一个中断服务函数：EXTI9_5_IRQHandler，
+EXTI_Line10到EXTI_Line15，这六个通道共用一个中断服务函数：EXTI15_10_IRQHandler。</p>
+<p>再去看中断服务函数内：外部中断内的操作：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250713203134.png" alt="Pasted image 20250713203134">
+<em>if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_4) == 0)</em>    很值得注意
+已经进入外部中断了，就代表下降沿已经来了，为什么还要用判断输入的函数再判断一次？
+因为要保险，进一步保证按钮电路按下的电信号噪声波动不会影响外部中断，这句话相当于又加了一层保险。</p>
+<hr>
+<h2 id="四-独立看门狗和窗口看门狗">四、独立看门狗和窗口看门狗<a hidden class="anchor" aria-hidden="true" href="#四-独立看门狗和窗口看门狗">#</a></h2>
+<p>看门狗的作用：<strong>防死机</strong></p>
+<p>在实际做项目的过程中，由于电机反电动势、电磁干扰等各种问题，电路没有做好安全防护，有可能会使单片机的供电电流不稳定，导致单片机死机。</p>
+<p>当单片机在工作时死机了，就需要看门狗</p>
+<p><strong>“看门狗”是个比喻。
+定时“喂狗”，狗就不会叫；
+但如果没有定时喂狗，狗没有吃的就会大叫，就会<mark>复位</mark>单片机。
+这就是看门狗的机制，实现了死机自动复位</strong></p>
+<h3 id="独立看门狗">独立看门狗<a hidden class="anchor" aria-hidden="true" href="#独立看门狗">#</a></h3>
+<p>STM32的独立看门狗由<mark>内部独立</mark>的40Khz低速时钟驱动，即使主时钟发生故障，它也仍然有效。
+这个40khz并不精确，实际频率在30~60Khz之间，但是不影响它的正常功能。</p>
+<ul>
+<li>代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714163737.png" alt="Pasted image 20250714163737">
+独立看门狗需要手动喂狗，IWDG_Feed();给独立看门狗的键寄存器喂值。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714163824.png" alt="Pasted image 20250714163824">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714164016.png" alt="Pasted image 20250714164016">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714164041.png" alt="Pasted image 20250714164041">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714164208.png" alt="Pasted image 20250714164208">
+代码的喂狗操作与寄存器手册里说的操作是对应起来的，开始时init函数里像键寄存器发送0xCCCC开启看门狗，后在while(1)中每隔100ms发送一个0xAAAA，否则计数器为0时看门狗会产生复位</li>
+</ul>
+<p>IWDG_Init(4,625); //预分频数为64,重装载值为625，所以溢出时间为1s。
+<mark>注意第一个系数4，并不是预分频系数是4，而是寄存器写100（二进制的4）</mark>
+代表预分频系数是64，具体规则如下图：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714164844.png" alt="Pasted image 20250714164844">
+40000/64=625Hz，重装载值是625，那周期正好是1秒。所以要喂狗的周期要在一秒以内，否则单片机自动复位</p>
+<p>在exti.c中，原来是EXTI4_IRQHandler，为了让单片机死机，故意制造一个错误，把中断服务函数名：EXTI4改成EXTI0：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714170412.png" alt="Pasted image 20250714170412">
+运行程序，XCOM上位机会不断收到ok，当按下k1按键，会短暂死机，然后重新复位。</p>
+<p>平时使用独立看门狗就可以了，尽量不用窗口看门狗。因为独立看门狗好操作，原理也清晰，最重要的是在实际的实验中，独立看门狗的效果确实好于窗口看门狗。</p>
+<h3 id="窗户开门狗">窗户开门狗<a hidden class="anchor" aria-hidden="true" href="#窗户开门狗">#</a></h3>
+<p>这个看门狗并不好用，设置喂狗时间的机制很麻烦，而且应对死机的效果也不好，简单看一下作为了解吧</p>
+<ul>
+<li>看代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714171248.png" alt="Pasted image 20250714171248">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714171350.png" alt="Pasted image 20250714171350">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250714171421.png" alt="Pasted image 20250714171421">
+图中，T[6:0]就是WWDG_CR的低七位，W[6:0]即是WWDG-&gt;CFR的低七位。
+T[6:0]是窗口看门狗的计数器（自动递减），W[6:0]是窗口看门狗的上窗口，下窗口值是固定的（0X40）（01000000）。
+当窗口看门狗的计数器在上窗口值之前被刷新，或者低于下窗口值都会产生复位。 上窗口值（W[6:0]）是由用户自己设定的，根据实际要求来设计窗口值，但是一定要确保窗口值大于0X40，否则窗口就不存在了。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250720125730.png" alt="Pasted image 20250720125730">
+代码中的预分频系数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250720125748.png" alt="Pasted image 20250720125748">
+第二个值0X5F(01011111)是窗口值(WWDG-&gt;CFR)，也就是W[6:0]。
+第三个值0X7F(01111111)是递减计数器的初始值，也就是T[6:0]。
+窗口看门狗是在中断里喂狗。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250720125824.png" alt="Pasted image 20250720125824"></li>
+</ul>
+<hr>
+<h2 id="五-蓝牙串口与at指令">五、蓝牙串口与AT指令<a hidden class="anchor" aria-hidden="true" href="#五-蓝牙串口与at指令">#</a></h2>
+<ul>
+<li>蓝牙模块：HC05
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721102859.png" alt="Pasted image 20250721102859"></li>
+</ul>
+<p><mark>可以使用手机连接蓝牙，让手机和蓝牙互传信息；也可以两个蓝牙模块相互连接，比如两个小车协同工作，它们之间使用HC05蓝牙模块来相互通信最为合适</mark></p>
+<p>HC05有六个引脚：</p>
+<ul>
+<li>STATE脚：反馈连接状态，低电平是未连接，高电平是已连接。
+正常不需要，因为蓝牙未连接的时候，蓝牙模块板载LED灯会快速闪烁；已连接时会慢速闪烁，现象已经比较明显，暂时不需要其他指示信号。</li>
+<li>VCC接3.3V和5V都可以；</li>
+<li><strong>RX和TX是串口的收和发，就是uart通信协议</strong>
+<strong>本质还是uart通信</strong><strong>，蓝牙只是在两个uart通信之间把信号的传输媒介换了一下而已，以前要连电线，现在是无线电波了，所以基础还是串口通信。</strong></li>
+<li>EN脚：接高电平进入AT指令模式（也就是配置模式）
+   AT指令模式介绍：在这个模式下蓝牙不能进行无线通信，只能有线连接电脑，对蓝牙模块进行配置，比如配置通信的波特率、查询蓝牙地址等操作。</li>
+</ul>
+<p>先让蓝牙进入AT模式，使用AT指令配置蓝牙：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721131736.png" alt="Pasted image 20250721131736">
+注意HC05蓝牙模块的AT配置模式规定使用<mark>38400</mark>的波特率
+发个AT过去，<strong>注意勾选发送新行</strong>
+多发几次，蓝牙模块每次都会回复“OK”。</p>
+<p>AT指令来自HC05模块配套的AT指令集：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721131829.png" alt="Pasted image 20250721131829">
+发AT+RESET，也会回复“OK”</p>
+<ul>
+<li>配置波特率：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721131931.png" alt="Pasted image 20250721131931">
+输入AT+UART?，回复：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721132204.png" alt="Pasted image 20250721132204">
+可以知道模块默认的配置是波特率9600,1位停止位，无校验位。
+配置波特率是115200，输入：AT+UART=115200,0,0</li>
+</ul>
+<p>用手机蓝牙连接就可以实现收发信息了</p>
+<ul>
+<li>看代码
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721140248.png" alt="Pasted image 20250721140248">
+没有新东西说明蓝牙通信本质还是uart</li>
+</ul>
+<p>EXTIX_Init里：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721140345.png" alt="Pasted image 20250721140345"></p>
+<p>原来的printf换成了：UART1_Send_String函数
+这两个函数的功能上完全相同，都是串口发送。</p>
+<h3 id="uart1-send-string">UART1_Send_String<a hidden class="anchor" aria-hidden="true" href="#uart1-send-string">#</a></h3>
+<blockquote>
+<p>2025.7.21: 对这个函数的分析用到了很多指针和单片机底层原理的内容，如果实在看不懂可以先放着，把这个函数当printf用就行，等后面补充了相关的理论知识再学！</p>
+</blockquote>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721140826.png" alt="Pasted image 20250721140826">
+串口中断服务函数开头的数据接收中：
+USART_<mark>Receive</mark>Data函数，就是读取串口DR寄存器的信息，也就是读取DR寄存器上这一个字节大小的信息，并将其返回。
+USART_<mark>SendData</mark>函数就是高度类似的库函数，就是把一个字节的信息写入DR寄存器，然后DR寄存器会自动将其发送出去。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721141223.png" alt="Pasted image 20250721141223">
+USART_FLAG_TXE是串口的发送中断，也就是发送成功后这位会置1，所以利用这个while循环，可以确保等到这个字节发送完了再进行下一个字节的发送。</p>
+<p>函数的输入值是char * Data
+当输入的函数形参（变量Data）是一个字符串的时候，一开始* Data代表着这个字符串<mark>首地址的内容</mark>，然后用USART_SendData把这个首地址的内容，也就是一个字节的char给输出出去，然后* Data++并不是代表这个首地址的内容+1，这里的区别就与i++和++i的区别一样，实际的意思是这个地址Data先取内容，这个* 实际看做是个运算符，，<strong>地址Data里的内容被这个函数使用完之后，这个函数已经进行完了之后最后再执行Data++</strong>，<strong>也就是字符串当前的首地址+1</strong>，也就是Data指针指向了字符串的下一个字符。</p>
+<p>可以把上面的USART_SendData(USART1, * Data++);拆成两句：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USART_SendData(USART1, *Data);</td>
+</tr>
+<tr>
+<td>Data++;</td>
+</tr>
+<tr>
+<td>也就是每当USART_SendData发送完一个字节的命令，字符串地址就会+1，</td>
+</tr>
+<tr>
+<td>指向字符串下一个字符；</td>
+</tr>
+<tr>
+<td>当发送的字符是这个字符串最后一个字符时，指针还是会指向字符串最后一个字符的下个字符，也就是末尾的0，<strong>当这个字符的ASCII码是0的时候就代表是空，也就是这个字符串结束了。</strong></td>
+</tr>
+<tr>
+<td>这时* Data就是0了，就会从While(* Data)里跳出来，也就代表整个字符串已经发送完毕了，函数结束。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>输入q，单片机板载led改变状态：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721142509.png" alt="Pasted image 20250721142509">
+接收完成之后，使用C标准库的库函数：</li>
+</ul>
+<h3 id="strcmp函数">strcmp函数<a hidden class="anchor" aria-hidden="true" href="#strcmp函数">#</a></h3>
+<p><mark>strcmp函数用于判断两个字符串是否完全相同。</mark>
+strcmp函数判断USART_RX_BUF字符串的值是否等于”q”，如果相等，函数返回值就是0，满足判断条件，PC13就会改变一次输出电平。</p>
+<hr>
+<h2 id="六-lora远距离无线电通信">六、LoRa远距离无线电通信<a hidden class="anchor" aria-hidden="true" href="#六-lora远距离无线电通信">#</a></h2>
+<p>lora（Long Range Radio） 远距离无线电
+当需要几百米甚至几千米的相互通信时，选两个lora模块。
+当需要近距离连手机进行通信时，用蓝牙模块（或者WiFi，之后会讲）</p>
+<p>LoRa是semtech公司开发的一种低功耗局域网无线标准，其名称“LoRa”是远距离无线电（Long Range Radio），它最大特点就是在同样的功耗条件下比其他无线方式传播的距离更远，实现了低功耗和远距离的统一。<strong>==本质上依然是串口通信</strong></p>
+<ul>
+<li>看代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721155844.png" alt="Pasted image 20250721155844">
+多了一个lora_init函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721160806.png" alt="Pasted image 20250721160806">
+函数内一堆“AT”字样，发送AT指令
+其实在蓝牙模块的例程里也可以写一个blue_tooth_init，用stm32去配置AT指令，不用像连到电脑上配置了。</li>
+</ul>
+<p>蓝牙模块人为规定AT配置模式的波特率是38400，lora模块人为规定的AT配置波特率是115200
+AT指令配置，要确保配置阶段的波特率是115200。</p>
+<p>先初始化了A6，A6用来控制MD0引脚的高和低，看下lora模块用户手册的介绍：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721161243.png" alt="Pasted image 20250721161243">
+固件升级功能基本用不到，所以AUX引脚悬空即可，MD0为高电平时进入AT调试模式，MD0为低电平时进入正常通信模式。
+/# define LORA_MD0 PAout(6)
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721161546.png" alt="Pasted image 20250721161546"></p>
+<p>然后先发了一个“ATE0”
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721161609.png" alt="Pasted image 20250721161609">
+配置让它指令不回显</p>
+<p>回显：比如给模块发送最基础的AT，模块会回复：
+AT
+OK
+如果让指令不回显，模块回复：
+OK</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721161903.png" alt="Pasted image 20250721161903"></p>
+<ul>
+<li>LORA_CMD：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250721161932.png" alt="Pasted image 20250721161932">
+输入的是两个字符串的首地址，第一个cmd是本次命令，第二个ack是期待的回复。
+函数先printf发送命令，while(1)中不断重复等待回复，如果接收成功了，
+使用strstr函数（C语言string.h库里的函数）
+判断字符串ack是不是收到的字符串的子串，然后清空接收字符串内容和接收完成标志位。</li>
+</ul>
+<p>只要strstr的返回值不是0（NULL），就说明ack是接收函数的子串。
+所以用 !=0，不是0，所以LORA模块一定成功回复了OK，就代表lora成功接收到了指令。</p>
+<p>AT+WLRATE=0,5 （信道配置和空中速率配置）
+	信道就是无线通信的频段，lora模块提供了32个频段的无线通信信道，也就是
+	AT+WLRATE指令的第一个变量可以取0-31。
+	空中速率6级可调（0.3、1.2、2.4、4.8、9.6、19.2Kbps），分别对应0-5，
+	AT+WLRATE指令的第二个变量可以取0-5。</p>
+<p>AT+UART=7,0，设置串口通信的波特率，
+	1200,2400,4800,9600,19200,38400,57600,115200
+	八档可调，对应0-7。</p>
+<p>其他的，发射功率20dbm，休眠时间1s，工作模式为一般模式，基本可不变。
+设备地址可以在0-65535进行设置。</p>
+<h3 id="透明传输和定向传输"><mark>透明传输和定向传输</mark><a hidden class="anchor" aria-hidden="true" href="#透明传输和定向传输">#</a></h3>
+<p><em>透明传输：透传</em>
+例如：A设备发5字节数据0XAA 0XBB 0XCC 0XDD 0XEE到B设备，B设备就可以收到数据0XAA 0XBB 0XCC 0XDD 0XEE。
+透明传输，两个lora要有相同地址、相同的通信信道，用户数据可以是字符或16进制数据。</p>
+<p><em>定向传输</em>
+例如：A设备（地址为：0x1400，信道为0x17（23信道、433Mhz））需要向B设备（地址为：0x1234，信道为0x10（16信道、426Mhz））发送数据AABBCC，其通信格式为：<em>123410AABBCC</em>，其中1234为模块B的地址，10为信道，则模块B可以收到AABBCC。同理，如果B设备需要向A设备发送数据AABBCC，其通信格式为：140017AABBCC，则A设备可以收到AABBCC。（定向传输，针对设备间地址和通信信道不同，数据格式为16进制，发送格式：<strong>高位地址+低位地址+信道+用户数据）</strong></p>
+<hr>
+<h2 id="七-rtc时钟毫秒级万年历">七、RTC时钟毫秒级万年历<a hidden class="anchor" aria-hidden="true" href="#七-rtc时钟毫秒级万年历">#</a></h2>
+<p>‘实验效果：
+用串口打印出当前的年/月/日/时/分/秒/毫秒
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722093332.png" alt="Pasted image 20250722093332">
+RTC（Real_Time Clock）实时时钟，STM32中集成了RTC的功能，也就是一个万年历的功能，能将计时大到年为单位，小到毫秒为单位。
+RTC的原理也是内部一个定时器，然后一堆寄存器进行操作</p>
+<ul>
+<li>main函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722093536.png" alt="Pasted image 20250722093536"></li>
+</ul>
+<p>Calendar（日历）是一个结构体变量：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722093657.png" alt="Pasted image 20250722093657">
+vu8和vu16：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722093813.png" alt="Pasted image 20250722093813">
+ __ IO：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722093850.png" alt="Pasted image 20250722093850"></p>
+<h3 id="volatile-类型修饰符">Volatile <strong>类型修饰符</strong><a hidden class="anchor" aria-hidden="true" href="#volatile-类型修饰符">#</a></h3>
+<p>Volatile（易变的，不稳定的）
+是一种<mark>类型修饰符</mark>，加在int float这种数据类型前面，具体的作用是告诉编译器，这个变量是多变的，不可以优化带有此变量的代码。</p>
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+int pass = 1;
+int main()
+{
+    while(pass)
+    {;} 
+    return 0;
+}
+Void Interrupt() //某个中断
+{
+    pass=0;
+}
+</code></pre>
+<p>主函数中pass=1，为真，编译器为了优化代码，把pass=1优化成了while(True)，将循环条件直接改为真，后续不再从内存中读取pass的值来判断循环是否停止。</p>
+<p>这时有一个中断令pass=0，while也并不会停下来，因为程序已经不经过调取pass变量的值了。</p>
+<p>但是把int pass改成volatile int pass =1;</p>
+<p>中断一赋值，就可以跳出循环。因为加了这个volatile，编译器无法优化代码，必须每次都调出pass来看看。</p>
+<p>main函数中：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094122.png" alt="Pasted image 20250722094122">
+换算出当前毫秒数，取了某个寄存器的值，然后做个变换</p>
+<ul>
+<li><p>RTC时钟电路结构
+  RTC时钟电路由单片机的VBAT（VB）引脚单独供电，如果给这个VB口单独给个3.3V电源，STM32的其他口都断电，那这个RTC时钟还是能正常计时的，时间不会断。</p>
+<p>  所以RTC是可以掉电运行的。<strong>如果只希望STM32芯片正式上电工作的时候使用RTC时钟计时一小段时间，无需下面的电路；</strong></p>
+<p>  如果需要让RTC时钟工作超过一个星期，且掉电继续工作，那就必须要以下的电路：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094311.png" alt="Pasted image 20250722094311"></p>
+</li>
+</ul>
+<p>RTC的定时器频率哪里来：</p>
+<p>没有上图硬件电路的时候，RTC的定时器由STM32内部低频时钟提供，内部低频时钟的缺点是不太准，长时间工作的话会有误差。</p>
+<p>使用了上图电路之后，RTC时钟在硬件电路上可以单独享有一个32.768K的低频晶振，取这个数值大概是要凑出完整的1秒。这样RTC时钟就非常精准，据说是计时一年的误差不超过一秒hhh。</p>
+<p>VBAT电池：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094523.png" alt="Pasted image 20250722094523">
+单片机断电之后，VCC3.3就没电了，就是0，这时候，VBAT口（图示写错了，不是VBTA）有纽扣电池BAT1继续3V供电，由1N4148阻挡，3V电压无法进入外部电路。</p>
+<p>单片机通电之后，VCC3.3处电压大于VBTA（VBAT）处3V电压，还可以给电池缓慢充电。</p>
+<ul>
+<li>RTC_Init
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094702.png" alt="Pasted image 20250722094702">
+RTC也是有中断的，用上RTC之后记得改优先级。</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094744.png" alt="Pasted image 20250722094744">
+中断服务函数，主要用的是秒钟中断，每秒进一次中断，更新时间。
+闹钟中断，很不常用.</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722094856.png" alt="Pasted image 20250722094856">
+设置首次RTC上电的初始时间。设定这个时间之后，除非断开RTC的电源，否则不管是改函数日期重新烧录、按复位、强制死机等操作都不能改变这个时间，RTC是完全单独运行的，VB口只要还有电，就会一分一秒的计时。</p>
+<hr>
+<h2 id="八-adc模数转换">八、ADC模数转换<a hidden class="anchor" aria-hidden="true" href="#八-adc模数转换">#</a></h2>
+<p>ADC是模拟到数字转换器（Analog-to-Digital Converter）缩写，主要用于将连续传输的模拟信号转换为数字信号。
+模拟信号转数字信号，意味着这个功能将模电与单片机整个连成了一体</p>
+<p>实验现象：
+光感模块会返回一个连续变化的模拟电压值（0-3.3V）表示光强，光强越强电压越高，最高3.3V，最小0。</p>
+<p>STM32会通过ADC外设检测这个模拟电压值的大小，并通过串口画出adc的获取数值
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722100238.png" alt="Pasted image 20250722100238"></p>
+<p>stm32的adc精度是12位的，也就是ADC的具体功能就是将<mark>0-3.3的模拟电压大小转化成12位的无符号变量里表示</mark>，比如模拟值最小是0V，数字值就表示成000000000000（12位），最大值是3.3V，数字值是111111111111。所以采集精度就是：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7401em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">12</span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">3.3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">4096</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">3.3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.0008</span></span></span></span></span></div>
+对于ADC存储的12位变量来说，没有u12这种数据存储结构，只有u16，那就用u16类型的变量来存储ADC的转换值
+
+<p>STM32F1有两个adc（adc1和adc2），每个adc又有18个通道：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722100417.png" alt="Pasted image 20250722100417">
+<mark>每个通道都可以独立检测 一个独立电路 的 模拟电压的值。所以ADC的资源非常充足，基本用不完。</mark></p>
+<p>本次实验使能ADC1的通道1和通道4，通道1负责测光敏传感器值，通道4什么都不测，作为多通道示范。</p>
+<ul>
+<li><p>main函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722100624.png" alt="Pasted image 20250722100624">
+ADC初始化函数Adc_Init之后就可以用Get_Adc函数来获得adc转换值了，变量a和b分别赋予adc的通道1和通道4的值，然后输出来，<mark>细节a和b数据类型都是u16</mark></p>
+</li>
+<li><p>Adc_Init：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722100922.png" alt="Pasted image 20250722100922">
+ADC_InitTypeDef ADC_InitStructure;     初始化一个ADC配置的结构体变量。</p>
+</li>
+</ul>
+<p>RCC_ADCCLKConfig(RCC_PCLK2_Div6);        ADC也有自己的时钟，这句代码配置adc的采样时钟，括号里是分频因子，stm32的adc的采样频率不能高于14Mhz，所以分频因子选6分频（div6），也就是72MHZ/6=12MHZ&lt;14MHZ。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722101134.png" alt="Pasted image 20250722101134"></p>
+<p>然后初始化引脚A1和A4，用到adc功能引脚都要配置成<mark>模拟输入</mark>，8种GPIO功能的最后一种，<mark>模拟输入也算是adc功能的专属GPIO功能。</mark></p>
+<p>然后ADC_DeInit(ADC1); 把外设ADC1的一切配置全部恢复默认值，<mark>前面的RCC_ADCCLKConfig(RCC_PCLK2_Div6);不算，因为这是RCC外设里的配置，不是ADC外设的配置</mark>。</p>
+<ul>
+<li>程序后半段：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722101352.png" alt="Pasted image 20250722101352">
+第一个ADC_Mode，一般测量模拟值都是选用<mark>独立模式</mark>，使用<mark>规则通道</mark>进行采样</li>
+</ul>
+<p>第二个参数ADC_ScanConvMode，是否启用<mark>扫描模式</mark>，<u>扫描模式的作用是一旦触发了某一个通道adc采集，那该通道后面的一系列使能的通道都会被采集一遍。</u><mark>这里不需要，不启用，想采集哪个通道就单独给指令，不然会混乱，使用Get_Adc函数直接获取某个通道的值即可。</mark></p>
+<p>第三个参数ADC_ContinuousConvMode，是否连续转换，连续转换的意思就是一旦触发了转换就会以设定的adc采样频率一直不停转换，<mark>不需要</mark>，还是给<mark>Get_Adc函数单独单次转换</mark>。</p>
+<p>第四个参数ADC_ExternalTrigConv，adc采样由什么触发，这里使用Get_Adc函数触发，也就是软件触发，<mark>软件触发的意思就是使用Get_Adc函数触发</mark></p>
+<p>第五个参数ADC_DataAlign，选右对齐，数据右对齐的意思就是：==一个12位的数据存在一个16位的变量里，靠右存储。靠右可以直接像读取int整数一样读取数据，不需要做&lt;&lt;或&gt;&gt;的位变换操作。</p>
+<p>第六个参数ADC_NbrOfChannel规则转换的adc通道数，NbrOfChannel就是<mark>“number of channel”</mark>的缩写，用到PA1和PA4总共两个通道，填2。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722101851.png" alt="Pasted image 20250722101851">
+这里是如果启用了扫描模式，填写转换的顺序，通道1第一个，通道4第二个，这里没使用扫描模式，但还是留着这两句作为示范。</p>
+<p><strong>adc的实际使用，使用Get_Adc(通道数)函数即可</strong></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250722102015.png" alt="Pasted image 20250722102015">
+<em>串口发回来的图中，绿色是PA1，接的光强传感器，PA4是橙色什么都没接，为什么橙色也会有点绿色波形的趋势？</em>
+因为使用的是同一个ADC外设，也就是ADC1，，同一个ADC内的不同通道之间会有一点点干扰耦合，比如各通道之间有很大的上/下拉电阻来互相隔开信号（猜测）。但是由于PA4什么也没接，所以其他通道的信号会通过大阻值的上/下拉电阻，使得PA4也有微弱的变化，但是这并不影响采集的信号。</p>
+<p>与ADC非常类似的外设是DAC，数字值转模拟信号，是很类似的，但是STM32F103C8T6不带DAC外设</p>
+<hr>
+<h2 id="九-输入捕获">九、输入捕获<a hidden class="anchor" aria-hidden="true" href="#九-输入捕获">#</a></h2>
+<blockquote>
+<p>使用输入捕获功能，实时测量一个占空比为50%的PWM波的频率</p>
+</blockquote>
+<p>输入捕获功能是STM32定时器的一个功能，并不是一个单独的外设，而是TIM外设的一部分（比如PWM输出也是定时器的一个功能，输入捕获功能与PWM输出功能的地位相同，附属于定时器）</p>
+<ul>
+<li><p>输入捕获功能的作用：
+  捕获数字电路电平转换时的<mark>上升沿或下降沿，并保存上升/下降沿来到的时刻</mark></p>
+<p>  输入捕获功能只是采集到下降沿和上升沿，并保存它们到来的时刻，而要采集一个50%占空比波的频率，算法代码，频率计算的代码就要额外自己写。</p>
+</li>
+<li><p>输入捕获原理：
+  <em>定时器按照固定频率计数；</em> 当上升/下降沿来的时候，会进入<mark>定时器的捕获中断</mark>（输入捕获通道每个定时器有四个，而且跟PWM四个通道的IO口是一样的，比如TIM1的四个PWM通道是PA8 PA9 PA10 PA11，那TIM1输入捕获的通道也是这四个口），<mark>同时这个时刻的CNT值会被保存到对应的TIMX_CCRX寄存器</mark>（TIM1_CCR1 – TIM1_CCR4）。</p>
+</li>
+<li><p>计算频率的方法：
+  <img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723124539.png" alt="Pasted image 20250723124539"></p>
+<ul>
+<li>先设置为捕获上升沿</li>
+<li>上升沿捕获到的瞬间记录当前时刻，进入定时器的捕获中断</li>
+<li><mark>在中断中修改：下次捕获的是下降沿</mark></li>
+<li>采集到下降沿后，记录当前时刻</li>
+<li>两次时刻相减，就是PWM高电平持续的时间，因为PWM占空比已知，是50%，持续时间乘2就是PWM周期，知道了周期也知道了频率</li>
+</ul>
+</li>
+<li><p>main函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723124930.png" alt="Pasted image 20250723124930">
+TIM3用来产生待测PWM，TIM3的配置就是驱动舵机的配置，PWM的周期是20ms，频率是50Hz。
+TIM2是输入捕获用的定时器。</p>
+</li>
+</ul>
+<p>注意TIM2的arr，0XFFFF，换算成十进制是65536，最大的自动重装载值，可以尽量少进入定时器更新中断；
+因为更新中断对于输入捕获功能毫无意义，输入捕获有自己的捕获中断。
+<mark>因为在输入捕获功能中，需要定时器进行的核心功能是计数，而不是重装载/进更新中断等</mark></p>
+<p>calculate_fre函数是频率计算函数</p>
+<ul>
+<li>capture.c：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723125933.png" alt="Pasted image 20250723125933">
+TIM2初始化函数，PA0是TIM3_CH1。
+IC结构体声明（在编码器那边出现过）<a href="/posts/stm32%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/#%E5%8D%81%E4%BA%8C-%E7%94%B5%E6%9C%BA%E7%BC%96%E7%A0%81%E5%99%A8%E6%B5%8B%E9%80%9F">十二、电机编码器测速</a></li>
+</ul>
+<p>后半段：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723130334.png" alt="Pasted image 20250723130334">
+第一个参数TIM_Channel，选择输入通道一（IC1），也就是TIM_Channel_1;</p>
+<p>第二个参数最重要，TIM_ICPolarity，选择什么沿的时候捕获：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723130450.png" alt="Pasted image 20250723130450">
+<mark>一共有上升沿、下降沿、上升下降都捕获三种；</mark></p>
+<p>第三个参数TIM_ICSelection是内核的东西，在这里还不用深入理解，它的作用是ICX映射到相应的TIX上去，按照这么写即可。</p>
+<p>第四个参数一般就选TIM_ICPSC_DIV1不分频，检测频率就靠最初定时器设置的arr和psc来定即可。</p>
+<p>第五个参数TIM_ICFilter，当检测的波形有较大噪声时可以进行自动滤波，其取值：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723130602.png" alt="Pasted image 20250723130602">
+0X00-0X0F，取值越大滤波效果越好，但是支持的被采样波形频率会越低。</p>
+<p>往下，中断这部分只需要看看定时器2使能了什么中断，定时器2的中断服务函数现在管着两个中断了，
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723130740.png" alt="Pasted image 20250723130740">
+<code>这里跟外部中断服务函数的机制很像，好几个中断共用一个中断服务函数，定时器更新中断和定时器通道1的输入捕获中断共用定时器2的中断服务函数。</code></p>
+<p>TIM_IT_CC1是定时器的捕获中断，一个定时器有4个这种中断，四个通道，一个通道一个中断。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723131025.png" alt="Pasted image 20250723131025"></p>
+<p>TIM2_IRQHandler函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723131332.png" alt="Pasted image 20250723131332">
+首先函数前面定义了两个全局变量，用来记录捕获信息。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723131113.png" alt="Pasted image 20250723131113">
+进行捕获分析的前提是：
+看第一个大if：u8类型的变量TIM2CH1_CAPTURE_STA的最高位是0。所以这里跟串口那个STA变量一样，最高位置1表示捕获完成。
+先看第一个if判断：这是定时器更新中断。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723131508.png" alt="Pasted image 20250723131508">
+但现在TIM2CH1_CAPTURE_STA还是0，不符合里面这个if的要求，所以直接跳出来。</p>
+<p>第二个大if：发生了捕获中断，意味着捕获到沿了，最初在初始化函数里设置的是捕获上升沿，所以目前一旦进了这个中断，就代表捕获到上升沿了：
+<code>if(TIM2CH1_CAPTURE_STA&amp;0X40)</code>：意思是判断TIM2CH1_CAPTURE_STA变量的次高位是不是1，结合注释知道，检测到下降沿的时候次高位才会置1。
+但现在TIM2CH1_CAPTURE_STA还是0，不满足这条，所以进后面的else。
+else里，先清空两个全局变量，清空TIM2_CNT，然后设置TIM2CH1_CAPTURE_STA变量为0X40，也就是次高位置1，然后用库函数TIM_OC1PolarityConfig，这个函数的作用就是设置初始化那个IC结构体的第二个参数，选择什么沿触发中断：设置为下降沿触发</p>
+<p>然后if判断结束，定时器从这里开始正式开始对被测PWM高电平时长计时。
+CNT值是0-65536，到了65536会自动重装载变为0，CNT计的数就被清除了，所以要在定时器更新中断里也做些手脚。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723132103.png" alt="Pasted image 20250723132103">
+这段说明我们所测的PWM高电平的最长时间必须在0X3F个TIM3的周期之内，
+如果要检测一个很长时间的高电平，可以把STA变量改成u16</p>
+<p>所以在已经检测到高电平的正常条件下，会进else，每次定时器更新中断给STA变量+1，表示这个高电平又经历了一整个TIM3周期的时间；</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723132417.png" alt="Pasted image 20250723132417">
+下降沿来了
+给STA变量最高位置1，同时给VAL变量赋值，TIM_GetCapture1(TIM2)函数就是得到TIM2_CCR1的值，这个函数与TIM_SetCompare1(TIM2)非常像，这个是设置TIM2_CCR1的值，也就是设置PWM的占空比的那个函数</p>
+<ul>
+<li>计算频率的函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723132517.png" alt="Pasted image 20250723132517">
+当STA变量最高位是1，就代表完整捕获完成了一次，temp就是总的高电平时间，
+N是更新中断的次数，CCR就是TIM2CH1_CAPTURE_VAL的值，也就是捕获到下降沿的瞬间CNT的值。计算频率就很好理解了。</li>
+</ul>
+<hr>
+<h2 id="十-hal库与cubemx">十、hal库与cubemx<a hidden class="anchor" aria-hidden="true" href="#十-hal库与cubemx">#</a></h2>
+<blockquote>
+<p>不再使用标准库，而是使用hal库与keil＋cubemx</p>
+</blockquote>
+<p>安装cubemx.......</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723154442.png" alt="Pasted image 20250723154442">
+可以直接在这里配置参数一键生成，不需要再手动写外设的配置代码</p>
+<ul>
+<li>时钟树：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723154631.png" alt="Pasted image 20250723154631">
+  <strong>四种时钟源表格</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>缩写</strong></td>
+<td><strong>全称</strong></td>
+<td><strong>中文名</strong></td>
+<td><strong>来源</strong></td>
+<td><strong>特点</strong></td>
+</tr>
+<tr>
+<td>HSE</td>
+<td>High-Speed External Clock</td>
+<td>高速外部时钟</td>
+<td>外部晶振</td>
+<td>高精度，外接晶振，作为主时钟源</td>
+</tr>
+<tr>
+<td>HSI</td>
+<td>High-Speed Internal Clock</td>
+<td>高速内部时钟</td>
+<td>内部RC振荡器</td>
+<td>无需外接晶振，但精度较低，常用于系统启动或备用时钟源</td>
+</tr>
+<tr>
+<td>LSE</td>
+<td>Low-Speed External Clock</td>
+<td>低速外部时钟</td>
+<td>外部晶振</td>
+<td>高精度低速时钟，专用于RTC（实时时钟）和低功耗模式</td>
+</tr>
+<tr>
+<td>LSI</td>
+<td>Low-Speed Internal Clock</td>
+<td>低速内部时钟</td>
+<td>内部RC振荡器</td>
+<td>低成本低速时钟，用于独立看门狗（IWDG）或RTC备用时钟</td>
+</tr>
+</tbody></table>
+<p>HSE， 外部晶振会提供更加精确的频率，所以要用HSE生成主频，并且用的HSE频率是8Mhz。</p>
+<p>HSI，HSI也能达到8Mhz，但是没HSE那么精确，所以HSI一般是HSE出现问题时的备用选项
+ 并且在单片机刚刚上电，系统刚刚启动时，HSE还不稳定，所以会使用HSI启动，再转为HSE。</p>
+<p>LSE：低速外部时钟，专门给RTC时钟用的，精准计时。32.768KHz的LSE一般是下面这种封装：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723155025.png" alt="Pasted image 20250723155025"></p>
+<p>LSI：低速内部时钟，40KHz，也挺常用的，比如独立看门狗</p>
+<ul>
+<li>实现hal库＋cubemx的跑马灯
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723155136.png" alt="Pasted image 20250723155136">
+要配置的第一个外设：RCC：Reset and Clock Control (复位和时钟控制)</li>
+</ul>
+<p>上图的HSE和LSE选项：</p>
+<ul>
+<li>BYPASS Clock Source 有源晶振</li>
+<li>Crystal/Ceramic Resonator 无源晶振</li>
+</ul>
+<p>C8T6最小系统板用的是无源晶振，无源的意思是无需VCC输入，因为天然水晶（crystal）的振频就是8Mhz，所以由晶体制作而成的这种晶振不需要电源输入，也就称为无源晶振。
+选择无源晶振</p>
+<p>Master clock output简称MCO，在时钟树页面也能找到
+MCO主要用于将主时钟从IO引脚输出，stm32自身作为时钟源向外输出，一般用不到，不打√。</p>
+<p>配置时钟树：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723155526.png" alt="Pasted image 20250723155526">
+<mark>分析：首先HSE主频8M，传到PLL（锁相环），并由锁相环进行9倍频，8x9=72Mhz，最终需要的频率就出来了</mark>
+2025.7.23：现在只知道PLL是个能稳住频率、加倍频率的模块</p>
+<p>72Mhz通过了SYSCLK时钟，经过了AHB总线，AHB Prescaler为/1，代表1分频也就是72/1=72，还是72Mhz不变，继续往后传，到了HCLK时钟，然后分叉成好多，其中有熟悉的APB1和APB2总线：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723161242.png" alt="Pasted image 20250723161242">
+画黄线的tim1 72Mhz挂载在APB2总线，TIM2 TIM3 TIM4都挂载在APB1总线。APB1总线的主频是36Mhz，但是有一个X2的二倍频，所以虽然是挂载在了低速总线，TIM2~TIM4的主频也能跟TIM1一样是72Mhz。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723164046.png" alt="Pasted image 20250723164046">
+这条分支，to cortex system timer；在看一些嵌入式八股文的时候得知：stm32f1系列的内核是：
+cortex-M3内核，这里给了内核的一个系统定时器。</p>
+<h3 id="systick定时器">systick定时器<a hidden class="anchor" aria-hidden="true" href="#systick定时器">#</a></h3>
+<blockquote>
+<p><a href="https://so.csdn.net/so/search?q=ARM&spm=1001.2101.3001.7020" target="_blank" rel="noopener noreferrer">ARM</a> Cortex-M3 内核的处理器内部包含了一个 SysTick 定时器，它是一个24 位的倒计数定时器。
+计数到 0 时systick就会从 LOAD 寄存器中自动重装载定时初值。只要不把 CTRL 寄存器中的 ENABLE 位清 0，systick定时器就永不停息。</p>
+</blockquote>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723164331.png" alt="Pasted image 20250723164331">
+<em>delay_ms和delay_us延时就是systick定时器实现的</em></p>
+<p>systick是在内核文件：core_cm3.h里定义的：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723164657.png" alt="Pasted image 20250723164657">
+cm3就是内核名称：cortex-M3的缩写。</p>
+<hr>
+<p>继续配置：
+第二个配置项：System core里的SYS，也就是系统
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723165218.png" alt="Pasted image 20250723165218"></p>
+<ul>
+<li><p>Debug展开：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723165653.png" alt="Pasted image 20250723165653">
+Serial Wire（也就是SW），还有JTAG模式，还是jlink当然跟以前一样选SW模式。</p>
+</li>
+<li><p>System Wake-Up，STM32的低功耗唤醒功能，用不到低功耗，不打√。</p>
+</li>
+<li><p>基础时基源
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723165838.png" alt="Pasted image 20250723165838">
+cubemx支持的hal库也有自己的延时函数：HAL_Delay函数，要给这个函数等其他hal基础函数选择时钟源，也选Systick，跟之前标准库一样。</p>
+</li>
+</ul>
+<p>配置完成：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723170506.png" alt="Pasted image 20250723170506">
+这些系统引脚，什么晶振接口、Jlink接口都自动显示绿色，即配置完成了。
+<em>新建所有功能分三步：配置SYS、RCC以及时钟树</em></p>
+<p>跑马灯：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723170708.png" alt="Pasted image 20250723170708">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723170740.png" alt="Pasted image 20250723170740">
+下面的参数：</p>
+<ul>
+<li>GPIO output level 初始电平是1还是0，对于跑马灯无所谓。</li>
+<li>GPIO mode 普通输出模式就只有推挽和开漏两种选择，选推挽Output push pull</li>
+<li>GPIO Pull-up/Pull-down 上拉还是下拉，对于输出模式来说无所谓。</li>
+<li>Maximum output speed 最大输出速度，不需要低功耗，选尽可能最高的。</li>
+<li>User Label 给这个引脚起个别名，起不起无所谓，不起了</li>
+</ul>
+<p>然后生成工程代码
+<strong>注意文件生成的目标路径不能有中文！</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250723171929.png" alt="Pasted image 20250723171929">
+Driver文件夹里放了所有的hal库的外设库。
+MDK-ARM文件夹放了keil的入口以及启动文件。
+Core文件夹放了自动生成的各外设代码和main.c。</p>
+<ul>
+<li>main函数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724003231.png" alt="Pasted image 20250724003231">
+main函数里很多此类格式的注释：</li>
+</ul>
+<pre><code class="language-C">/* USER CODE BEGIN XXX */
+
+/* USER CODE END XXX */
+</code></pre>
+<p>main函数是由cubemx自动生成的，如果想修改main函数代码，只能写在这个注释划定的范围内，否则代码会被下次的cubemx更新刷掉。</p>
+<pre><code class="language-C">/* USER CODE BEGIN */
+写代码处
+/* USER CODE END */
+</code></pre>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724003435.png" alt="Pasted image 20250724003435">
+main函数跟之前标准库的没区别，HAL_Init函数和SystemClock_Config函数是根据在cubemx里的配置自动生成的，MX_GPIO_Init也是自动生成，不需要点进去看代码，所有配置如果想改，再回到cubemx去图形化修改，然后再点一次generate code，keil会自动会修改</p>
+<p>将while添加上：</p>
+<pre><code class="language-C">  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+                HAL_Delay(800);
+                HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);//设置为高电平
+                HAL_Delay(800);
+  }
+  /* USER CODE END 3 */
+</code></pre>
+<p>即可实现跑马灯</p>
+<hr>
+<h2 id="十一-极速上手hal库-基于stm32f407vet6">十一、极速上手hal库 - 基于STM32F407VET6<a hidden class="anchor" aria-hidden="true" href="#十一-极速上手hal库-基于stm32f407vet6">#</a></h2>
+<h3 id="1-gpio输出">（1）GPIO输出<a hidden class="anchor" aria-hidden="true" href="#1-gpio输出">#</a></h3>
+<p>和led的代码一样</p>
+<pre><code class="language-C">  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+                HAL_Delay(800);
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);//设置为高电平
+                HAL_Delay(800);
+  }
+  /* USER CODE END 3 */
+</code></pre>
+<h3 id="2-通用定时器pwm输出">（2）通用定时器PWM输出<a hidden class="anchor" aria-hidden="true" href="#2-通用定时器pwm输出">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724092927.png" alt="Pasted image 20250724092927">
+然后右侧的参数，红框中是重要的参数：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clock Source</td>
+<td>定时器的时钟来源，很少改，都是选Internal Clock也就是内部时钟</td>
+</tr>
+<tr>
+<td>Channel 1~4</td>
+<td>定时器的输出通道（对应标准库的OC）</td>
+</tr>
+</tbody></table>
+<p>下方的参数配置：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724093324.png" alt="Pasted image 20250724093324"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PSC</td>
+<td>预分频系数，用法完全与标准库一致</td>
+</tr>
+<tr>
+<td>Counter Mode</td>
+<td>计数器（CNT）模式，向上计数（up）还是向下计数（down），以及这里面还有中心对齐模式（center aligned mode）</td>
+</tr>
+<tr>
+<td>ARR（Counter Period）</td>
+<td>自动重装载值，用法完全与标准库一致</td>
+</tr>
+<tr>
+<td>Auto-reload preload</td>
+<td>是否自动重装载，也就是计数器溢出了要不要重新装载复位CNT</td>
+</tr>
+<tr>
+<td>再往后的参数是PWM四个通道的配置节选：</td>
+<td></td>
+</tr>
+<tr>
+<td><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724093654.png" alt="Pasted image 20250724093654"></td>
+<td></td>
+</tr>
+<tr>
+<td>四个通道完全配置成一样的即可：</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mode</td>
+<td>PWM模式，模式1模式2</td>
+</tr>
+<tr>
+<td>Pulse</td>
+<td>初始CCR，初始占空比，一般取0</td>
+</tr>
+<tr>
+<td>Output compare preload</td>
+<td>如果enable，任何写入TIMx_CCRx事件到来，都不会打断当前计数周期，只能等到计完数了(更新事件)，才把TIMx_CCRx传送至当前计数寄存器。</td>
+</tr>
+<tr>
+<td>Fast mode</td>
+<td>快速模式，不需要低功耗，追求高性能，无脑勾上就完事了</td>
+</tr>
+<tr>
+<td>CH Polarity</td>
+<td>输出极性，高or低</td>
+</tr>
+<tr>
+<td>生成代码后可以看到：</td>
+<td></td>
+</tr>
+<tr>
+<td><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724094240.png" alt="Pasted image 20250724094240"></td>
+<td></td>
+</tr>
+<tr>
+<td>自动生成了关于TIM4的初始化代码</td>
+<td></td>
+</tr>
+<tr>
+<td><mark>但现在还没有生成出PWM，因为定时器通道还没有开启，需要手动加一句代码开启</mark></td>
+<td></td>
+</tr>
+<tr>
+<td><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724094345.png" alt="Pasted image 20250724094345"></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code class="language-C">  /* USER CODE BEGIN 2 */
+        HAL_TIM_PWM_Start(&amp;htim4,TIM_CHANNEL_1);
+        HAL_TIM_PWM_Start(&amp;htim4,TIM_CHANNEL_2);
+        HAL_TIM_PWM_Start(&amp;htim4,TIM_CHANNEL_3);
+        HAL_TIM_PWM_Start(&amp;htim4,TIM_CHANNEL_4);
+        TIM4-&gt;CCR1 = 5000;
+        TIM4-&gt;CCR2 = 10000;
+        TIM4-&gt;CCR3 = 15000;
+        TIM4-&gt;CCR4 = 19000;
+        
+  /* USER CODE END 2 */
+</code></pre>
+<p>上面这四句代码不能自动生成，需要手动开启定时器的指定通道，代码才能正常工作。</p>
+<h3 id="3-编码器模式">（3）编码器模式<a hidden class="anchor" aria-hidden="true" href="#3-编码器模式">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724095306.png" alt="Pasted image 20250724095306">
+参数配置：
+**<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724095327.png" alt="Pasted image 20250724095327"></p>
+<p><strong>重要步骤</strong>：编码器模式用到了定时器4更新中断，凡是用到中断，马上联想到中断优先级，就要联想到NVIC：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724095732.png" alt="Pasted image 20250724095732">
+interrupt，中断，<mark>简称it</mark></p>
+<p>然后在NVIC外设的配置页也要看一眼：确保TIM4的中断打勾了：=
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724095819.png" alt="Pasted image 20250724095819"></p>
+<p><mark>PWM一样，编码器模式不会自动开启，定时器中断也不会自动开启，需要写入代码开启：</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724101020.png" alt="Pasted image 20250724101020">
+<em>IT就是interrupt，中断的缩写</em></p>
+<ul>
+<li>定时器4的中断服务函数:
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724101327.png" alt="Pasted image 20250724101327"></li>
+</ul>
+<p><mark>HAL_TIM_PeriodElapsedCallback这个函数名：Period Elapsed Callback直译过来就是周期过完进行的回调函数，也就是定时器更新中断</mark></p>
+<ul>
+<li><strong>__ weak是什么意思？</strong>
+在 C 语言中，<code>__weak</code> 用于声明一个<strong>弱符号（Weak Symbol）</strong>。
+弱符号的特性是：如果代码中存在同名的强符号（即普通定义），编译器会优先使用强符号，弱符号会被自动覆盖。
+这使得它可以用来提供默认实现，同时允许用户自定义覆盖。</li>
+</ul>
+<p>也就是可以在main.c里重写这个HAL_TIM_PeriodElapsedCallback函数，然后编译器就会只关注我写的这个：
+复制一个该函数放到main.c里去，同时加上编码器在CNT溢出处的计数该有的处理代码，与标准库一模一样：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724101543.png" alt="Pasted image 20250724101543"></p>
+<h3 id="4-sys-c文件-待命中">（4）sys.c文件（待命中）<a hidden class="anchor" aria-hidden="true" href="#4-sys-c文件-待命中">#</a></h3>
+<p>2025.7.24</p>
+<hr>
+<h3 id="5-定时器中断">（5）定时器中断<a hidden class="anchor" aria-hidden="true" href="#5-定时器中断">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724171504.png" alt="Pasted image 20250724171504"></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724171515.png" alt="Pasted image 20250724171515"></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724171528.png" alt="Pasted image 20250724171528"></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724171538.png" alt="Pasted image 20250724171538"></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250724171554.png" alt="Pasted image 20250724171554"></p>
+<h3 id="6-高级定时器-互补pwm输出">（6）高级定时器-互补PWM输出<a hidden class="anchor" aria-hidden="true" href="#6-高级定时器-互补pwm输出">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725000914.png" alt="Pasted image 20250725000914">
+互补PWM主要用于控制半桥电路，（栅极驱动器），而半桥电路是非常常用的执行器驱动电路。</p>
+<p>互补PWM只有高级定时器才能输出，STM32F4的TIM1和TIM8是高级定时器，STM32F103C8T6只有TIM1是高级。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725001021.png" alt="Pasted image 20250725001021">
+channel选项：
+<mark>CH1是通道1，而CH1N是互补通道1。</mark></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725001159.png" alt="Pasted image 20250725001159">
+<strong>center aligned mode1：中心对齐模式</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725001233.png" alt="Pasted image 20250725001233"></p>
+<p>通过arr和psc计算一下pwm频率:</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1/</span><span class="mopen">(</span><span class="mord">168000000/5</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1680</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.00005</span><span class="mord mathnormal">s</span></span></span></span></span></div>
+也就是20khz。
+
+<p>但实际上：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725001414.png" alt="Pasted image 20250725001414">
+只有10khz,因为：
+==中心对齐模式的计数方式是先向上计数，CNT=ARR之后再向下计数，这样CNT的值就会
+从0-&gt;ARR-&gt;0，两次经过CCRx，所以频率也会降为原来的1/2。==</p>
+<p>PWM通道配置跟普通定时器的一样，互补通道配置默认即可，生成代码：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725003219.png" alt="Pasted image 20250725003219"></p>
+<pre><code class="language-C">  /* USER CODE BEGIN 2 */
+        HAL_TIM_PWM_Start(&amp;htim1,TIM_CHANNEL_1);
+        HAL_TIMEx_PWMN_Start(&amp;htim1,TIM_CHANNEL_1);
+        HAL_TIM_PWM_Start(&amp;htim1,TIM_CHANNEL_2);
+        HAL_TIMEx_PWMN_Start(&amp;htim1,TIM_CHANNEL_2);
+        HAL_TIM_PWM_Start(&amp;htim1,TIM_CHANNEL_3);
+        HAL_TIMEx_PWMN_Start(&amp;htim1,TIM_CHANNEL_3);
+        TIM1-&gt;CCR1 = 280;
+        TIM1-&gt;CCR2 = 560;
+        TIM1-&gt;CCR3 = 1280;
+        
+
+  /* USER CODE END 2 */
+</code></pre>
+<h3 id="7-uart串口">（7）uart串口<a hidden class="anchor" aria-hidden="true" href="#7-uart串口">#</a></h3>
+<p><mark>Mode选 Asynchronous，异步通信，uart：</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725094452.png" alt="Pasted image 20250725094452">
+==asynchronous是异步的意思，就是用uart。
+cubemx里的参数只改波特率，其他全默认。==</p>
+<p>NVIC打开串口全局中断，全局中断就是包含了接收、发送等中断：</p>
+<p><mark>跟定时器中断一样，串口中断也需要自己写接收回调函数，并且需要自己写代码去开启串口中断</mark></p>
+<ul>
+<li>把<mark>通过“\r\n”作为结束符判断</mark>的串口中断移植过去：</li>
+</ul>
+<p>先在usart.c开头声明：</p>
+<pre><code class="language-C">uint8_t USART3_RX_BUF[100];             //串口接受数据的数据缓冲区
+uint8_t Res;
+uint16_t USART3_RX_STA = 0;        //串口接收到数据标志位
+</code></pre>
+<p>然后在usart.c添加回调函数：</p>
+<pre><code class="language-C">void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)     //串口数据接收完成回调函数
+{
+    if(huart-&gt;Instance == USART3)
+    {
+        if((USART3_RX_STA&amp;0x8000)==0)//接收未完成
+        {
+            if(USART3_RX_STA&amp;0x4000)//接收到了0x0d
+            {
+                if(Res!=0x0a)USART3_RX_STA=0;//接收错误,重新开始计数
+                else 
+                {
+                    USART3_RX_STA|=0x8000;        //接收完成
+                    
+                    //memset(USART3_RX_BUF,0,sizeof(USART3_RX_BUF));
+                    //USART3_RX_STA=0;
+                }
+            }
+            else //还没收到0X0D
+            {        
+                if(Res==0x0d)USART3_RX_STA|=0x4000;
+                else
+                {
+                    USART3_RX_BUF[USART3_RX_STA&amp;0X3FFF]=Res;
+                    USART3_RX_STA++;
+                    if(USART3_RX_STA&gt;(100-1))USART3_RX_STA=0;//接收数据错误,重新开始接收          
+                }                 
+            }
+        }
+        
+        HAL_UART_Receive_IT(&amp;huart3,&amp;Res,1);
+    }
+}
+</code></pre>
+<p>这个回调函数是所有串口共用的接收中断的回调函数</p>
+<pre><code class="language-C++">HAL_UART_Receive_IT(&amp;huartX, &amp;Res, 1); //huartX的X需要自行改成1/2/3
+</code></pre>
+<p>HAL_UART_Receive_IT这一句是用来“装载”接收中断的：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725095707.png" alt="Pasted image 20250725095707">
+<em>参数的中文含义：
+串口的接收中断函数(串口2，待接收数据的存放处，要接收的数据长度);</em>
+也就是这个函数是预备接收的存放目的数组和数据的长度，只有声明了才会开始接收数据。</p>
+<p>串口中断优先级低了可能导致丢包严重。</p>
+<h3 id="8-adc">（8）ADC<a hidden class="anchor" aria-hidden="true" href="#8-adc">#</a></h3>
+<p><a href="/posts/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/#%E5%85%AB-adc%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2">八、ADC模数转换</a></p>
+<p>ADC中比较常用的<mark>独立模式</mark>：
+ADC（模数转换器）的<strong>独立模式</strong>（Independent Mode）是指ADC模块单独工作，不与其他ADC模块（如果存在多个ADC）协同工作的模式。 </p>
+<p>三种主要的ADC使用方法：</p>
+<ol>
+<li>单通道规则输入</li>
+<li>多通道规则输入</li>
+<li>注入通道-事件触发</li>
+</ol>
+<h4 id="8-1-单通道规则输入">8.1 单通道规则输入<a hidden class="anchor" aria-hidden="true" href="#8-1-单通道规则输入">#</a></h4>
+<p>单通道的ADC1配置方式如下：
+通道只选一个：ADC1通道3，也就是PA3。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725101057.png" alt="Pasted image 20250725101057">
+配置参数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725101111.png" alt="Pasted image 20250725101111"></p>
+<p>首先Mode都选 independent mode也就是独立模式。
+<mark>resolution是分辨率，12bit，也就是采样值是0~4095的整数。</mark>
+data aligned是右对齐
+后面四个参数都先不用管，单通道的规则输入这些都不需要：全部disabled</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725101326.png" alt="Pasted image 20250725101326">
+Number of Conversion：需要ADC采样的通道数量，单通道采样，选1。
+External Trigger Conversion Source：触发方式，选择software（软件触发），Get_Adc函数触发
+External Trigger Conversion Edge：没有，不用管。
+Rank：里面就一个通道，就是channel3。</p>
+<p>sampling time：选了480 Cycles
+480 Cycles的意思是480个ADC周期采样一次，ADC周期跟之前设置的参数：ADC的分频系数有关
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725101640.png" alt="Pasted image 20250725101640">
+可以分别选取2/4/6/8分频，ADC的主频是来自于PCLK2的，PCLK2在：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725101705.png" alt="Pasted image 20250725101705">
+PCLK2是84Mhz，不需要低功耗，所以ADC就尽可能高频率。</p>
+<p>生成代码后自行修改：
+首先自定义一个u16变量 adc3
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725102231.png" alt="Pasted image 20250725102231"></p>
+<p>main函数如下：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725102248.png" alt="Pasted image 20250725102248"></p>
+<pre><code class="language-C">  while (1)
+  {
+                HAL_ADC_Stop(&amp;hadc1); // 确保ADC停止
+                HAL_ADC_Start(&amp;hadc1);
+                if (HAL_ADC_PollForConversion(&amp;hadc1, 100) == HAL_OK) 
+                {
+                        adc3 = HAL_ADC_GetValue(&amp;hadc1);
+                }
+ 
+                delay_ms(100);
+
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+  }
+</code></pre>
+<h4 id="8-2-多通道规则输入">8.2 多通道规则输入<a hidden class="anchor" aria-hidden="true" href="#8-2-多通道规则输入">#</a></h4>
+<p>IN0和IN2两个通道：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725210118.png" alt="Pasted image 20250725210118">
+配置参数：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725210305.png" alt="Pasted image 20250725210305"></p>
+<ol>
+<li><p><em>扫描模式</em>
+ 通道数&gt;1时，强制开启
+ 自动扫描开启的所有通道进行按顺序转换，直至所有都转换完
+ 例如开启了CH0、CH1、CH2、CH3这四个通道，启动转换后ADC会自动将这四个通道全部转换完，但是这种连续性是可以被打断的，所以引出了间断模式</p>
+</li>
+<li><p><em>连续模式</em>
+ 开启连续模式后，ADC的转换持续不断进行，不由自己控制，会忽略掉软件触发，以及忽略多种触发采样，<mark>（连续转换模式开启后其实就是满频率的采样）</mark></p>
+</li>
+<li><p><em>间断模式</em>
+ 开启将多个通道进行分组采样。例如开启了CH0~3这四个通道，假如设置了间断次数为4，相当于将4个通道分成了4组，每组1个通道。那么采集完这4个通道需要手动触发4次ADC采集；如果设置了间断次数为2，那么采集完4个通道就需要手动触发2次ADC采集。</p>
+</li>
+<li><p><em>EOC（end of conversion 转换结束）</em>
+ 可以设置为在转换完一个通道后就产生EOC事件，也可以设置为转换完规则通道组的所有通道之后产生EOC事件。但是规则采样<mark>只有一个转换结果寄存器</mark>，如果有多个转换通道，设置为转换完规则组的所有通道后产生EOC，<mark>会导致数据溢出</mark>。<mark>一般设置为在转换外一个通道后就产生EOC事件</mark></p>
+</li>
+</ol>
+<ul>
+<li><p>多通道的rank，就是优先级，rank1的优先级高于rank2，以此类推。</p>
+</li>
+<li><p>生成代码：
+自定义变量 u16 adc[2];
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725212259.png" alt="Pasted image 20250725212259">
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725212310.png" alt="Pasted image 20250725212310"></p>
+</li>
+</ul>
+<pre><code class="language-C">  while (1)
+  {
+                HAL_ADC_Stop(&amp;hadc1); // 确保ADC停止
+                HAL_ADC_Start(&amp;hadc1);
+                for(int i=0;i&lt;2;i++)
+                {                
+                        if(HAL_ADC_PollForConversion(&amp;hadc1, 100) == HAL_OK) 
+                        {
+                                adc[i] = HAL_ADC_GetValue(&amp;hadc1);
+                        }
+                        
+                }
+
+ 
+                delay_ms(100);
+
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+  }
+</code></pre>
+<p><mark>注意这里由于开启了扫描模式，HAL_ADC_Start触发一次采样，会连续把所有通道也就是IN0和IN3两个通道依次采完</mark>
+<mark>由于EOC采样结束标志位设置的是一个通道采样完就来一次，所以需要for循环两次进行两次的接收</mark></p>
+<h4 id="8-3-多路注入通道-事件触发adc">8.3 多路注入通道：事件触发ADC<a hidden class="anchor" aria-hidden="true" href="#8-3-多路注入通道-事件触发adc">#</a></h4>
+<p>2025.7.25，等学完FOC的电流环再来学这个</p>
+<hr>
+<h3 id="9-gpio输入与外部中断">（9）GPIO输入与外部中断<a hidden class="anchor" aria-hidden="true" href="#9-gpio输入与外部中断">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725215814.png" alt="Pasted image 20250725215814">
+引脚输入模式与配置输出模式很像，点击目标引脚，设置为GPIO_Input</p>
+<ul>
+<li>No pull-up and no pull-down ：浮空输入</li>
+<li>Pull-up ：上拉输入</li>
+<li>Pull-down ：下拉输入</li>
+</ul>
+<p>判断引脚高低电平的代码：</p>
+<pre><code class="language-C">HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_5);
+</code></pre>
+<p><img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725220004.png" alt="Pasted image 20250725220004"></p>
+<p>外部中断：
+在对应的引脚上选择对应的EXTI即可。
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725220057.png" alt="Pasted image 20250725220057">
+参数配置：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725220239.png" alt="Pasted image 20250725220239">
+选前三个。前三个是“external interrupt”外部中断，后三个“external event”是外部事件，另一个功能</p>
+<ul>
+<li>external interrupt mode with <mark>rising</mark> edge trigger detection</li>
+<li>external interrupt mode with <mark>falling</mark> edge trigger detection</li>
+<li>external interrupt mode with <mark>rising/falling</mark> edge trigger detection
+上升沿触发，下降沿触发，都触发</li>
+</ul>
+<p>打开中断：
+<img loading="lazy" decoding="async" src="/assets/blog/stm32%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%AD%A6%E4%B9%A0/images/Pasted%20image%2020250725220458.png" alt="Pasted image 20250725220458"></p>
+<p>外部中断划分：外部中断0<del>4独立，外部中断5</del>9共用一个中断，外部中断10~15共用一个中断。</p>
+<p>外部中断的回调函数：</p>
+<pre><code class="language-C">u8 a=0;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{ 
+   
+        if(GPIO_Pin==GPIO_PIN_3)
+        { 
+                if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_3)==1) // 上升沿
+                { 
+                        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+                }
+        }
+        
+        if(GPIO_Pin==GPIO_PIN_5)
+        { 
+                if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_5)==1) // 上升沿
+                { 
+                        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+                }
+        }
+        
+        if(GPIO_Pin==GPIO_PIN_12)
+        { 
+                if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_12)==1) // 上升沿
+                { 
+                        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+                }
+        }
+}
+</code></pre>
+<p>hal库的优点是把所有的外部中断处理全部集成在了同一个回调函数里，这种处理方式也比标准库更方便。
+<mark><strong>但是要注意！不能在回调函数里使用任何延时，以及不能代码用时过长，否则会卡死！这个不跟标准库一样！</strong></mark></p>
+<h3 id="10-i2c通信">（10）I2C通信<a hidden class="anchor" aria-hidden="true" href="#10-i2c通信">#</a></h3>
+<p>2025.7.25 待命</p>
+<h3 id="11-独立看门狗">（11）独立看门狗<a hidden class="anchor" aria-hidden="true" href="#11-独立看门狗">#</a></h3>
+<p>2025.7.25 待命</p>
+<h3 id="12-rtc时钟">（12）RTC时钟<a hidden class="anchor" aria-hidden="true" href="#12-rtc时钟">#</a></h3>
+<p>2025.7.25 待命</p>
+<h3 id="13-输入捕获">（13）输入捕获<a hidden class="anchor" aria-hidden="true" href="#13-输入捕获">#</a></h3>
+<p>2025.7.25 待命</p>
+<hr>
+<h2 id="十二-更标准高效的串口全双工通信">十二、更标准高效的串口全双工通信<a hidden class="anchor" aria-hidden="true" href="#十二-更标准高效的串口全双工通信">#</a></h2>
+<p>更标准高效的串口全双工通信，这里的“更标准”指的是三个方面：</p>
+<ol>
+<li>运行效率更高，降低CPU占用率</li>
+<li>更适用于机器人参数传递</li>
+<li>实现数据的全双工收发</li>
+</ol>
+<p>之前使用“\r\n结尾的”的方法收发字符串，但如果真正在机器人通信上用起来会<mark>非常别扭</mark>：
+比如想发送两个浮点数：211.5625和934.2321，精确到小数点后四位
+照以前应该是：</p>
+<pre><code class="language-C++">float a = 211.5625;
+float b = 934.2321;
+sprintf(buf, &quot;%4f, %4f\r\n&quot;, a, b);
+printf(buf);
+</code></pre>
+<p>假如把这段字符串发给另一个stm32，那另一边的数据处理可麻烦大了，又是字符串通过&quot;,&quot;分割开，又要把每个浮点数都割开分别存放在不同字符串里，又要atof再转化为浮点数，头都大了。</p>
+<p>所以机器人参数通信采用的算法是：</p>
+<p>由于串口的发送基本单元是<mark>字节</mark>，所以就要想办法把需要传递的参数蕴含的信息映射到字节里去，比如float类型就占四个字节，所以我们只需要发送四个字节即可完整传递一个浮点数的信息，不管它有小数点后多少位。以下是新老两种方法的比较：</p>
+<ul>
+<li>老方法-字符串格式：&quot;123456.654321\r\n&quot;，一个浮点数花十五个字节存。</li>
+<li><mark>新方法-16进制格式：float -&gt; u32，u32的数据分存在四个u8里。这样只需要四个字节。</mark></li>
+</ul>
+<hr>
+<p>第一步先试用cubemx配置uart1
+cubemx部分配置与极速上手hal库那一节中的串口小节配置完全一样，<mark>只是usart.c里的接收中断回调函数不要像以前那么写了，相关的变量也先不要声明。</mark></p>
+<p><mark>黄色高亮</mark>为非自动生成的，自己手动写的函数：</p>
+<p>修改后的usart.c函数：</p>
+<pre><code class="language-C">/* Includes ------------------------------------------------------------------*/
+#include &quot;usart.h&quot;
+
+/* USER CODE BEGIN 0 */
+#include &quot;string.h&quot;
+#define RX_DATA_LEN 3  // 根据实际定长数据长度修改
+
+volatile uint8_t tx_busy = 0;      // 发送状态标志
+uint8_t rx_buffer[RX_DATA_LEN];    // 定长接收缓冲区
+/* USER CODE END 0 */
+
+UART_HandleTypeDef huart1;
+
+/* USART1 init function */
+
+void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&amp;huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+  // 启动接收：一次性接收完整数据包
+  HAL_UART_Receive_IT(&amp;huart1, rx_buffer, RX_DATA_LEN); // 优化点：接收定长数据
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(uartHandle-&gt;Instance==USART1)
+  {
+  /* USER CODE BEGIN USART1_MspInit 0 */
+
+  /* USER CODE END USART1_MspInit 0 */
+    /* USART1 clock enable */
+    __HAL_RCC_USART1_CLK_ENABLE();
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**USART1 GPIO Configuration
+    PA9     ------&gt; USART1_TX
+    PA10     ------&gt; USART1_RX
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_9;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);
+
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
+  /* USER CODE BEGIN USART1_MspInit 1 */
+
+
+  /* USER CODE END USART1_MspInit 1 */
+  }
+}
+
+void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
+{
+
+  if(uartHandle-&gt;Instance==USART1)
+  {
+  /* USER CODE BEGIN USART1_MspDeInit 0 */
+
+  /* USER CODE END USART1_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_USART1_CLK_DISABLE();
+
+    /**USART1 GPIO Configuration
+    PA9     ------&gt; USART1_TX
+    PA10     ------&gt; USART1_RX
+    */
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
+
+    /* USART1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
+  /* USER CODE BEGIN USART1_MspDeInit 1 */
+
+  /* USER CODE END USART1_MspDeInit 1 */
+  }
+}
+
+/* USER CODE BEGIN 1 */
+// 发送函数（带冲突保护）
+void UART_Send(uint8_t *data, uint16_t size)
+{
+  while(tx_busy);  // 等待前次发送完成（简单忙等待）
+  
+  tx_busy = 1;
+  HAL_UART_Transmit_IT(&amp;huart1, data, size);
+}
+
+
+// 发送完成中断回调
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if(huart-&gt;Instance == USART1){
+    tx_busy = 0;  // 清除发送忙标志
+  }
+}
+uint8_t wave; // 假设这是我们需要的数据，数据值是0~255
+void ProcessData(uint8_t* rx_buf)
+{
+        if(rx_buf[0]==0xaa &amp;&amp; rx_buf[1]==0x55)
+        {
+                wave = rx_buf[2];
+                
+        }
+        else
+        {
+                return;
+        }
+        
+}
+
+
+
+// 接收完成中断回调
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if(huart-&gt;Instance == USART1){
+    // 处理完整数据包
+    ProcessData(rx_buffer);  // 用户自定义数据处理函数
+    
+    // 重新启动接收（保持连续接收）
+    HAL_UART_Receive_IT(&amp;huart1, rx_buffer, RX_DATA_LEN);
+  }
+}
+
+
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart) {
+         if (huart-&gt;Instance == USART1) {
+             HAL_UART_Receive_IT(&amp;huart1, rx_buffer, RX_DATA_LEN); // 重新启动接收
+         }
+     }
+
+/* USER CODE END 1 */
+</code></pre>
+<p>usart.h函数：</p>
+<pre><code class="language-c">#ifndef __USART_H__
+#define __USART_H__
+
+#ifdef __cplusplus
+extern &quot;C&quot; {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include &quot;main.h&quot;
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern UART_HandleTypeDef huart1;
+
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
+
+void MX_USART1_UART_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+void UART_Send(uint8_t *data, uint16_t size);
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __USART_H__ */
+</code></pre>
+<p>main函数：</p>
+<pre><code class="language-C++">while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+                UART_Send((uint8_t*)&quot;ASDSADS&quot;, 7);
+                HAL_Delay(10);
+  }
+</code></pre>
+<ul>
+<li>代码分析：<ul>
+<li><p>/#include &quot;string.h&quot;，这个库用于引入memcpy函数。</p>
+</li>
+<li><p>HAL_UART_Receive_IT,一定要加在串口初始化最后，千万别加错了地方或者忘了，开启接收中断。</p>
+</li>
+<li><p>三个串口中断回调函数：</p>
+<ol>
+<li>HAL_UART_TxCpltCallback —— 发送完成回调</li>
+<li>HAL_UART_RxCpltCallback —— 接收完成回调</li>
+<li>HAL_UART_ErrorCallback —— 串口发生错误回调</li>
+</ol>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/stm32/">STM32</a></li></ul><nav class="paginav"><a class="prev" href="/posts/机器视觉/"><span class="title">« 上一篇</span><br><span>机器视觉</span></a><a class="next" href="/posts/硬件基本功-电路设计及制造/"><span class="title">下一篇 »</span><br><span>硬件基本功：电路设计及制造</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>

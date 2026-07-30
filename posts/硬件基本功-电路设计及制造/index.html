@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>硬件基本功：电路设计及制造 | Zhanghr</title>
+  <meta name="description" content="电路基础、供电保护、PCB 设计与制造学习笔记。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/硬件基本功-电路设计及制造/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/硬件基本功-电路设计及制造/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="硬件基本功：电路设计及制造">
+  <meta property="og:description" content="电路基础、供电保护、PCB 设计与制造学习笔记。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2025-07-01T00:00:00+08:00">
+  <meta property="article:modified_time" content="2025-07-01T00:00:00+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="硬件基本功：电路设计及制造">
+  <meta name="twitter:description" content="电路基础、供电保护、PCB 设计与制造学习笔记。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"硬件基本功：电路设计及制造","datePublished":"2025-07-01T00:00:00+08:00","dateModified":"2025-07-01T00:00:00+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/硬件基本功-电路设计及制造/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">硬件基本功：电路设计及制造</h1>
+      <div class="post-meta"><span title="2025-07-01 00:00:00 +0800 CST">July 1, 2025</span>&nbsp;·&nbsp;<span>45 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#电路基础概念" aria-label="电路基础概念">电路基础概念</a></li><li class="toc-level-3"><a href="#数字电路和模拟电路" aria-label="数字电路和模拟电路">数字电路和模拟电路</a></li><li class="toc-level-3"><a href="#vcc和gnd" aria-label="VCC和GND">VCC和GND</a></li><li class="toc-level-3"><a href="#共地" aria-label="共地">共地</a></li><li class="toc-level-2"><a href="#ldo低压差线性稳压器" aria-label="LDO低压差线性稳压器">LDO低压差线性稳压器</a></li><li class="toc-level-2"><a href="#tvs二极管-稳压二极管" aria-label="TVS二极管（稳压二极管）">TVS二极管（稳压二极管）</a></li><li class="toc-level-2"><a href="#dc-dc开关电源降压稳压电路滤波电容的原理与使用" aria-label="DC DC开关电源降压稳压电路&amp;amp;滤波电容的原理与使用">DC DC开关电源降压稳压电路&amp;amp;滤波电容的原理与使用</a></li><li class="toc-level-2"><a href="#104电容" aria-label="104电容">104电容</a></li><li class="toc-level-2"><a href="#tps5430" aria-label="TPS5430">TPS5430</a></li><li class="toc-level-2"><a href="#dc-dc开关电源升压稳压电路" aria-label="DC DC开关电源升压稳压电路">DC DC开关电源升压稳压电路</a></li><li class="toc-level-2"><a href="#继电器控制电路-光耦" aria-label="继电器控制电路 &amp;amp; 光耦">继电器控制电路 &amp;amp; 光耦</a></li><li class="toc-level-2"><a href="#gpio八种输入输出模式" aria-label="GPIO八种输入输出模式">GPIO八种输入输出模式</a></li><li class="toc-level-3"><a href="#浮空输入-上下拉输入" aria-label="浮空输入、上下拉输入">浮空输入、上下拉输入</a></li><li class="toc-level-3"><a href="#推挽输出-复用推挽输出" aria-label="推挽输出、复用推挽输出">推挽输出、复用推挽输出</a></li><li class="toc-level-3"><a href="#开漏输出-复用开漏输出" aria-label="开漏输出、复用开漏输出">开漏输出、复用开漏输出</a></li><li class="toc-level-3"><a href="#stm32-gpio电路图" aria-label="STM32 GPIO电路图">STM32 GPIO电路图</a></li><li class="toc-level-3"><a href="#模拟输入" aria-label="模拟输入">模拟输入</a></li><li class="toc-level-2"><a href="#电阻相关应用电路" aria-label="电阻相关应用电路">电阻相关应用电路</a></li><li class="toc-level-3"><a href="#限流电阻" aria-label="限流电阻">限流电阻</a></li><li class="toc-level-3"><a href="#电阻分压电路及应用" aria-label="电阻分压电路及应用">电阻分压电路及应用</a></li><li class="toc-level-3"><a href="#电流采样电路-检流电阻" aria-label="电流采样电路（检流电阻）">电流采样电路（检流电阻）</a></li><li class="toc-level-3"><a href="#放电电阻" aria-label="放电电阻">放电电阻</a></li><li class="toc-level-3"><a href="#rc滤波电路" aria-label="RC滤波电路">RC滤波电路</a></li><li class="toc-level-2"><a href="#锂电池-tp4056充电管理电路" aria-label="锂电池 &amp;amp; TP4056充电管理电路">锂电池 &amp;amp; TP4056充电管理电路</a></li><li class="toc-level-2"><a href="#数字地dgnd-模拟地agnd-电源地pgnd" aria-label="数字地DGND，模拟地AGND，电源地PGND">数字地DGND，模拟地AGND，电源地PGND</a></li><li class="toc-level-3"><a href="#1-dgnd-数字地" aria-label="（1）DGND，数字地">（1）DGND，数字地</a></li><li class="toc-level-3"><a href="#2-agnd-模拟地" aria-label="（2）AGND，模拟地">（2）AGND，模拟地</a></li><li class="toc-level-3"><a href="#3-pgnd-功率地" aria-label="（3）PGND，功率地">（3）PGND，功率地</a></li><li class="toc-level-2"><a href="#acs712电流检测电路" aria-label="ACS712电流检测电路">ACS712电流检测电路</a></li><li class="toc-level-2"><a href="#基于cd4051的模拟开关电路" aria-label="基于CD4051的模拟开关电路">基于CD4051的模拟开关电路</a></li><li class="toc-level-2"><a href="#sgm3204电荷泵负压生成电路" aria-label="SGM3204电荷泵负压生成电路">SGM3204电荷泵负压生成电路</a></li><li class="toc-level-2"><a href="#tb6612fng芯片-h桥驱动电路" aria-label="TB6612FNG芯片 H桥驱动电路">TB6612FNG芯片 H桥驱动电路</a></li><li class="toc-level-2"><a href="#mos管的选型-经典应用电路及栅级驱动器的使用" aria-label="MOS管的选型、经典应用电路及栅级驱动器的使用">MOS管的选型、经典应用电路及栅级驱动器的使用</a></li><li class="toc-level-3"><a href="#eg3014" aria-label="EG3014">EG3014</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><h2 id="电路基础概念">电路基础概念<a hidden class="anchor" aria-hidden="true" href="#电路基础概念">#</a></h2>
+<h3 id="数字电路和模拟电路">数字电路和模拟电路<a hidden class="anchor" aria-hidden="true" href="#数字电路和模拟电路">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-01%20113621.png" alt="屏幕截图 2025-07-01 113621">
+数字电路：0101010101，主要用于各种数字通信协议。
+模拟电路：0.1V，1.7V，主要用于模拟信号放大电路、声音信号、连续变化的信号的处理、滤波电路等。</p>
+<ul>
+<li><p>数字电路只有0和1的概念，并没有具体的多少伏电压，多少安的电流的概念，就只有一个参考电压，比如高电平是3.3V，低电平是0V，电路就会以很快的速度在3.3V和0之间跳变，没有中间状态，是离散的。
+  比如1.8V，在0V为0、3.3V为1的数字电路中就没有任何意义，1.8V代表0还是1？属于浮空，不确定电平。</p>
+</li>
+<li><p>而模拟电路则是具体的电压和电流，比如将0.6V±0.1V的正弦电压信号通过运放放大5倍，变成3V±0.5V的正弦电压信号；再比如我将声音信号通过三极管放大电路放大；再比如测量流过电机的电流在-2A到2A之间连续变化，这些电信号是有具体的电压/电流数值的，是连续的。</p>
+</li>
+</ul>
+<h3 id="vcc和gnd">VCC和GND<a hidden class="anchor" aria-hidden="true" href="#vcc和gnd">#</a></h3>
+<p>VCC(Volt Current Condenser)，就是电源电压、供电电压的意思。
+GND(ground)就是<mark>地</mark>。
+一块电池接入电路板，电池正极电压就是VCC，电池负极电压就是GND。</p>
+<h3 id="共地">共地<a hidden class="anchor" aria-hidden="true" href="#共地">#</a></h3>
+<p>在电路中，要判断一个电平信号的高低，就需要一个标准来判断，这个判断标准就是0电平(也叫地），要把同一个电源供电的所有芯片、模块电路的GND全部连在一起，这就是共地。</p>
+<p><strong>为什么要共地呢？</strong></p>
+<p>电池类型不同和电池化学反应等的差异都会导致电池负极的<strong>绝对</strong>电平不同，电池只管产生稳定的<strong>相对</strong>的电势差，并不能保证不同电池负极的<strong>绝对</strong>电平一样。
+<mark>所以我们拿一根线把不同电池的GND连起来，就可以保证负极电平一样了。</mark></p>
+<p><strong>任何功能+未共地=玄学现象。</strong>
+例1：两个未共地的模块IIC通信，程序一切正常，串口却收到一串乱码。
+例2：电机上层板发PWM控制下层驱动板驱动电机，电机毫无逻辑不受控制。
+因为负极参考电平都不一样，<mark>就比如有a，b两套彼此独立的电路，a电路的0V是b电路的2.765V</mark>，当然出问题。</p>
+<p><strong>什么时候可以不共地？</strong>
+当两个电路之间的信号传递不使用电信号时，可以不共地。比如后面讲到的光耦，把电信号转换成光信号通信，两部分电路就不需要共地。</p>
+<hr>
+<h2 id="ldo低压差线性稳压器">LDO低压差线性稳压器<a hidden class="anchor" aria-hidden="true" href="#ldo低压差线性稳压器">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-01%20114410.png" alt="屏幕截图 2025-07-01 114410"></p>
+<p>降压电路的核心是AMS1117-3.3，把外部输入的5V电压降压成3.3V。</p>
+<p>AMS1117芯片的本质就是一块LDO（低压差线性稳压器），简称线性稳压器。
+用一个极端简化的理解：ldo内部可以理解作一个自动调节的滑动变阻器，负载端电压大了就增大内阻；负载端电压小了就减小内阻。</p>
+<p>用最简单的原理：<mark>不断调节电阻分压来实现降压稳压的目的。</mark></p>
+<p>易得LDO的工作效率：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-01%20114620.png" alt="屏幕截图 2025-07-01 114620">
+输入输出压差越大，效率越低，发热越大；所以由此可见ldo的工作效率其实很低，输入输出的压差很大时，芯片会很热，实例：AMS1117-5.0芯片，把12V降压成5V，显然这样效率已经低于50%了，电路确实正常工作，但是AMS1117非常烫。</p>
+<p>AMS1117-3.3，-3.3就代表OUT端输出的是3.3V。
+AMS1117-5.0，代表降压后OUT端输出5V。</p>
+<p>AMS1117有三个端口:IN、OUT、GND。（OUT口有两个引脚）</p>
+<p>LDO最大的好处就是<mark>输出电压很平稳</mark>，由于输出端的电压是电阻分压出来的，所以输出电压几乎不会产生什么波动。</p>
+<p>综上，所以ldo的作用：</p>
+<ol>
+<li>经常用作产生一些信号处理电路的3.3V、5V基准参考电压；</li>
+<li>给小功率电路提供电源电压（如stm32主控电路）。</li>
+</ol>
+<ul>
+<li><strong>LDO芯片内部电路</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/Pasted%20image%2020250806153833.png" alt="Pasted image 20250806153833"></li>
+</ul>
+<h2 id="tvs二极管-稳压二极管">TVS二极管（稳压二极管）<a hidden class="anchor" aria-hidden="true" href="#tvs二极管-稳压二极管">#</a></h2>
+<p>稳压二极管最大的作用通俗一点总结就是：<mark>保护电路，牺牲自己。</mark>
+稳压二极管的伏安特性曲线：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/Pasted%20image%2020250702103915.png" alt="Pasted image 20250702103915">稳压二极管利用的是二极管的<strong>反向击穿区</strong>，Uz是反向击穿电压，是定值，比如5V、50V等。u&lt;Uz的部分就是稳压二极管的反向工作区。</p>
+<p>反向工作区的电流会在很大范围内变化，理论上的范围是[Iz, +∞]；
+而电压几乎不变化，基本就是Uz</p>
+<p>那这意味着什么呢？
+比如一个稳压二极管的额定电压是5V，那么把这个二极管并联到5V的电源电路里去；一旦电源供电波动，比如来了一个瞬时9V的尖峰噪声，9V超过了这个稳压二极管的额定电压，那么绝大部分的电流都会从稳压二极管流过，吸收掉这个尖峰，稳回5V，稳压二极管两端的电压一直都保持5V，与稳压二极管并联的回路也都是5V，起到了保护电路的效果。</p>
+<p>再看LDO电路。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-01%20114410.png" alt="屏幕截图 2025-07-01 114410">SMBJ5.0A和SMBJ3.3A就是两个TVS二极管，TVS二极管就是稳压二极管，一个稳压5V，一个稳压3.3V，属于安全电路，防止<mark>浪涌电压（突然升高的尖峰电压）</mark></p>
+<p><mark>注意是二极管阴极接VCC，阳极接GND，要记清楚稳压二极管应该工作在反向击穿区，画原理图的时候千万不要搞反了。</mark></p>
+<hr>
+<h2 id="dc-dc开关电源降压稳压电路滤波电容的原理与使用">DC-DC开关电源降压稳压电路&amp;滤波电容的原理与使用<a hidden class="anchor" aria-hidden="true" href="#dc-dc开关电源降压稳压电路滤波电容的原理与使用">#</a></h2>
+<p>这里面最重要的一个元件是LM2596芯片。
+LM2596是一款DC-DC开关电源芯片，它的作用就是降压。</p>
+<p><strong>DC-DC开关电源</strong>
+那么它与LDO降压有什么不同呢？
+不可能一直用L298N芯片内部的5V来给单片机供电，L298N不是专门用来降压的，L298N芯片也很贵。那怎么办呢？现在需要找一个其他的方案代替L298N降压。用什么方式呢？LDO？假如用12V电源5V驱动个大扭矩舵机，那估计带都带不动，而且LDO还会烫得冒烟。（LDO降压效率低，是类似于电阻分压式的降压，所以负载器件的功率如果很大就易发热）
+<strong>那有没有不用类似电阻分压来降压的方法呢？而且降压效率很高的那种？</strong></p>
+<p><strong>DC-DC</strong>，<strong>直流电-直流电</strong>，就是直流电转成直流电。
+AC-DC就是交流电转直流电（整流器）
+DC-AC就是直流电转交流电（逆变器）
+DCDC开关电源（以下简称DCDC）与LDO的降压方式并不相同。
+<strong>DCDC的原理与PWM的原理很类似，降压的DCDC开关电源可以草率理解为：一个带有反馈的，可自动调节的开关。</strong></p>
+<p>DCDC输入的是电源的恒定电压（比如锂电池的12V）；
+输出的是一种PWM，<strong>一种高电平为电源电压，低电平为0的PWM。</strong>
+PWM就是由这个“开关”以较高的频率不断开和关产生的。
+比如如果电池的12V不做任何处理，那么PWM的占空比是100%：U0代表电源电压，如下图：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20112813.png" alt="屏幕截图 2025-07-02 112813">
+假如想要6V电压，12V降压6V降一半，那么dcdc开关电源的PWM调节就开始起作用了，占空比是50%：代表DCDC的输出电压如下图：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20112850.png" alt="屏幕截图 2025-07-02 112850">
+上图可以很清楚地看见：占空比是50%的时候，相同时间内u与t围成的面积是占空比100%时候的1/2。
+现在我们把高于U0/2的部分“<strong>砍下来</strong>”，<strong>填补到电压是0的“坑”里</strong>：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20113151.png" alt="屏幕截图 2025-07-02 113151">
+从能量守恒的角度达到了降压的效果，把电源电压U0降压到了U0/2。</p>
+<p>但是在实际的电路中，“砍下来”和“填坑”的操作并不会仅靠一个DCDC开关电源就能完成，因为DCDC只能产生“大号PWM”，要么是12V，要么是0V，而我们理想波形需要的是平稳的6V，可以看下图，理想的波形和实际的波形还是有很大差距的：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20113223.png" alt="屏幕截图 2025-07-02 113223">
+为了得到平稳的理想波形，要做的就是<strong>滤波。</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20113620.png" alt="屏幕截图 2025-07-02 113620">
+LM2596芯片的原理图，后缀-5.0V表示固定降压成5V。
+LM2596-3.3，就是固定降压成3.3V
+LM2596-ADJ，就是可调节的降压芯片。
+ON/OFF是使能口，<strong>众所周知</strong>，因为ON上面带横线，所以代表低电平使能，所以直接接地，让芯片一直保持使能状态。
+IN接12V，OUT接5V。
+<strong>FB即feedback（反馈端），接输出电压，把输出的实际电压实时反馈给芯片，然后芯片自动闭环调节（有点类似于PID闭环调节）。</strong></p>
+<p>然后我们需要滤波：
+提到滤波我们就要想起电容：
+电容有<mark>储能</mark>和<mark>滤波</mark>的作用，所以在输出端加上电容：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20114011.png" alt="屏幕截图 2025-07-02 114011"></p>
+<p>一条非常重要的定理：<strong>电容两端的电压不能突变</strong></p>
+<p>《电路》中电容的基础公式：u是电容两端的电压，C是电容值，t是时间，i是流进/出电容的电流。</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">d</span><span class="mord mathnormal">u</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+
+<p>把上面的式子做一下变换：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.2222em;vertical-align:-0.8622em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011em;">∫</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">i</span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathrm">dt</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">u</span></span></span></span></span></span></div>
+==电容两端的电压是由流进/出电容的电流累积出来的，有积分，也就意味着u绝对不可能突变。
+正是因为电容两端的电压不能突变，而PWM的一大特点就是电压突变==，所以如果给PWM加个电容，那PWM就不能突变了，上升沿与下降沿都会从“悬崖”变成“斜坡”。
+
+<p>电容在并联在输出回路里的作用就是实现上面说的“砍掉高的一截”，然后“填坑”；也就是储能，它可以将下图多出的这部分电能储存起来，然后在没有电压的时候放出来，就像初中地理学的湖泊的作用：枯水期补充河流，洪水期储存洪水。</p>
+<p>一个合格的降压，不仅要输出稳定的电压，还要输出稳定的电流。</p>
+<p>电容虽然限制了电压的波动，但是如果电流没有一个器件限制波动，那电流就会十分任性，在PWM高电平段时，因为此时“开关”是打开的，所以相当于12V的锂电池与后端5V的输出负载实际上是在极短暂的时间内直接导通的，但是电流没有器件能限制，所以电流随便突变，那么电池的电流会以：</p>
+<p>12V/RL的极限电流输出给负载，RL是负载的等效电阻。</p>
+<p><strong>那么问题简化了：找个器件，能限制电流，让电流不能突变。</strong></p>
+<p><strong>电感</strong>
+电感的特点：<mark>电感两端的电流不能突变</mark></p>
+<p>电感是个线圈，高中知识电生磁，众所周知，线圈内流过变化的电流时会产生磁场。
+而磁场也是一种能量存储的形式，电感可以把电能转化成磁能。</p>
+<p>电感的加入正好抑制了给电容充电的电流的突变，让电流变得平和了：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20115321.png" alt="屏幕截图 2025-07-02 115321">但是上面这个电路还是有问题：电感在LM2596这个“开关”断开的时候并没有一个完整的放电回路</p>
+<p>LM2596开关电源可以看作是一个开关，那么在这个开关断开的时间里，
+电感左侧的线路断开了，并不能构成<strong>回路</strong>，这就导致电感内储存的电能无法释放，电感会让电流持续，如果没有放电回路，电感里储存的那些能量会产生很严重的很高的电压噪声尖峰，基本上会远超于输出额定电压，把流过的元器件都冲爆。</p>
+<p>所以需要给电感一个续流的回路，让开关电源断开的时间里使用电感持续输出电流：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20120359.png" alt="屏幕截图 2025-07-02 120359">上图就是我们巧妙的解决方案，在开关电源断开的时候，用电感回路继续供电。</p>
+<p>确定电感、电容和二极管的选型和参数：
+对于电容电感的参数确定来说，需要参考对应的DCDC电源芯片的手册，里面都有详细说明；但LM2596芯片过于经典，所以本次可以不看芯片手册，电容容值和电感的感值采用经验值，对其定性分析即可。<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20134854.png" alt="屏幕截图 2025-07-02 134854">上图完成了选型和取值</p>
+<p>电容大小采用芯片手册推荐电路里的值：220uF（220微法），微法级别的电容就算容值很大的了，有很强的储能的能力：
+这里可以理解为：电容容值越大就等同于湖的深度越深，调蓄洪水的能力就越强。
+也就是，面对开关电源产生的“波涛汹涌”的大号PWM，电容容值越大，滤波作用越强。
+如果我们要用电容主要来做储能作用，来对较大幅度的电压变化进行滤波，那我们就要选电解电容：
+<mark>注意！这种电容是有正负极的，接反了会爆炸。</mark></p>
+<p>同理，电感感值越大，输出的电流会越平稳，从而输出电压也会越平稳。
+手册推荐取33uH（33微亨），给它翻倍取个68uH，让电源稳如老狗。</p>
+<p>电容和电感都不能盲目增大，盲目增大电容的话，主要是电容太大了，占空间，再大也没什么用；电感也不能盲目增大，太大的电感会让整个DCDC系统迟滞，造成一些供电问题。</p>
+<p>二极管：SS54选型是肖特基二极管，又叫快恢复二极管。
+普通的二极管在突然施加反向电压的时刻，会有很大的反向电流：
+反向电流存在的这段时间就是<mark>反向恢复时间</mark>：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20135331.png" alt="屏幕截图 2025-07-02 135331">对于DCDC电路来说，二极管会遭受不断的、高频的正反向电压，一般的二极管在高频的正反向变化电压下，由于二极管<mark>反向恢复时间</mark>与<mark>开关电源关闭时间</mark>相当，所以二极管就会失去单向导电性，发生危险。</p>
+<p>而肖特基二极管就可以避免这个问题，因为肖特基二极管的反向恢复时间非常非常短，只有ns级别。</p>
+<p>到这里为止，基础的电路已经搭完了，这个降压稳压电路，我们又叫它：<mark>BUCK电路</mark></p>
+<h2 id="104电容">104电容<a hidden class="anchor" aria-hidden="true" href="#104电容">#</a></h2>
+<p>这只是电路基础部分，还要加一些器件，让电路更安全。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20135627.png" alt="屏幕截图 2025-07-02 135627">104电容的意思：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0585em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.13889em;">pF</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">100000</span><span class="mord mathnormal" style="margin-right:0.13889em;">pF</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">100</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0.1</span><span class="mord mathnormal">μ</span></span></span></span></span></div>一个《电路》里的公式：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2019em;vertical-align:-0.8804em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">c</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+
+<p>XC是电容的容抗，f是电压的频率，C是容值。</p>
+<p>众所周知，电容有<mark>隔直流，通交流</mark>的作用，所以就好理解这个公式了，交流电的频率越高，f越大，XC就越小，所以电容对这种高频电流的阻碍就越小，高频的噪声就从104电容流过而被消除了。</p>
+<p>需要注意的就是电容的容量越大，因为制作工艺的原因，其高频特性越差，所以在面对高频电路时，常常需要用小容量的电容，（nf级和pf级）</p>
+<p>所以104电容的作用就是<mark>消除高频噪声</mark>。</p>
+<p><strong>噪声就是电压曲线波动不平滑产生的毛刺。</strong></p>
+<p>PCB设计中，一般把104电容放在靠近芯片的位置，因为芯片（尤其是STM32、信号处理类芯片）是最怕高频噪声的，把104电容放在尽量靠近芯片的地方，被消除了高频噪声的干净电流就可以流入芯片了；</p>
+<p>如果104电容离芯片很远，那高频噪声可能在被104电容消除之后再次出现，失去了滤波的效果了。</p>
+<p>如下图，C2和C4就是104电容，芯片背面还有两个104，都离芯片非常近。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20135904.png" alt="屏幕截图 2025-07-02 135904">
+在buck电路里，一大一小两个电容相互配合，一个滤低频，一个滤高频。<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20135926.png" alt="屏幕截图 2025-07-02 135926">
+同理，LDO电路里的这些电容的作用是一样的<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-01%20114410%201.png" alt="屏幕截图 2025-07-01 114410 1">
+现在把LDO电路也加到BUCK电路后面：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20140041.png" alt="屏幕截图 2025-07-02 140041">就得到了一个两级降压的电路，12V-&gt;5V-&gt;3.3V
+最后，在左边也加入滤波电容，给输入的电源电压滤波；
+接上锂电池接线口，电池就可以直接接线了。
+最右边接个灯，电路工作一切正常的话，最右侧的灯就会正常亮了<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20140146.png" alt="屏幕截图 2025-07-02 140146">
+附录：
+1f=1000mf
+1mf=1000uf
+1uf=1000nf
+1nf=1000pf</p>
+<hr>
+<h2 id="tps5430">TPS5430<a hidden class="anchor" aria-hidden="true" href="#tps5430">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20161210.png" alt="屏幕截图 2025-07-02 161210">
+<strong>这里换了另外一款DCDC芯片，TPS5430。</strong>
+<strong>可以发现主回路都有熟悉的电感、肖特基二极管，都是一样的。</strong>
+<strong>只是信号部分比LM2596稍微有点复杂。</strong>
+<strong>其中4号脚VSENSE就是反馈脚，相当于LM2596的FB，这里有些差异，这个TPS5430芯片的输出电压不是固定的，具体输出电压要调节R14和R15两个电阻来实现，TPS5430的芯片手册里：</strong><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20162125.png" alt="屏幕截图 2025-07-02 162125">
+<mark>两个电阻值是根据这个公式挑选的。</mark></p>
+<p>8号脚PH就是OUT，电压输出。</p>
+<p>至于那个BOOT脚先不管就行，芯片手册让怎么接我们就跟着芯片手册学就行了，其他很多芯片也都是这样的，包括比如555定时器有一个脚一般都是固定接一个104电容的，照做即可。</p>
+<p>DCDC<strong>还有最后一个重点</strong>那就是PCB布线：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-02%20162350.png" alt="屏幕截图 2025-07-02 162350">因为开关电源流过的电流很大，一般用到的有1A~5A，所以走线都要尽量粗，但是过粗的走线也没有意义，一般是像上图一样刚好填满开关电源这一组器件的这一小块领域。</p>
+<hr>
+<h2 id="dc-dc开关电源升压稳压电路">DC-DC开关电源升压稳压电路<a hidden class="anchor" aria-hidden="true" href="#dc-dc开关电源升压稳压电路">#</a></h2>
+<p>buck电路学完了，接着学boost电路，怎么把5V升压到12V。
+boost升压芯片：<mark>MT3608</mark>
+MT3608芯片手册里的推荐电路图：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20114723.png" alt="屏幕截图 2025-07-04 114723">
+EN是enable的缩写，高电平使能，低电平休眠。
+其中这个FB引脚连接的R1 R2电阻分压电路，通过上一节结尾<mark>TPS5430</mark>的经验，<mark>这两个电阻一猜就是确定输出电压用的，FB肯定也有固定的参考电压。</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20114854.png" alt="屏幕截图 2025-07-04 114854">
+SW就是输出电压。IN就是输入电压。
+升压电路的主回路当然就是：5V输入到IN，12V从SW输出</p>
+<p>主回路的架构怎么理解？电感和二极管为什么放在这？
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20115247.png" alt="屏幕截图 2025-07-04 115247">
+SW是一个开关，当SW断开时，左侧的5V可直接流入负载RL输出端
+假如此时SW突然闭合：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20115400.png" alt="屏幕截图 2025-07-04 115400">
+左侧因为<mark>电感两端电流不能突变</mark>，所以上图标注的电流IL会从0开始逐渐增大
+通过电感公式可以定性地知道，<mark>电感两端会产生一定的电压</mark>
+因为开关闭合，所以开关上端直接与GND相连了，所以该点电压为0。</p>
+<p>右侧电路。二极管D的左侧正极是0V，右侧还是5V，所以二极管反向截止。右侧还是保持5V因为<mark>电容两端的电压不能突变</mark></p>
+<p>片刻后，当电感电压达到峰值的瞬间，再次断开SW开关：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20115744.png" alt="屏幕截图 2025-07-04 115744">
+此时电感两端会带有一定的电压UL，那么二极管左侧的总电压是5V+UL，已经大于二极管右侧了，所以电流流入负载端，负载端电压超过5V达到12V
+其实与上一节的原理是非常像的。
+三个核心元件：<mark>电感、二极管、储能电容，三者缺一不可。</mark></p>
+<p>原理了解清楚了回到MT3608上：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20120018.png" alt="屏幕截图 2025-07-04 120018">
+电路基本就和原理演示图一模一样。
+但要注意的是：boost升压电路得到的输出电压驱动能力很弱。
+举个例子：假如以5V/20W的功率给自举电路供电，也就是5V/4A，那么由于boost升压芯片的效率肯定小于100%，所以得到的12V输出其实可用功率可能只有15W，也就是最大只有1.2A左右的电流，一般boost升压电路是专门给一些电压较高的轻负载、控制信号电路供电的，比如后续MOS管驱动电路的栅级驱动器的12V供电</p>
+<hr>
+<h2 id="继电器控制电路-光耦">继电器控制电路 &amp; 光耦<a hidden class="anchor" aria-hidden="true" href="#继电器控制电路-光耦">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20120603.png" alt="屏幕截图 2025-07-04 120603">
+继电器的作用实际上就是一个“电子开关”
+机械开关是手动控制，那同理，继电器这个<mark>电子开关</mark>就是用<mark>电信号控制</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20120722.png" alt="屏幕截图 2025-07-04 120722">
+这个“电子开关”的作用实际就是控制A与B导通还是C与B导通
+上图的原理就是：
+初始状态：由于B连着的弹簧的机械作用，把衔铁杠杆向上拉，A与B的触点相互接触，所以电磁铁不通电的时候，A与B连通，C是断开的。
+现在将DE端通电，电磁铁绕的线圈通电产生使电磁铁产生磁力，把衔铁向下吸合，B就会与C的触点相互接触，B与C连通，A断开。</p>
+<p>再来看继电器模块的简图：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20121550.png" alt="屏幕截图 2025-07-04 121550">
+上图是<mark>继电器模块（注意是模块，不是继电器单体）</mark>的原理图：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20121443.png" alt="屏幕截图 2025-07-04 121443">
+左边是继电器模块，右图是继电器单体，也就是模块上那个最大的蓝方块。
+COM脚（common）公共端，也就是对应着上面图3：继电器单体结构图中的B端。
+NC（close）代表常闭端，也就是不通电也是导通的一端，对应着图3的A端。
+NO（open）代表常开端，也就是线圈通电才导通的一端，对应着图3的C端。
+VCC和GND是给继电器线圈通电的电源和地。
+<mark>IN</mark>端是控制口，由单片机GPIO输入一个高低电平信号，高电平线圈通电，低电平线圈不通电。</p>
+<p>右图继电器的引脚，一共有五个，而继电器模块有六个引脚，多了一个IN口，IN口来控制继电器线圈供电，也就是控制了继电器的通断</p>
+<p>但如果不加辅助电路，单片机区区一个电平信号控制不了大继电器的通断，所以需要外搭控制电路
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20152011.png" alt="屏幕截图 2025-07-04 152011"></p>
+<ul>
+<li>继电器就是K1，可以看到元件图上5是com端，5与3相连，所以3是常闭端（NC）</li>
+<li>PC817是<mark>光耦</mark></li>
+</ul>
+<p><mark>耦合</mark>：“信号的传递”，光耦：以光传递信号<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20152518.png" alt="屏幕截图 2025-07-04 152518">
+左边是个发光二极管，右边是个光敏元件，可以接收到光信号，有光右边导通，没有光断开</p>
+<p>为什么不用单片机推挽输出控制？
+理论上可以。但举个例子，假如工程用的CPU非常昂贵，一块CPU一万块钱（有点夸大），这时候用这个CPU去控制一个200KV的高压电继电器（交流接触器）的通断开关，就问你敢不敢直接连。</p>
+<p>所以为了完全分开<mark>高压高干扰的强电电路</mark>与低压小信号的弱电电路，光耦是个最好的选择，弱电这边控制一个小灯发光，强电那边用一个接受光的器件接受信号，做到了电路上的完全隔开，非常安全！
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20152853.png" alt="屏幕截图 2025-07-04 152853">
+所以这个图，左边就是单片机的led电路，p0.8是某种单片机的一个引脚，推挽输出高低电平，控制光耦内部灯（和LED1指示灯）的亮灭，从而控制右边：三极管Q1的导通与关闭。（模电知识：三极管的基极必须接电阻，上图的三极管会分别工作在饱和和截止状态），三极管的导通和关闭又控制了线圈的导通和关闭，<mark>这样电路就会非常安全了</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20153344.png" alt="屏幕截图 2025-07-04 153344">
+最后是1N4148二极管，<mark>1N4148是最普通的普通二极管</mark>
+因为继电器的线圈本质上就是一个电感，<strong>电感的电流不能突变</strong>，所以线圈在关断的瞬间也需要续流。
+1N4148是个续流二极管，由于继电器并不像boost电路那样需要高频地开和关，打开就“啪”的一下，不工作了就关掉，所以用不到肖特基二极管，普通二极管即可。</p>
+<p>继电器开关在目前项目中用的很少，一般都用MOS管代替</p>
+<hr>
+<h2 id="gpio八种输入输出模式">GPIO八种输入输出模式<a hidden class="anchor" aria-hidden="true" href="#gpio八种输入输出模式">#</a></h2>
+<p>==浮空输入
+上拉输入
+下拉输入
+模拟输入
+推挽输出
+开漏输出
+复用推挽
+复用开漏==</p>
+<h3 id="浮空输入-上下拉输入">浮空输入、上下拉输入<a hidden class="anchor" aria-hidden="true" href="#浮空输入-上下拉输入">#</a></h3>
+<ul>
+<li>GPIO的输入模式怎么读取IO口信息：正常的GPIO口内都有可以读取当前IO口电平的寄存器
+PA0口为例，可以用PAin(0)函数来读取PA0是高电平还是低电平</li>
+</ul>
+<p><mark>如果PAin(0)=1则为高电平，PAin(0)=0就是低电平</mark></p>
+<p><mark>其次，在所有的输入模式下，都可以近似看作没有电流流入IO口内。</mark>
+意思就是输入模式下的IO口不会对外部电路的功能有任何影响，不需要对其做任何模拟电路上的分析
+	IO口的输入就像探针一样，接在电路的任何位置不会对电路产生影响</p>
+<ul>
+<li><strong>浮空输入</strong></li>
+</ul>
+<p><mark>IO的电平状态是不确定的，完全由外部输入决定，如果在该引脚悬空的情况下，读取该端口的电平是不确定的。</mark></p>
+<p>下图这个电路，单片机PA0连接着一个按钮，按钮左侧是高电平。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20190235.png" alt="屏幕截图 2025-07-04 190235">
+如果把PA0配置为浮空输入，按下按钮时，PAin(0)应该为1；但松开按钮后，PAin(0)不一定=0，因为浮空输入在不与任何外部电路连通的情况下，电平未知。
+也就是PAin(0)可能等于1也可能等于0.
+所以浮空模式并不适用于按键电路</p>
+<p><mark>当外部电路不会让IO口成为高阻态的时候</mark>，可以用浮空电路
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-04%20190626.png" alt="屏幕截图 2025-07-04 190626">
+比如上图：
+在按钮右边连了一个10k的电阻接地。
+首先按下按钮时，PAin(0)=1，因为流过10K电阻的电流特别小，可忽略，所以VCC3.3通过10K电阻流向GND这条路几乎是断的。
+所以如果一直按着按钮，PA0检测到的一直是1（3V3高电平）</p>
+<p>当松开按钮，PA0也并不是高阻态了，这时PA0只跟GND相连，会迅速跟GND等电位，这样松开按钮后，PAin(0)=0
+这个电阻就叫做<mark>下拉电阻</mark></p>
+<p>所以，下拉输入模式就是在单片机内部集成了这么一个电阻。</p>
+<p>如果将下图PA0配置为下拉输入模式，<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20105600.png" alt="屏幕截图 2025-07-05 105600">
+则松开按钮PAin(0)=0, 按下PAin(0)=1,可以正常运行。</p>
+<p>同理，下图的10k电阻就成了<mark>上拉电阻</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20105750.png" alt="屏幕截图 2025-07-05 105750">
+区分上拉还是下拉，就看通过这个电阻将电平拉到了1还是0，拉到1就是上拉，0就是下拉</p>
+<p>上拉、下拉、浮空输入常用在按键、编码器正交接吗、uart通信的RX口、IIC通信的SDA输入状态、SPI通信接收口等，广泛用于数字电路的各种通信协议。</p>
+<p>设计上下拉电阻电路时的<mark>电阻阻值选择原则</mark>：
+为了节约芯片功耗，<u>电阻应当足够大</u>；电阻越大，电流越小，但电阻值也不能过大，通常在1k到10k之间选取。</p>
+<h3 id="推挽输出-复用推挽输出">推挽输出、复用推挽输出<a hidden class="anchor" aria-hidden="true" href="#推挽输出-复用推挽输出">#</a></h3>
+<p>推挽输出配合电路图：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20110348.png" alt="屏幕截图 2025-07-05 110348">
+上图是简化版推挽输出的电路（省去了三极管基极电阻）
+当IN输出1时，三极管S8050（NPN三极管）饱和导通，S8550（PNP三极管）关断，IO就有了3.3V的输出。
+当IN输出0时，反之，则IO就是0。</p>
+<p>推挽输出是最常用的GPIO输出模式：
+VCC与IO之间没有电阻，所以推挽输出有一定的驱动能力，可以驱动LED灯，小电机等需要一定驱动电流（几十mA）的电路。
+推挽输出的最大特点是可以真正能输出高电平和低电平，在两种电平下都具有驱动能力。</p>
+<ul>
+<li>复用推挽输出就是推挽输出。复用的意思就是把IO口的控制权交给外设来处理。比如uart，串口1用了PA9作为TX端，配置为复用推挽输出，由UART外设自己控制PA9的电平高低。</li>
+</ul>
+<h3 id="开漏输出-复用开漏输出">开漏输出、复用开漏输出<a hidden class="anchor" aria-hidden="true" href="#开漏输出-复用开漏输出">#</a></h3>
+<p>类似的电路有<mark>开漏输出</mark>和开集输出
+一个是MOS管，“漏”指的漏极；
+一个是三极管，“集”指的是集电极。
+由于用MOS管较多，就用“开漏输出”这个词代替了开漏输出和开集输出。
+三极管搭建的等效电路图如下所示：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20124240.png" alt="屏幕截图 2025-07-05 124240">
+开漏输出的IO口相当于一个连到GND的开关，input为1时，开关闭合，0时打开。
+开漏输出的功能很少使用，因为这个电路看似可以给Output端接任意大小的电压源，但是实际上STM32还是受不了的，，所以基本不用STM32的开漏输出。
+复用开漏跟复用推挽一样，把IO口配置成开漏输出给外设使用。</p>
+<h3 id="stm32-gpio电路图">STM32 GPIO电路图<a hidden class="anchor" aria-hidden="true" href="#stm32-gpio电路图">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20124603.png" alt="屏幕截图 2025-07-05 124603">
+首先看推挽输出的路径：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20124713.png" alt="屏幕截图 2025-07-05 124713">
+其中输出驱动电路：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20124812.png" alt="屏幕截图 2025-07-05 124812">
+寄存器信号传到输出控制电路，这个电路的控制方式与三极管推挽输出电路相同，只是换成了MOS管
+如果是开漏输出就只用下面的N-MOS
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20125107.png" alt="屏幕截图 2025-07-05 125107">
+这两个二极管是<mark>钳位电路</mark>，属于安全保护电路
+VDD是电源电压，STM32中为3.3V
+VSS就是GND
+钳位电路会防止IO口输出的电压大于3.3或者小于0（负电压）</p>
+<p>再看浮空输入、上下拉输入的路径<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20125417.png" alt="屏幕截图 2025-07-05 125417">
+可以看到它们都经过了同一个元件：<mark>施密特触发器</mark>
+TTL施密特触发器的作用：将模拟信号转化为矩形信号，标准化数字电平
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20125526.png" alt="屏幕截图 2025-07-05 125526">
+（woc，有点像pwm的原理）
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20125627.png" alt="屏幕截图 2025-07-05 125627">
+上拉电阻和下拉电阻，浮空输入的时候两个开关都断开，上下拉分别闭合对应的开关即可。</p>
+<h3 id="模拟输入">模拟输入<a hidden class="anchor" aria-hidden="true" href="#模拟输入">#</a></h3>
+<p>模拟输入是最简单的，不经过施密特触发器，直接输入原生态的电压。</p>
+<hr>
+<h2 id="电阻相关应用电路">电阻相关应用电路<a hidden class="anchor" aria-hidden="true" href="#电阻相关应用电路">#</a></h2>
+<h3 id="限流电阻">限流电阻<a hidden class="anchor" aria-hidden="true" href="#限流电阻">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20145136.png" alt="屏幕截图 2025-07-05 145136">
+为什么这里要连电阻而不是一根导线直接连过去？
+<mark>限流电阻</mark>：顾名思义，限制电流的电阻</p>
+<p>普通二极管的伏安特性曲线：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20145320.png" alt="屏幕截图 2025-07-05 145320">
+二极管接正向电压，通过的电流大小是随着电压的升高呈指数级增长的。
+<mark>一般的二极管的导通压降都只有0.7V左右，如果在两端正向接3.3V将会烧坏二极管</mark>
+这时串联一个限流电阻可以分走一部分电压，将二极管的压降稳定在0.7V，那上图的限流电阻就分走了3.3-0.7=2.6V电压，支路电流=2.6/220=12mA，可以使发光二极管正常亮</p>
+<p>三极管基极电阻也属于限流电阻，三极管的输入特性曲线如下图所示：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20150345.png" alt="屏幕截图 2025-07-05 150345">
+可以看出来跟二极管的正向特性曲线是一模一样的，所以三极管的基极上都会有一个电阻（限流电阻）</p>
+<h3 id="电阻分压电路及应用">电阻分压电路及应用<a hidden class="anchor" aria-hidden="true" href="#电阻分压电路及应用">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20150503.png" alt="屏幕截图 2025-07-05 150503">
+非常常用
+原理：欧姆定律</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">P</span><span class="mord mathnormal mtight">A</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord">24</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span></span></div>
+<mark>用处1：测电压</mark>
+上图可以用来测电源的电压。
+如果输入的24V电池没电了，已经降到了22V，那PA1出也会等比例下降，则通过电阻分压电路，通过ADC测量PA1的电压，可以很容易算出电源电压
+
+<p><mark>用处2：调整参考电压</mark>
+如果有一个2.5V±2.5V的正弦信号需要用ADC进行采样，但STM32的ADC量程只有0-3.3V。
+可以接一个电阻分压电路，把5V量程等比例缩放到3.3V，<mark>这个2.5V±2.5V正弦信号的例子将是ACS712将要解决的</mark></p>
+<p>应用举例：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20151426.png" alt="屏幕截图 2025-07-05 151426">
+这里同时应用了电阻限流和电阻分压两种电路
+BAT就是battery，接入一个3.7V的锂电池，右边的ADC1的标签就是电压采样点的意思，ADC1这里的电压就是0.5倍的电池当前电压</p>
+<h3 id="电流采样电路-检流电阻">电流采样电路（检流电阻）<a hidden class="anchor" aria-hidden="true" href="#电流采样电路-检流电阻">#</a></h3>
+<p>上面是怎么测电压，这里是怎么测电流
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20151909.png" alt="屏幕截图 2025-07-05 151909">
+电阻采样法测电流：在需要测电流的支路上串联一个精密微小阻值电阻，电流流过这个0.01R电阻就会产生一个小压差，测量这个电阻两端的电压，得到的电压除以0.01，欧姆定律就可以算出当前的电流</p>
+<p>真正使用时会用运算放大器把信号进行放大</p>
+<h3 id="放电电阻">放电电阻<a hidden class="anchor" aria-hidden="true" href="#放电电阻">#</a></h3>
+<p>放电电阻：用于电源电路中大电容的电荷泄放
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20153133.png" alt="屏幕截图 2025-07-05 153133">
+DCDC降压电路图：与之前相比加了一个大阻值电阻R5</p>
+<p>当锂电池突然断开连接时，C5电容里是充满电荷的状态，如果电荷无处泄放则会储存在C5里，有安全隐患
+R5的初衷是泄放掉C5的电荷，防止电到人
+但实际上断电后C5的电荷会被后级的电路快速用光，没必要加放电电阻</p>
+<p>所以放电电阻用于电容断电后<u>会完全隔绝无法泄放时的电路，直白的解释就是电源输出端没接任何负载的电路，没东西耗电，电就会一直存着</u></p>
+<h3 id="rc滤波电路">RC滤波电路<a hidden class="anchor" aria-hidden="true" href="#rc滤波电路">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20154437.png" alt="屏幕截图 2025-07-05 154437">
+跟原先比加了R5和C7，<mark>构成了一个RC滤波电路</mark>
+简单理解：在电源输入端像这样，串联一个电阻并联一个电容，<mark>就能使电源缓启动，且信号滤除干扰</mark></p>
+<p>RC首先可以防止通电一瞬间尖峰电压过大，除去尖峰；
+其次也可以滤除高频噪声<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20154743.png" alt="屏幕截图 2025-07-05 154743">
+可以看到如果不加RC，高频噪声会增多，而且通电瞬间会产生尖峰。</p>
+<p>RC滤波电路的具体原理：
+下图输入信号Ui经过一个RC滤波电路变成了Uo。<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20154956.png" alt="屏幕截图 2025-07-05 154956">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20155102.png" alt="屏幕截图 2025-07-05 155102">
+所以频率大于5kHz的噪声就会被RC滤波器滤，同时由于电容两端的电压不能突变，以及电阻的限流，可以避免通电瞬间电压出现尖峰。</p>
+<blockquote>
+<p>RC滤波的应用除了在电源安全上，在信号处理中还有很多用处</p>
+</blockquote>
+<h2 id="锂电池-tp4056充电管理电路">锂电池 &amp; TP4056充电管理电路<a hidden class="anchor" aria-hidden="true" href="#锂电池-tp4056充电管理电路">#</a></h2>
+<p>常用的<mark>锂离子电池</mark>，简称锂电池
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20193605.png" alt="屏幕截图 2025-07-05 193605">
+里面是一节一节的下图这种18650电池组成的电池组<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20193712.png" alt="屏幕截图 2025-07-05 193712">
+<mark>一节18650电池也被称作一个“电芯”，一节锂离子电池的标准电压是3.7V，满电状态下一节电池是4.2V</mark>，这两个参数很重要也很通用</p>
+<p>所以我们常用的12V电池<mark>其实是个电池组</mark>，三节锂电池串联，也就是有三个电芯。三节电池串联的标准电压是3.7*3=11.1V，满电状态是12.6V
+同理，两节锂电池串联，两个电芯，标准电压7.4V，满电8.4V</p>
+<p>航模电池：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-05%20194107.png" alt="屏幕截图 2025-07-05 194107">
+7.4V/11.1V，和上面的两节、三节锂电池串联起来的电压一样
+<mark>2S 3S 4S：S就是series（串联）的缩写。</mark>
+1100mAh/1500 mAh /2200 mAh
+<mark>mAh是电荷量的单位，用于衡量电池的容量。</mark>1100mAh就是这个电源以1100mA也就是1.1A持续放电，把电放完要1小时。</p>
+<p><strong>为什么用航模电池</strong><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20101033.png" alt="屏幕截图 2025-07-06 101033">
+因为航模电池会配备这种特制充电器，可以对电池的每个电芯单独充电，防止每个电芯充电不均匀，导致电池寿命下降太快</p>
+<ul>
+<li>针对于单节锂离子电池(标准电压3.7V)的电池充电管理电路：基于芯片TP4056
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20101403.png" alt="屏幕截图 2025-07-06 101403">
+分为五个部分</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20101643.png" alt="屏幕截图 2025-07-06 101643">
+锂电池输入接口
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20101718.png" alt="屏幕截图 2025-07-06 101718">
+地分割，因为锂电池充电电流较大，把两种GND分割开来
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20101935.png" alt="屏幕截图 2025-07-06 101935">
+TYPEC接口，但没有用到信号部分，只用来5V供电
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20102025.png" alt="屏幕截图 2025-07-06 102025">
+<strong>TP4056充电电路</strong>
+<mark>这个芯片的作用就是外部的5V从VCC输入，然后芯片内部自动降压为3.7~4.2V并从BAT口输出，给电池充电</mark>，自动适配单节锂电池的充电。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20102314.png" alt="屏幕截图 2025-07-06 102314">
+其中CHRG和STDBY引脚就是类似充电指示灯的作用
+C1是旁路电容，C2是储能电容
+R3、R4用于信号口的限流，起安全作用，很多芯片的信号口都会这样，接一个10K左右的电阻</p>
+<p><strong>R2 1.2K:</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20102826.png" alt="屏幕截图 2025-07-06 102826">
+想让充电速度快一点，所以选1.2K，速度可达最快1A</p>
+<p>电路用法：</p>
+<ul>
+<li>在一些最高电平只需要3.3V的设备中可以用到TP4056芯片</li>
+<li>当锂电池有电时，无论TYPEC接不接电源，TP4056的BAT端都会输出3.7V~4.2V，所以可以给BAT端串联一个LDO，降压到3.3V给后续电路标准电压。这是一种典型应用</li>
+</ul>
+<hr>
+<h2 id="数字地dgnd-模拟地agnd-电源地pgnd">数字地DGND，模拟地AGND，电源地PGND<a hidden class="anchor" aria-hidden="true" href="#数字地dgnd-模拟地agnd-电源地pgnd">#</a></h2>
+<p>有时电路里会有<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20103544.png" alt="屏幕截图 2025-07-06 103544">
+AGND，PGND
+地的分割：<mark>在电路设计中，为了降低不同的电路之间的相互干扰，所以会引入不同的地线，从而形成不同的0V参考点，为各个功能电路的电流分开提供各自的回路</mark></p>
+<h3 id="1-dgnd-数字地">（1）DGND，数字地<a hidden class="anchor" aria-hidden="true" href="#1-dgnd-数字地">#</a></h3>
+<p>接触最多的地，比如单片机电路，I2C等数字通信电路等，在之前的电路设计中把DGND都简写为了GND</p>
+<p>由于数字电路是010101的电平跳变：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20104000.png" alt="屏幕截图 2025-07-06 104000">
+<mark>所以数字电路的电压在快速变化，所以数字电路产生的电流也会快速变化。众所周知，电流都是由VCC经过负载之后流入GND的，单片机也算是一个小的负载，里面乱七八糟好多高速的数字电路都有0101的快速的小股电流突变，而这些电流最后都要汇入GND，GND再流回电路负极，也就是通过同一个出口离开这个电路板</mark></p>
+<p><mark>这就导致DGND的GND平面很凌乱，很多小电流流过引起小信号的波动干扰，造成GND平面的参考电压有一些噪声</mark></p>
+<h3 id="2-agnd-模拟地">（2）AGND，模拟地<a hidden class="anchor" aria-hidden="true" href="#2-agnd-模拟地">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20104000%201.png" alt="屏幕截图 2025-07-06 104000 1">
+ 模拟电路比如ADC采样电路，DAC电路，运算放大电路等</p>
+<p>这些电路的电流和电压都是<mark>慢速连续变化的</mark>，远没有数字电路那么“激烈”，而且电路常走的都是微弱电压信号，所以这就有一个要求：
+<em><strong>模拟电路的地必须非常纯净！</strong></em>，不能有较多干扰的噪声
+所以数字电路GND的电压波动噪声会导致模拟电路的参考电压不稳，可能导致模拟信号失真</p>
+<h3 id="3-pgnd-功率地">（3）PGND，功率地<a hidden class="anchor" aria-hidden="true" href="#3-pgnd-功率地">#</a></h3>
+<p>数字电路和模拟电路都是小功率电路，像电机驱动电路，自动加热电路这种属于大功率电路，在电机电路中，比如电机启动、急停，噪声都非常大。<mark>对数字电路和模拟电路都有较大影响，如果不加TVS元件控制，可能一个大负载电机刹车的噪声都能让输入电压反转</mark></p>
+<p>所以在设计电路时：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20105032.png" alt="屏幕截图 2025-07-06 105032">
+会有一个0R电阻，两边连两种GND，这就是<mark>单点接地</mark>，通过小电阻把不同的GND分隔开。通过0R电阻使两个GND之间只通过一个狭窄通道相连。</p>
+<p>电流汹涌大小：功率地&gt;数字地&gt;模拟地
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20105411.png" alt="屏幕截图 2025-07-06 105411"></p>
+<blockquote>
+<p>通俗理解就是：每种电路对噪声的要求不一样，所以要区分开</p>
+</blockquote>
+<p>这种单点接地对于任何频率的信号都有衰减作用，可以有效限制噪声的传递。</p>
+<hr>
+<h2 id="acs712电流检测电路">ACS712电流检测电路<a hidden class="anchor" aria-hidden="true" href="#acs712电流检测电路">#</a></h2>
+<p>有时想检测某一条电路的电流，有什么合适的芯片？选型有以下要求：
+	1.希望电路要简便易用，不需要太复杂的电路设计
+	2.对于电流精度要求不是太高，到0.1A就行
+→ <mark>ACS712</mark></p>
+<p>ACS712是一款电流检测芯片，利用<strong>霍尔效应</strong>进行采样
+	电流垂直于外磁场进入半导体，垂直于电流和磁场的方向会产生一个附加电场，也就是有了电势差，ACS712就通过检测这个电势差来检测电流的大小。</p>
+<p>阅读芯片手册：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20152843.png" alt="屏幕截图 2025-07-06 152843">
+阴影这句话说的是它的检测误差，在25°C时是1.5%fs
+1.5%fs：fs（full-scale）满量程的意思，1.5%fs就是指检测误差是芯片检测量程的1.5%，比如检测量程是±5A，那误差就是(±5)* 1.5%=±0.075A。</p>
+<p>可以发现ACS712并不是那么准，它的芯片有三种量程，分别是：
+±5A、±20A、±30A，
+则算出每种量程的误差：
+±5 * 1.5%=±0.075A
+±20 * 1.5%=±0.3A
+±30 * 1.5%=±0.45A
+所以一般就用±5A量程的，误差最小。</p>
+<p>芯片的使用：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20153127.png" alt="屏幕截图 2025-07-06 153127">
+芯片一共有八个引脚，用法就是将芯片串联在待检测的支路里，电流从IP+流入，从IP-流出；电流反向的话，IP-流入，IP+流出也是可以的；VCC接5V，FILTER是滤波器，外接一个小电容进行滤波；VIOUT作为电压信号输出</p>
+<p>VIOUT信号的具体输出值：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20153642.png" alt="屏幕截图 2025-07-06 153642">OUT与Ip（待测电流）的关系如上图所示，是线性的，中间值是2.5V，电流是负的代表方向是从IP-流向IP+。</p>
+<p>05A规格的计算公式：
+Vout = 2.5 + 0.185 * Ip</p>
+<p>20A规格的计算公式：
+Vout = 2.5 + 0.1 * Ip</p>
+<p>30A规格的计算公式： 
+Vout = 2.5 + 0.066 * Ip</p>
+<p>设计电路：
+一个问题：ACS712只能5V供电，而STM32的参考电压是3.3V
+解决方法是使用电阻分压电路，通过<mark>两个电阻分压</mark>，把0<del>5V的基准等比例转到0</del>3.3V的基准
+如图所示：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-06%20153953.png" alt="屏幕截图 2025-07-06 153953">
+右边的MOT1和MOT01代表把电路串在了有刷电机回路里，可以测量电机的电流，两个104电容用来消除高频噪声</p>
+<p>左边VIOUT输出之后经过了一个电阻分压电路，分压后的电压U3输入到运放LM358的同相输入端（3口），分压公式是：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1297em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+为什么要分成四个电阻：
+因为要考虑实际有没有对应阻值的电阻，比如根本没有阻值为24.6k的贴片电阻，所以拆成24K和2.4K两个电阻</p>
+<p>运放的作用：
+分压后输出的电压U3，经过了一个<mark>电压跟随器</mark>电路，最终图中AOUT口的电压完全等于U3；电压跟随器只是用于保证信号的隔离，避免外界噪声的影响</p>
+<hr>
+<h2 id="基于cd4051的模拟开关电路">基于CD4051的模拟开关电路<a hidden class="anchor" aria-hidden="true" href="#基于cd4051的模拟开关电路">#</a></h2>
+<p>如果是为了机器人应用没必要学习数电里<mark>门电路</mark>的应用
+一种还算有用的芯片：<em><strong>模拟开关/多路复用器</strong></em>
+以CD4051为例。
+<mark>CD4051是一个八选一模拟开关芯片</mark>
+下面是八选一模拟开关的测试电路：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20185102.png" alt="屏幕截图 2025-07-09 185102"></p>
+<p>八选一模拟开关是什么意思？
+首先它是一个开关，这个开关有公共端，也就是3号引脚 I/O
+有八个选择端：上图中的Y0<del>Y7，所以这是一个电子的“<mark>单刀八掷开关</mark>”
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20185542.png" alt="屏幕截图 2025-07-09 185542">
+八选一就是只能选择Y0</del>Y1八路中的一路与公共端 I/O 导通
+分路选择的控制方式：通过A2、A1、A0三个口，也就是上图中的C B A三个口，这三个口都能输入高低电平，也就是各能代表一个二进制位，三个二进制位正好表示八种状态。</p>
+<p>芯片手册里的真值表：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20190631.png" alt="屏幕截图 2025-07-09 190631">
+与原理图备注有区别，A2是C，A1是B，A0是A</p>
+<p>INHIBIT是阻止的意思，6号引脚<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20190821.png" alt="屏幕截图 2025-07-09 190821">INH脚低电平是芯片使能，所以原理图六号引脚接地
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20191133.png" alt="屏幕截图 2025-07-09 191133"></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20191158.png" alt="屏幕截图 2025-07-09 191158">
+VDD是正功率输入，VEE是负功率输入，VSS是GND</p>
+<p>VEE和VSS不一样↓
+	全新概念：<mark>负电压</mark>
+GND只是一个参考的零位，并不是绝对0V，有比GND电位低的点</p>
+<p>这也是CD4051强大的地方，这个芯片同时结合了数电和模电，并且做好了它们之间的隔离，<u>用数电电平来控制哪一路导通，然后模拟信号通过指定导通的回路。</u><mark>当模拟信号有负电压时，VEE≠VSS</mark></p>
+<p>比如CD4051要通过一个±2.5V的正弦波，那么VDD就要接2.5V，<mark>VEE要接-2.5V电压源</mark>，而VSS接GND也就是0V。GND是DGND，给数字电路部分用的，而VDD和VEE是给模拟信号用的</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20230441.png" alt="屏幕截图 2025-07-09 230441">
+最后看整个电路图，因为只做简单的电路测试，输入0<del>3.3V电压，所以VEE和VSS都接AGND。
+并且只接入了Y0和Y1两路
+其中Y0只能介入0</del>3.3V的信号，而Y1路有个1/10的电阻分压，可以接入0~33V的大电压信号，同时出于安全，并联了一个3.3的TVS二极管</p>
+<hr>
+<h2 id="sgm3204电荷泵负压生成电路">SGM3204电荷泵负压生成电路<a hidden class="anchor" aria-hidden="true" href="#sgm3204电荷泵负压生成电路">#</a></h2>
+<ul>
+<li>关于如何生成负电压
+  <mark>电荷泵</mark></li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20231020.png" alt="屏幕截图 2025-07-09 231020">
+电荷泵原理演示图</p>
+<p>首先让S1和S4关闭：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20231135.png" alt="屏幕截图 2025-07-09 231135">飞跨电容的两侧有5V的压差</p>
+<p>紧接着断开S1和S4，关闭S2和S3：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20231254.png" alt="屏幕截图 2025-07-09 231254">
+飞跨电容左侧与GND相连，变为0V，但是<mark>电容两端电压不能突变</mark>，所以之前Cf左右相差5V，这个差值无法瞬间改变，所以Cf右端变为-5V，实现负电压的生成</p>
+<p>然后S2和S3断开，关闭S1和S4<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20231606.png" alt="屏幕截图 2025-07-09 231606">如上图，<mark>此时S2的断开非常巧妙，把负压输出与前端电路隔开，负压由输出电容Co保持。</mark>
+然后就是按照上面的步骤循环往复</p>
+<p>常用的负压芯片是SGM3204，原理就是电荷泵<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-09%20232003.png" alt="屏幕截图 2025-07-09 232003">连接其实非常简单，输入端和输出端都配有储能电容和旁路电容，C27是个飞跨电容</p>
+<hr>
+<h2 id="tb6612fng芯片-h桥驱动电路">TB6612FNG芯片 - H桥驱动电路<a hidden class="anchor" aria-hidden="true" href="#tb6612fng芯片-h桥驱动电路">#</a></h2>
+<ul>
+<li>一个新的电机驱动芯片，在机器人开发中可以替代L298N</li>
+<li>TB6612FNG，简称TB6612，是一款双H桥电机驱动芯片，一个芯片可以带动两个直流有刷电机</li>
+</ul>
+<p>H桥电路：两个NPN三极管 + 两个PNP三极管<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20095135.png" alt="屏幕截图 2025-07-10 095135"></p>
+<blockquote>
+<p>但由于三极管能承受的电流较小，目前市面上电机驱动的H桥电路的开关管都换成了MOS管（场效应管），MOS管可以承受比三极管更大的电流。包括L298N和TB6612芯片内的电路  ，用的也是MOS管而不是三极管，由<mark>四个N沟道MOS管</mark>组成H桥
+（MOS管与三极管的控制方法基本一致，可以先当成电子开关用）</p>
+</blockquote>
+<p>再细分一下，这个H桥又叫做全桥电路，由两个半桥电路组成，比如下图左边两个MOS管构成一个半桥电路，右边两个又构成一个半桥电路。</p>
+<p>在半桥电路中，上下桥臂不可以同时导通，因为同时导通会导致DCBUS和GND短路，烧坏电路；
+所以下图，上半桥臂用PWM控制，<mark>下半桥臂就必须用上半桥臂的PWM的互补波形控制</mark>。<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20102122.png" alt="屏幕截图 2025-07-10 102122">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20102145.png" alt="屏幕截图 2025-07-10 102145"></p>
+<ul>
+<li>TB6612和L298N的比较<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20102435.png" alt="屏幕截图 2025-07-10 102435">TB6612：一般比赛 / 小项目
+  因为控制一个电机只需要一路PWM信号，省下了定时器的资源；
+  其次TB6612模块的体积更小。更容易集成到电路板上。</li>
+</ul>
+<p>TB6612也有麻烦的地方，那就是接线会比L298N多一些
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20102645.png" alt="屏幕截图 2025-07-10 102645">三个GND：右上GND是数字地，下面两个GND是功率地，接地的时候两个GND都要接。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20102927.png" alt="屏幕截图 2025-07-10 102927"></p>
+<ul>
+<li><p><mark>VM</mark>：驱动电机的电压，最大15V，为了安全最大接到12V</p>
+</li>
+<li><p><mark>VCC</mark>：数字电平的参考电压，用stm32就接3.3V</p>
+</li>
+<li><p><mark>PWMA、PWMB</mark>：两个电机的控制信号，TB6612一个电机只需要一路PWM控制</p>
+</li>
+<li><p><mark>AIN1、AIN2</mark>：控制电机1的方向，AIN1=1，AIN2=0则电机正转，AIN1=0，AIN2=1则电机反转。</p>
+</li>
+<li><p><mark>BIN1、BIN2</mark>：控制电机2的方向，同理</p>
+</li>
+<li><p><mark>AO1、AO2</mark>分别接电机1的两端，<mark>BO1和BO2</mark>分别接电机2的两端</p>
+</li>
+<li><p><mark>STBY</mark>：（standby）待命状态，需要接高电平（3.3V），代表电机驱动为待命状态，可旋转；当STBY=0时，有信号输入点击也不会转</p>
+</li>
+<li><p>将模块电路集成至电路板
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20104206.png" alt="屏幕截图 2025-07-10 104206">首先通过芯片手册里的芯片引脚图可以知道，GND做了分割分成GND和PGND，所以设计电路也要做好分割；
+然后由于TB6612控制一个电机的方向需要两路IO口，比较浪费，所以设计了两个非门电路：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20105629.png" alt="屏幕截图 2025-07-10 105629">
+  两个三极管都工作在饱和状态，当开关用，只有AIN1和BIN1接到单片机的两个IO口，分别控制两个电机的方向。
+  当AIN1=1时，三极管导通，AIN2=0，电机正转；当AIN1=0时，三极管关断，AIN2处上拉，AIN2=1，电机反转。
+  <mark>图中R21和R22是上拉电阻</mark>
+  <mark>R24和R25是基极限流电阻</mark></p>
+</li>
+</ul>
+<p><u>限流电阻和上拉电阻的值分别怎么取？</u></p>
+<ul>
+<li>基极电阻：因为三极管的输入特性曲线和二极管的伏安特性曲线一样
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20110101.png" alt="屏幕截图 2025-07-10 110101">如果不接限流电阻，Ube=3.3V，电流就会非常大，烧掉三极管
+  <mark>三极管工作在饱和状态所选用的基极电阻的阻值一般选1K-10K（为什么呢？）</mark>因为三极管工作在深度饱和状态下的话，三极管放大倍数就很低了，一般电流放大倍数hFE就是十几倍，  <div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">FE</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
+  取hFE为10，设ic是10mA，计算得ib为0.001A
+  由于三极管的输入特性曲线，三极管的Ube压降在0.7V左右：</li>
+</ul>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3.3</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0.7</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mclose">)</span><span class="mord">/0.001</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">10</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord">Ω</span></span></span></span></span></div>
+	计算出是10K，但是这里基极电阻取2K，因为一般这里取计算值的1/2，1/3或者1/5，用这种冗余来保证深度饱和状态，总之三极管的饱和工作状态其实<mark>不需要多么深入的计算</mark>，往极限里取值，基极电阻小一点，ib就越大，越容易深度饱和，总没错。
+
+<ul>
+<li>上拉电阻：一般都取10K
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20111347.png" alt="屏幕截图 2025-07-10 111347">所以有了这个非门电路，单片机就可以不用接AIN2和BIN2了，省下两路IO口
+PWMA、PWMB、AIN1、BIN1四个口直接连到单片机对应的IO口</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20111710.png" alt="屏幕截图 2025-07-10 111710">两个编码器电机的接口，AO1、AO2接电机1的两端，BO1、BO2接电机2的两端；VCC5和GND是给编码器供电的；CDDE_XA和CODE_XB是编码器的AB相，分别接到单片机对应正交解码的IO口。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20112152.png" alt="屏幕截图 2025-07-10 112152">这两个电容需要尽量靠近TB6612FNG芯片，一个是大容值铝电解电容，一个是100nf的小电容</p>
+<ul>
+<li>大电容用于储存电荷，比如电机起转时需要一个很大的电流，这个时候电容就可以快速及时地利用储存的电荷形成大电流供给点击用。</li>
+<li>104小电容放在芯片的VCC引脚旁边，<mark>作为输入数字参考电压源的滤波电容滤除高频噪声</mark></li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20112540.png" alt="屏幕截图 2025-07-10 112540">TB6612在布线时走线的3D图和2D图
+可以看到下面这一排线都很粗，都使用了铺铜走线，因为电机的电流直接流过这几个引脚，所以布线要尽量粗；上面那一排除了DCBUS都是信号线，走线就可以很细</p>
+<hr>
+<h2 id="mos管的选型-经典应用电路及栅级驱动器的使用">MOS管的选型、经典应用电路及栅级驱动器的使用<a hidden class="anchor" aria-hidden="true" href="#mos管的选型-经典应用电路及栅级驱动器的使用">#</a></h2>
+<ul>
+<li>MOS管的应用
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20140951.png" alt="屏幕截图 2025-07-10 140951">简单概括模电里讲的MOS管的工作原理：栅级g不与其他两级导通，通过给g一定的电压，使g与B形成电场从而把电子吸到s与d连接处形成沟道</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20142951.png" alt="屏幕截图 2025-07-10 142951">
+N-MOS和P-MOS原理图画法的区别：</p>
+<ol>
+<li>N-mos的小箭头是往栅极里面指，而P-mos的小箭头是往栅极外面指。</li>
+<li>N-mos的寄生二极管是从源极指向漏极的，P-mos相反。</li>
+</ol>
+<p>先说N-MOS的应用，在实际电路中，无论是电机驱动、加热电路等大电流驱动电路，还是信号通断的小电路，N-MOS都用的比P-MOS多</p>
+<ul>
+<li>电路中，可以把MOS管看作一个电子开关。
+MOS管比继电器和光耦等其他开关元件的优点：</li>
+</ul>
+<ol>
+<li><mark>开关频率高</mark>，一般mos管的开关频率都在几百KHz，这是继电器无论如何也达不到的高频率，频率高的好处就是可以放大高频的PWM信号。通过单片机PWM控制mos管的栅极，从而控制更大的电压产生电压更大、电流更大的PWM，用这个大电压电流的PWM去控制电机，加热电阻等</li>
+<li>通过电流大，这是光耦也无法企及的。50A、100A大电流对MOS管来说很正常</li>
+</ol>
+<ul>
+<li>N-MOS管的导通条件：
+随便找一款MOS管为例，要了解这个mos管的各项参数。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20143941.png" alt="屏幕截图 2025-07-10 143941">
+首先右边有个小表，有三个参数：</li>
+</ul>
+<p><mark>VDS</mark>：100V，VDS就是漏极与源极之间的最大电压。看上图N-MOS的符号可知，N-MOS的寄生二极管正极是连着源极的，<mark>也就是MOS管在当开关用的时候，漏极电压必须大于源极电压</mark>，不然如果VS&gt;VD，电流就全走寄生二极管了
+<mark>R<sub>DS(on)</sub></mark>：是MOS管完全导通时DS之间的内阻，是2.5mΩ
+<mark>ID</mark>：漏极电流，也就是MOS管完全导通时从DS流过的最大电流，达到了180A</p>
+<p>继续往下翻找其它参数：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20150519.png" alt="屏幕截图 2025-07-10 150519">V<sub>GS</sub>，最大的栅极电压
+为什么是V<sub>GS</sub>，栅极电压VG与源极S有什么关系
+因为N-MOS管很多时候都要接GND，N型MOS管的VG要比VS大，管才能导通。在实际应用中，源极经常接地，所以在源极S接地时，V<sub>GS</sub>就是VG，也就是栅极对于GND的电压
+±20V是因为P-MOS的V<sub>GS</sub>要&lt;0才能导通</p>
+<p>再往下翻：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/Pasted%20image%2020250710150835.png" alt="Pasted image 20250710150835">V<sub>GS(th)</sub>也很重要，是MOS管刚刚导通状态时的栅极电压。当栅极电压大于或等于V<sub>GS(th)</sub>，MOS管会开始导通。如果想让MOS管完全导通，至少需要取3倍的V<sub>GS(th)</sub>，但是不能超过V<sub>GS</sub>的最大允许值±20V，所以可以设置栅极电压V<sub>GS</sub>为15V或者12V，4~5倍于V<sub>GS</sub>。既保证了完全导通，又不会超过最大允许电压</p>
+<p>那么怎么形成12V或15V的PWM呢？
+这就要用到<mark>栅极驱动器</mark>
+栅极驱动器（栅极驱动芯片）的作用就是将小电压信号转换成大一点的电压信号，但也只是大电压信号，并没有驱动能力，所以栅极驱动器专门用于给MOS管的栅极提供合适的电压，比如：
+STM32输出的PWM高电平是3.3V，经过栅极驱动器，就可以输出高电平为12V、15V的大电压PWM信号。</p>
+<h3 id="eg3014">EG3014<a hidden class="anchor" aria-hidden="true" href="#eg3014">#</a></h3>
+<p>一款栅极驱动器：<mark>EG3014</mark><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20151457.png" alt="屏幕截图 2025-07-10 151457"><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20151506%201.png" alt="屏幕截图 2025-07-10 151506 1"></p>
+<p>为什么有两个N-MOS管：
+排除两个mos管之外的所有电容、电阻元件得到：<mark>半桥电路</mark><img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20151756.png" alt="屏幕截图 2025-07-10 151756">因为大功率mos管很多都是用于控制电机的，而电机就需要用到桥式驱动电路，所以栅极驱动器为了方便驱动也这么设计，一次驱动两个mos管</p>
+<ul>
+<li>芯片用法：
+  <mark>HIN、LIN</mark>用于输入两路3.3V的PWM信号，分别控制两个N-MOS管。
+  HIN控制半桥电路上端（高端）的MOS管（H就是high的意思）；
+  LIN控制半桥电路下端（低端）的MOS管（L就是low的意思）。
+  <mark>HO</mark>连接高端mos管的栅极；
+  <mark>LO</mark>连接低端mos管的栅极。
+  <mark>芯片的VCC</mark>就是想把PWM的高电平设为多少，上图典型电路接的VCC是15V。接个12V也是可以的，这样放大出来的PWM，高电平就是12V。</li>
+</ul>
+<p>从硬件层面分析典型电路上的电器元件的作用：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20152115.png" alt="屏幕截图 2025-07-10 152115">R2是<mark>栅极电阻</mark>：
+	栅极必须串联一个电阻，用于缓冲信号的冲击，一般取10欧以内，典型值是2.2Ω，属于安全防护电路。
+D2是<mark>反向二极管</mark>：
+	用于电荷的快速泄放，栅极信号变至低电平时，电荷可以通过反向二极管更快速泄放出来，属于安全防护电路。
+C4是<mark>旁路电容</mark>，用于消除高频噪声，老朋友了。</p>
+<p><mark>VB和VS的作用</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20151756%201.png" alt="屏幕截图 2025-07-10 151756 1">假设上图是H桥电路的左半部分，OUT端连着电机。电机和右半部分桥没画出来
+假设此时+Vin是<em>48V</em>，这时让<em>高端MOS开启，低端MOS关闭。</em>
+时简单分析即可知，此时<em>OUT端的电压就是+Vin的电压，48V。</em>
+那这就有个大问题：N型MOS管的导通条件是VGS&gt;0，现在栅极电压是12V，源极电压是48V，VGS&lt;0。
+<mark>这个高端mos管只要一导通，VGS就&lt;0，马上又关断了</mark>
+<mark>而且低端MOS就不存在这个问题，低端的源极电压始终保持在0。</mark></p>
+<p>解决这个问题就用到了自举升压电路
+芯片内部有一个升压电路，可以将高端输出HO的高电平抬高</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">O</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.07153em;">CC</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">Vin</span></span></span></span></span></div>也就是电压抬高到12V+48V=60V，这样栅极电压是60V，源极电压是48V，MOS管就正常导通了。
+
+<p>而这个升压电路就要用到剩下的那两个口了：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20153011.png" alt="屏幕截图 2025-07-10 153011">手册对于这两个口的解释：VB是高端悬浮电源；VS是高端悬浮地端。
+高端就是半桥电路上面的那个MOS管。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20153217.png" alt="屏幕截图 2025-07-10 153217">VS接两个MOS管中间，也就是高端MOS的悬浮地，在高端MOS管看来，OUT口这里的电位就是它的地，所以VS接这里，然后通过串联一个电容，另一端接到VB。
+上图，其中C2是<mark>电荷泵</mark>。
+电荷泵是一种DC-DC电压变换电路，这个电容的参数选型很有讲究：
+	首先，这个电容的耐压必须要是两倍于Vin电源电压的，也就是这个电路如果电源电压是48V，那电容选型就要选100V耐压的，所以电容封装也会相应增大，一般选1206封装的<mark>无极性电容</mark>
+	其次，这个芯片手册图标注也有问题，这里要选无极性电容，而不是极性电容。
+	第三是电容容值的选型，这个跟选的MOS管的参数有关：先返回这个MOS管的手册，去找一个参数：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20153711.png" alt="屏幕截图 2025-07-10 153711">Q<sub>G</sub>是栅极总电荷，也就是栅极充满电之后能储存多少电荷。</p>
+<p>电荷泵自举电容的计算由自举电容选取经验公式求得。</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">BOOT</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">CC</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>C<sub>BOOT</sub>为电荷泵选择电容的容值，Q<sub>G</sub>栅极总电荷，V<sub>CC</sub>为<mark>栅极驱动器供电电压</mark>（不是电源电压）。
+比如我们这个电路，Q<sub>G</sub>=169nC，V<sub>CC</sub>=12V：
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">BOOT</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">CC</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.2114em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5254em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">12</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">169</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord">10</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8484em;"><span style="top:-3.0973em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">140</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></span></div>那就选150nF、100V耐压、1206封装电容。
+
+<ul>
+<li>PWM的控制方式：
+由于半桥电路工作时，高端MOS打开，那低端MOS就必须关断，反之也是，总之工作时两个MOS必须一开一关。这就对控制的PWM波形有要求，需要一路PWM波和一路<mark>互补PWM波</mark>。
+这个互补pwm波去哪找呢？STM32的高级定时器就可以输出。STM32F103C8T6只有TIM1一个高级定时器，TIM2~4都是通用定时器。输出代码是后话。</li>
+</ul>
+<p>接下来看一个自动加热电路：<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20154132.png" alt="屏幕截图 2025-07-10 154132">看起来很复杂，还是用摘除法：
+把ACS712那一大堆电路都去掉，最后发现就只有右边一个很简单的加热电阻供电电路，SSW-1P是一个安全开关，在电路故障时物理切断；
+那剩下的元件就只有一个MOS管开关了，这个电路就比电机驱动简单多了，首先它不分高端和低端，不需要升压就可以驱动MOS管，所以这个栅极驱动器芯片的HO端就没接线，只用了LO端。‘</p>
+<p>另外多了R9和D2<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20154356.png" alt="屏幕截图 2025-07-10 154356">这两个元件是按照大功率电机的推荐电路补上的元件。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-10%20154433.png" alt="屏幕截图 2025-07-10 154433">右下角的跳线帽是选择使用电池12V还是升压电路升压得到的12V。
+这个电路就是上面讲到的那个开关电路的简化版，非常好用，可以带各种各样的大电流负载：水泵、水阀、直流电机、大灯、直流风扇，什么都行。</p>
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/%E7%94%B5%E8%B7%AF/">电路</a></li></ul><nav class="paginav"><a class="prev" href="/posts/stm32第二部分学习/"><span class="title">« 上一篇</span><br><span>STM32第二部分学习（待命中）</span></a><a class="next" href="/posts/linux学习笔记-2025/"><span class="title">下一篇 »</span><br><span>【理论】Linux学习笔记</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>电机控制 | Zhanghr</title>
+  <meta name="description" content="直流有刷电机、电机驱动与控制学习笔记。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/电机控制/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/电机控制/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="电机控制">
+  <meta property="og:description" content="直流有刷电机、电机驱动与控制学习笔记。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2025-08-01T00:00:00+08:00">
+  <meta property="article:modified_time" content="2025-08-01T00:00:00+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="电机控制">
+  <meta name="twitter:description" content="直流有刷电机、电机驱动与控制学习笔记。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"电机控制","datePublished":"2025-08-01T00:00:00+08:00","dateModified":"2025-08-01T00:00:00+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/电机控制/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">电机控制</h1>
+      <div class="post-meta"><span title="2025-08-01 00:00:00 +0800 CST">August 1, 2025</span>&nbsp;·&nbsp;<span>21 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#一-直流有刷电机基础原理" aria-label="一、直流有刷电机基础原理">一、直流有刷电机基础原理</a></li><li class="toc-level-2"><a href="#二-步进电机原理及细分驱动控制" aria-label="二、步进电机原理及细分驱动控制">二、步进电机原理及细分驱动控制</a></li><li class="toc-level-2"><a href="#三-直流无刷电机基础原理" aria-label="三、直流无刷电机基础原理">三、直流无刷电机基础原理</a></li><li class="toc-level-2"><a href="#四-快速上手直流无刷电机速度pid控制" aria-label="四、快速上手直流无刷电机速度PID控制">四、快速上手直流无刷电机速度PID控制</a></li><li class="toc-level-2"><a href="#五-直流无刷电机矢量控制-foc-引子" aria-label="五、直流无刷电机矢量控制（FOC）引子">五、直流无刷电机矢量控制（FOC）引子</a></li><li class="toc-level-2"><a href="#六-foc算法核心" aria-label="六、FOC算法核心">六、FOC算法核心</a></li><li class="toc-level-2"><a href="#七-svpwm技术原理及代码分析" aria-label="七、SVPWM技术原理及代码分析">七、SVPWM技术原理及代码分析</a></li><li class="toc-level-2"><a href="#八-foc驱动器电路设计" aria-label="八、FOC驱动器电路设计">八、FOC驱动器电路设计</a></li><li class="toc-level-3"><a href="#drv8313" aria-label="DRV8313">DRV8313</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><h2 id="一-直流有刷电机基础原理">一、直流有刷电机基础原理<a hidden class="anchor" aria-hidden="true" href="#一-直流有刷电机基础原理">#</a></h2>
+<p><strong>直流有刷电机</strong>是做各类小车竞赛最常用的电机，主要原因是控制非常的简单：给电就转
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250801114029.png" alt="Pasted image 20250801114029">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250801114042.png" alt="Pasted image 20250801114042">
+ <strong>直流有刷电机（brushed DC motor）</strong> 物理模型</p>
+<p>任何电机都有定子和转子
+<em>定子</em>：
+红色绿色的两块大磁铁（永磁体）是直流有刷电机的定子，定子是静止不动的，定子的作用就是提供磁场。
+<em>转子</em>：
+转子就是在不停旋转的。
+红色的commutator（换向器）和连接换向器的方形蓝色线圈就是转子的模型。换向器和方形线圈是刚性连接的。整个蓝色方形线圈都在由定子磁铁形成的磁场中，这里的理想物理模型是水平的、由N指向S的匀强磁场。</p>
+<p>有刷电机工作时，转子需要通电。当转子的蓝色方形线圈中通有电流时，通过电磁感应原理，在磁场中的通电导线会产生安培力。安培力让电机转起来，使用左手定则可判断安培力的方向：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">L</span></span></span></span></span></div> <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250801114734.png" alt="Pasted image 20250801114734"></p>
+<ul>
+<li><strong>电刷</strong>
+石墨是导电的。石墨电刷是个软的、导电的刷子，电刷配合换向器，解决了两大难题：</li>
+</ul>
+<ol>
+<li>电机电源线不会拧成麻花了。</li>
+<li>电机在上述线圈竖直的情况下，正好是换向器的换向点，让方形线圈的电流反向，把两个安培力的方向反向，这样电机只要通一个恒定的直流电就可以朝着一个方向一直转下去。</li>
+</ol>
+<ul>
+<li><strong>减速比</strong>
+简单的原理：<em>减速增矩</em>：意思就是减小速度就可以增大扭矩。
+初中物理学过：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span></span></div>转换一下：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span></span></span></span></span></div> 而功率：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span></span></span></span></span></div> 功率是由供电决定的。在功率基本不变的情况下：
+电机的转速越快，力矩就越小；
+电机的转速越慢，力矩就越大。</li>
+</ul>
+<p><mark>减速比就是使用机械的方法（齿轮组）来降低电机的转速</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250801163126.png" alt="Pasted image 20250801163126">
+小齿轮要转好多圈大齿轮才能转一圈，这就实现了减速，其扭矩也会以相应的传动比增大。</p>
+<ul>
+<li>什么情况下要用到减速增矩？
+  例子：目前材料有6V的电池和一个额定6V的小马达，要求用这个电机提起一斤的猪肉。
+  如果没有减速器，这对于小马达来说实在是太难了，这时安装机械减速器，把小马达包装成减速比为1:256的小黄电机，这样就能提起来一斤猪肉了。
+  另一个例子解释减速增矩：汽车起步，汽车起步要用1挡，也就是减速比最大的挡位，这样可以得到最大的驱动力。</li>
+</ul>
+<p>大扭力电机：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250801164329.png" alt="Pasted image 20250801164329">
+795电机的扭力可以达到0.5N* M，直流有刷电机能达到0.5N* M，也就是5kg* cm</p>
+<ul>
+<li><p><strong>额定电压</strong>：规定额定电压是多少就要用多少V的电池供电</p>
+</li>
+<li><p><strong>空载电流和堵转电流</strong>：
+F=BIL，其中B是永磁体产生的磁感应强度，是不变的；L是线圈导线长度也不变；那么可以知道，<strong>电机的转矩是直接由电机的电流控制的</strong>。电流越大转矩越大。</p>
+</li>
+</ul>
+<p>空载电流应该是非常小的，电机无负载状态，即电机匀速转动。<mark>在无摩擦的理想状态下，匀速旋转不需要能量，电流为0即可保持匀速旋转。</mark>
+但是空载还是需要一定的电流，来克服摩擦力和空气阻力，使电机的电磁转矩与这两个阻力矩平衡，但是这两个阻力相对于负载力来说还是太小了。所以空载电流就很小，所以此时电机两端的电压会很大。</p>
+<p>堵转电流：电机用上了最大的力气（电磁转矩），也就是用上了最大的电流。流过电机的电流会很大，而这时的电机两端的电压会很小。</p>
+<p>有刷电机相关的控制算法：PID速度闭环，PID位置闭环，PID电流闭环</p>
+<hr>
+<h2 id="二-步进电机原理及细分驱动控制">二、步进电机原理及细分驱动控制<a hidden class="anchor" aria-hidden="true" href="#二-步进电机原理及细分驱动控制">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250802105533.png" alt="Pasted image 20250802105533"></p>
+<blockquote>
+<ol>
+<li>可以使用定时器来精确控制步进电机的转速；</li>
+<li>由于步进电机的步距角一定，可以精确控制电机的位置</li>
+</ol>
+</blockquote>
+<p><strong>步进电机介绍：</strong>
+步进电机的特点：</p>
+<ol>
+<li><mark>扭矩大</mark>。工作中的步进电机的轴的力气非常大，足以应对一些需要很大扭矩的工况，解决了一般的直流有刷电机“软弱无力”的问题。</li>
+<li><mark>精度高</mark>。步进电机最大的特点就是步进，不同于直流有刷电机给电就转，步进电机每次移动的角度是定死的，比如一步就转1.8°，非常精确。</li>
+<li><mark>外观好看</mark>。看起来高端大气。</li>
+</ol>
+<p>步进电机的缺点：
+<mark>转速低</mark>。步进电机主要应用于低速大扭矩。</p>
+<p><strong>步进电机原理：</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250802105918.png" alt="Pasted image 20250802105918">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250802110110.png" alt="Pasted image 20250802110110">
+步进电机由定子和转子组成，上图是电机的定子结构，具体介绍上图：
+与有刷电机的结构相反，步进电机的定子是线圈绕组，而转子是永磁体。<mark>有刷和步进电机的原理虽然都是基于电磁感应，但是结构和运行原理则是完全不同的。</mark></p>
+<p>常使用的步进电机是<strong>两相四线步进电机，步距角1.8°</strong>。
+两相：电机只有A相线圈和B相线圈
+四线：伸出了四个线头（A+,B+A-,B-），外部接线就只需要接这四条线。</p>
+<p><mark>定子中间的转子可以简化为一块永磁体</mark>：如下图，
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250802111348.png" alt="Pasted image 20250802111348">
+给A相通入A端流入，A1端流出的电流，发现A和A1两个线圈就变成了两块电磁铁，吸住转子，让转子保持在这个位置。</p>
+<p>...待完成</p>
+<hr>
+<h2 id="三-直流无刷电机基础原理">三、直流无刷电机基础原理<a hidden class="anchor" aria-hidden="true" href="#三-直流无刷电机基础原理">#</a></h2>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/147659820" target="_blank" rel="noopener noreferrer">【自制FOC驱动器】深入浅出讲解FOC算法与SVPWM技术 - 知乎</a></p>
+</blockquote>
+<p>直流无刷电机有三条线：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822195705.png" alt="Pasted image 20250822195705">
+<mark>直流无刷电机相比直流有刷电机，直流有刷电机有两条引线</mark>，稚晖君原话：“不要小看多出来的这一条引线，直接让电机控制从一维的标量变成了二位的矢量”</p>
+<p>直流无刷电机的内部结构与步进电机非常非常相似：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822195810.png" alt="Pasted image 20250822195810"></p>
+<p>与步进电机相同的是：无刷电机的结构与步进电机是相同的，也是<mark>定子线圈绕组和永磁体转子</mark>。</p>
+<p>不同：步进电机是两相四线，无刷电机一般都是<mark>三相三线</mark>，大部分使用的无刷电机内部接线的三相中间是星形连接
+	星形连接在中小功率电机控制中有很多优势</p>
+<p>无刷电机定子绕组手绘图：三相三线，星形连接
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822200112.png" alt="Pasted image 20250822200112"></p>
+<p>以六个绕组线圈为例：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822200155.png" alt="Pasted image 20250822200155">
+三个线圈交替得电就能让永磁体转子转起来：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822200256.png" alt="Pasted image 20250822200256">
+让bc两相接地，a相接电源，假设此时流入1A的电流，b和c相就各流过0.5A的电流。
+根据<mark>电生磁的右手定则</mark>，三相线圈都产生磁场，并对中间的磁铁产生磁力。
+根据同性相斥，异性相吸，看出三个磁力合力方向是水平向右的，所以转子磁铁方向就是图中的方向，N极向右
+<mark>同样：</mark>如果是bc两相接电源，a相接地，那就是bc都流入0.5A的电流，a流出1A的电流，磁力方向相反。</p>
+<p>另一种情况：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822201727.png" alt="Pasted image 20250822201727">
+B端悬空，a接电源，c端接地，这样只有两个绕组可以对永磁体有磁力，计算得到合力的方向和大小如上图。</p>
+<hr>
+<h2 id="四-快速上手直流无刷电机速度pid控制">四、快速上手直流无刷电机速度PID控制<a hidden class="anchor" aria-hidden="true" href="#四-快速上手直流无刷电机速度pid控制">#</a></h2>
+<p>市面上常用的直流无刷电机：
+<img loading="lazy" decoding="async" src="https://vcnxmjs0vohu.feishu.cn/space/api/box/stream/download/asynccode/?code=NjM5NDgyMDJlMDkyZTRkMmUxYjJjNzc2NjVkNGI1ZTlfRlhDSklodWMwSnlITjhSSDA5eFFYb1BISng4dWZHUU1fVG9rZW46V3BJWWJiM292b1FaT2h4dHNONWNTNTBnbjdiXzE3NTU4NjUyNTU6MTc1NTg2ODg1NV9WNA" alt="|275">
+上图是转子在内，定子在外的直流无刷电机。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822202150.png" alt="Pasted image 20250822202150">
+上图是转子在外，定子在内的无刷电机。</p>
+<ul>
+<li>无刷电机的参数：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822202605.png" alt="Pasted image 20250822202605">
+  <mark>电机KV值：</mark> 电机的转速（空载）= KV值 X 电压；
+  例如KV630的电机在10V电压下它的转速（空载）就是6300转/分钟。
+  <mark>出轴直径：</mark>5mm螺纹，就找对应的5mm螺母，螺柱等连接需要的结构。
+  <mark>极对数：</mark>7
+  直流无刷电机的永磁体是N极、S极成对交替排列的。N极加S极的数量就是电机的级数，其成对的数量就是电机的极对数。电机极对数=电机极数/2 。
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822203004.png" alt="Pasted image 20250822203004">
+  <strong>极对数越大，电机转矩越大。极对数越小，电机转速越高。</strong>
+  <mark>工作电压：</mark>推荐12V，又标注3s-4s，那理论上可以到16V。
+  <mark>工作电流：</mark>10A，一般来说工作电流在10A及以上的电机就可以拿来做机械臂力矩电机提重物用了。</li>
+</ul>
+<p>有刷电机控制仅用一个H桥通过PWM就可以控制电机转速，但无刷电机的控制电路比H桥要复杂</p>
+<p>要<mark>快速上手</mark>无刷电机速度控制，且控制目标是以下内容：
+使用无刷电机驱动无人机；
+使用无刷电机应用在一些<mark>高速旋转</mark>的情况下，比如水下推进器、电动艇；
+也就是完全把无刷电机当做一个<mark>强度可调的动力源</mark>。</p>
+<p>可以选择一款电机控制产品来快速实现控制要求：
+<strong>直流无刷电机电子调速器</strong>
+简称无刷电调，又直接简称“电调”
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822210958.png" alt="Pasted image 20250822210958">
+接线：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822211314.png" alt="Pasted image 20250822211314">
+T插，XT60和很粗的两条线：一条红一条黑
+三头杜邦线，三条蓝色的粗线，各接了一个3.5mm的香蕉头</p>
+<p>红色黑色的粗线用来接电源；三根蓝线接无刷电机的三条线，三条线顺序随意，<strong>任意对换两条线的顺序则电机转向反向。</strong>
+三头杜邦线：白色信号线接PWM，红色是5v可不接，黑色接GND</p>
+<p>所以无刷电机的控制方式也明确了，通过一路pwm输入到电调里就可以控制无刷电机转速了，非常简单，变得跟有刷电机一样简单了。</p>
+<ul>
+<li>电调参数：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250822212644.png" alt="Pasted image 20250822212644">
+  <mark>输出能力：</mark>持续电流12A：同一个电机，电流越大电机的扭矩越大，等负载下转速也越快
+  <mark>电源输入：</mark> 接多大的电池。两节电池组， 一节锂离子电池是3.7V，充满电是4.2V，两节就是8V，三节就是12V。电源输入参数还可以看电调上标的另一个参数：
+  <img loading="lazy" decoding="async" src="https://vcnxmjs0vohu.feishu.cn/space/api/box/stream/download/asynccode/?code=Mzk1ZjBjZDAwZDA2MGQ3NDExODkwOTAxZmNlNjFiZmZfWlExZmExNTlabFFaUEJ6WDVMZmhRM0hZV2ZKaTN4TGJfVG9rZW46S0FKTGJ6V09Mb05sdHV4ZEc3T2NKRHpsbjBlXzE3NTU4NjkzNjI6MTc1NTg3Mjk2Ml9WNA" alt="">
+  2-3S，代表可以接2-3个锂电池组，也就是8V-12V电源都可以。
+  <mark>BEC：</mark> BEC 全称是battery elimination circuit，免电池电路，也就是电调可以外部给别的设备供电，输出5V，最大电流2A，通过三条“舵机线”中间红色的那一条
+  但大多数情况不使用它供电，因为是线性稳压器，效率太低，更容易发热。
+  <mark>油门信号频率范围：</mark>控制电调的PWM频率，50HZ，跟舵机又是一模一样
+  最后是支持的电机最高转速，基本都是万转以上，非常快了。</li>
+</ul>
+<p><strong>使用电调时要注意两点：</strong></p>
+<ol>
+<li>并不是电调通上电就马上能控制电机的，你要先向电调输入一串“开机密码”，这串密码就是几段不同占空比的PWM。</li>
+<li>电调只能作为一直旋转的精度一般的动力源，电调控制无刷电机低速旋转的效果非常差，几乎不可用，只能高速旋转作为动力源。</li>
+</ol>
+<hr>
+<h2 id="五-直流无刷电机矢量控制-foc-引子">五、直流无刷电机矢量控制（FOC）引子<a hidden class="anchor" aria-hidden="true" href="#五-直流无刷电机矢量控制-foc-引子">#</a></h2>
+<blockquote>
+<p>一般的无刷电调只能大致控制电机转速，并不能精确控制速度，而且更不能让电机低速精确运动
+要实现的核心控制目标：无刷电机的力矩控制</p>
+</blockquote>
+<p><strong>换相的频率和电流的大小共同决定了电机的转速</strong>
+<mark>需要想一个办法：</mark>让电机在变负载的情况下还能稳定的低速匀速运动</p>
+<p>Field oriented control（FOC）
+磁场   定向的    控制</p>
+<p>两个关键点： </p>
+<ol>
+<li>怎么保证电机效率最大，不发热？</li>
+<li>怎么检测并控制当前的扭矩大小？</li>
+</ol>
+<hr>
+<h2 id="六-foc算法核心">六、FOC算法核心<a hidden class="anchor" aria-hidden="true" href="#六-foc算法核心">#</a></h2>
+<p><mark>怎么让电机的效率最大，不发热</mark></p>
+<p>将所有的电流路径排列组合列出来：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825094829.png" alt="Pasted image 20250825094829">
+可以得到六个方向，大小相等的磁力：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825094849.png" alt="Pasted image 20250825094849">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825094902.png" alt="Pasted image 20250825094902"></p>
+<p>如果想生成一个30°的合磁力：
+按上图的0°状态通一段时间的电，再按60°状态通一会电，当这个“<strong>一段时间</strong>”足够小的时候，两个力平均下来就是30°了。
+<mark>按这个道理，0°~360°任意一个方向的力都可以生成</mark>
+这就是<strong>SVPWM</strong>——矢量控制</p>
+<p>合磁力施加于转子永磁体上，N极的方向会转到与F<sub>合</sub>相同的方向。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825100241.png" alt="Pasted image 20250825100241">
+N极方向与F<sub>合</sub>方向一致时，转子停止
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825100319.png" alt="Pasted image 20250825100319">
+在F<sub>C</sub>与转子N极方向差90度的时候转子的角加速度最大；
+在F<sub>C</sub>与转子N极方向差0度的时候角加速度最小，等于0。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825100502.png" alt="Pasted image 20250825100502">
+根据能量守恒，通入定子线圈的电能<mark>一部分转化为了磁势能，另一部分产生热量</mark>
+磁势能是电机旋转需要的能量，产热没什么用，所以为了使电机运转效率最大，<strong>需要控制“磁势能”始终处于最大状态</strong>，即：
+<strong>希望合力的方向永远与转子N极所指方向差90°</strong></p>
+<p>实现：已经可以在理论上做到生成任意一个方向的磁力，只需要通过编码器实时监测转子的位置，就可以闭环控制了</p>
+<hr>
+<p><mark>怎么检测并控制扭矩大小</mark></p>
+<p>电流大小与转矩大小正相关：
+通过检测实时电流，计算出实时转矩，从而实现转矩的闭环控制</p>
+<p>用手转动无刷电机，电流表测量三根线上发现电流是<strong>三相正弦交流电</strong>，这三相正弦交流电就是电机的<strong>反电动势产生的感应电流</strong></p>
+<p>发电机反过来就是电动机，所以也要通入三相正弦交流电才能让无刷电机平稳最大效率旋转
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825101243.png" alt="Pasted image 20250825101243"></p>
+<p>正弦波控制是最平顺最精确的控制，而方波只适用于高速旋转，粗略控制
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825101339.png" alt="Pasted image 20250825101339">
+三相电流的相位互差120°;</p>
+<p><strong>电角度</strong>：
+	机械角度θ<sub>m</sub>就是电机绕轴转一圈，对应0°~360°，那电角度θ<sub>e</sub>就是：<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.0556em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">mod</span></span></span><span class="mspace" style="margin-right:0.0556em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord cjk_fallback">，</span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord"><span class="mspace" style="margin-right:0.1em;"></span></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span></span></span></span></span></div>mod(a,b)函数是用来求a/b的余数，p<sub>n</sub>是转子极对数，假设极对数pn=4，那么机械角度与电角度的关系如下图：<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825101657.png" alt="Pasted image 20250825101657"></p>
+<p><mark>简化三相正弦电流控制</mark>
+在转矩恒定（<strong>与转子N极方向垂直的磁力大小始终不变</strong>）的情况下，点击可以平稳运行
+磁力是电流产生的，即三相电流的在磁力方向上的投影也是个定值</p>
+<p>难点：转子是在不断旋转的，所以与转子N极垂直的力也是不断旋转的，所以目标坐标系是个<mark>旋转坐标系</mark>。
+设三相电流分别为i<sub>a</sub>，i<sub>b</sub>，i<sub>c</sub>，建立abc三相静止自然坐标系：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825102322.png" alt="Pasted image 20250825102322">
+然后设转子当前电角度为θ（因为模型假设是a，b，c三个绕组，极对数=1），建立<strong>转子同步旋转坐标系dq系</strong>。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825102410.png" alt="Pasted image 20250825102410">
+其中，d轴与转子N极位置相同，称为“直轴”；
+q轴与转子N极位置超前90°，称为“交轴”。
+把abc三轴的初始电流投影到dq轴即可。</p>
+<p><strong>第一步：Clark变换。</strong>
+建立一个中间坐标系 αβ系：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825102812.png" alt="Pasted image 20250825102812">
+先把abc三相自然坐标系的三个量投影到 αβ系——两相正交静止坐标系。
+这样三个量就被简化成两个正交量，方便下一步投影。</p>
+<p>根据KCL，电流 流入=流出，所以：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8095em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8095em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8095em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span></div>
+投影运算：
+![Pasted image 20250825103037](/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825103037.png)
+![Pasted image 20250825103049](/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825103049.png)
+i<sub>β</sub>的计算与上面同理，不再赘述。
+
+<p>为什么要有个<mark>等幅值变换</mark>？</p>
+<p>因为正常的投影运算之后，iα与iβ的值是ia、ib、ic幅值的3/2倍，为了简化之后的运算，所以将投影大小缩放到与ia、ib、ic幅值相同。</p>
+<p><strong>第二步：Park变换</strong>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825103727.png" alt="Pasted image 20250825103727">
+将αβ系的两相再投影到dq系。
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825103755.png" alt="Pasted image 20250825103755">
+这个θ在电机运动的时候是会变的，dq坐标系是在旋转的。
+搞完这两步之后，会惊奇地发现：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104014.png" alt="Pasted image 20250825104014">
+变成恒定值了</p>
+<p>三相初始电流原本是三相互差120°的正弦波：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104042.png" alt="Pasted image 20250825104042">
+经过Clark变换后：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104052.png" alt="Pasted image 20250825104052">
+变成两相互差90°的正弦波了，再经过Park变换：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104103.png" alt="Pasted image 20250825104103">
+变成两条直线
+其中id是直轴电流，即投影到N极方向的电流
+iq是交轴电流，即投影到N极超前90°方向的电流</p>
+<p>其中发现id的大小是跟ia，ib，ic的幅值大小相等的，iq是0。
+<mark>电流的方向也是磁力的方向</mark>，投影一直都在id方向，iq没有，<u>说明磁力一直与转子N极方向重合</u></p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104415.png" alt="Pasted image 20250825104415">
+t=0.04时，此时电角度是0，<strong>说明转子位置与abc坐标系中的a轴重合</strong>
+此时看图得ia=30，ib=ic=-15，所以此时的合磁力应该也是与A轴重合的，所以转子方向与电流方向始终是重合的，导致id一直是最大，iq一直是0。</p>
+<p>假如把这张图的电角度向右平移1/4个周期，让0.04s时合磁力为0°时转子N极滞后90°，也就是270°位置，那最后这张图就变成了：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825104618.png" alt="Pasted image 20250825104618">
+id=0，iq=30。
+这是需要的效果：
+id是重合于转子方向的，不需要；
+iq是与转子方向超前90°的，需要。</p>
+<p><mark>所以电流闭环需要两个PID，一个控制id，一个控制iq。</mark>
+<mark>id的目标值就始终是0；</mark>
+<mark>iq的目标值于转矩成正比。</mark></p>
+<hr>
+<h2 id="七-svpwm技术原理及代码分析">七、SVPWM技术原理及代码分析<a hidden class="anchor" aria-hidden="true" href="#七-svpwm技术原理及代码分析">#</a></h2>
+<blockquote>
+<ol>
+<li>怎么保证电机效率最大，不发热？</li>
+</ol>
+<p><mark>时刻保证希望F<sub>合</sub>的方向永远与转子N极所指方向差90°</mark>
+2.怎么检测并控制当前的扭矩大小？
+<mark>Clark、Park坐标系变换，让电流与扭矩的关系变为线性。</mark></p>
+</blockquote>
+<p>开始实际的FOC驱动器设计：</p>
+<p>直流无刷电机的电机控制电路
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825232107.png" alt="Pasted image 20250825232107">
+a，b，c这三相线圈，<mark>每一相都要既能<strong>流入</strong>电流又能<strong>流出</strong>电流</mark>
+也就是每一相的端子<mark>既可以接VCC又可以接GND</mark></p>
+<p>也就是每一相都要接一个外部的特殊开关，这个开关可以控制这一相接到VCC或GND，三相就需要三个这种特殊开关
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825232618.png" alt="Pasted image 20250825232618">
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825232354.png" alt="Pasted image 20250825232354">
+<strong>三相全桥逆变器</strong></p>
+<p>右边，下图这部分电路是直流无刷电机的电路模型：有一定内阻的电感线圈：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825232437.png" alt="Pasted image 20250825232437">
+完美解决了每一相都可以接到VCC或GND的要求</p>
+<p>也就是：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825232925.png" alt="Pasted image 20250825232925">
+通过这个电路，通过6个MOS管的开关组合，就可以生成上图这六个方向的磁力。</p>
+<p>由于每个桥臂上的两个场效应管的导通状态必须相反<mark>（不然VCC和GND之间就短路了）</mark>，因此三相全桥逆变器共有8种状态，可以用矢量表示，其中有六个非零矢量U1（001）、U2（010）、U3（011）、U4（100）、U5（101）、U6（110）；以及两个零矢量U0（000）和U7（111），也就是全关或者全开。</p>
+<p>进而扩展到生成360°任意方向的电压矢量，用类似PWM的技术去实现，详细分析一下
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825233415.png" alt="Pasted image 20250825233415"></p>
+<ul>
+<li>电压空间：0-360°电角度的这个二维空间
+  因为三相全桥逆变器可以直接控制的物理量是相电压，也就是电压。</li>
+</ul>
+<p>如何控制电压：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826103029.png" alt="Pasted image 20250826103029">
+<mark>每一个半桥电路都只需要一路PWM控制</mark>，因为虽然一个半桥电路有两个MOS管，但是这两个MOS管的状态必须相反，一个打开另一个必须关断</p>
+<p>所以一个半桥电路只需要一路PWM控制，上管给PWM，下管给<strong>这个PWM的互补波形</strong></p>
+<p>U4（100）的时候，只有第一个半桥上管打开，连接上端VCC。
+<mark>假设这路PWM的占空比是100%，那上管就一直打开，电机这一相的相电压就最大，设为是1V；占空比是70%，那上管一个周期内只有0.7个周期打开，电机这一相的相电压就是0.7V。</mark></p>
+<p>目标是控制定子产生的磁力大小和方向；而磁力跟线圈电流是正比的，是线性关系，所以控制电流就控制了磁力</p>
+<p>没办法直接操控电流大小。只能直接控制电压，相电压与线电流正相关，但不是线性关系</p>
+<p>所以通过控制三相全桥逆变器从而控制相电压，从而间接影响每一向的线电流，电流再决定磁力的大小</p>
+<hr>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250825233415.png" alt="Pasted image 20250825233415">
+其次，上图（a）图的电压空间被分为了6个“扇区”，每个扇区60°。
+看上图（b），假设要生成第一扇区内任意一个方向的电压空间矢量U<sub>ref</sub>，U<sub>ref</sub>和U4之间夹角为θ，要合成U<sub>ref</sub>只需选择U4和U6作为非零矢量，U0和U7作为零矢量，根据<mark>平均值等效原理</mark>&gt;(即在一个开关周期内通过对基本电压矢量加以组合，使其平均值与给定电压矢量相等，<strong>这里可以理解成PWM原理+矢量的平行四边形定则，两种思想</strong>)，可得：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.5032em;vertical-align:-0.9119em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5912em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2901em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.5032em;vertical-align:-0.9119em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5912em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.6033em;vertical-align:-1.012em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5912em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.012em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.6033em;vertical-align:-1.012em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5912em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2901em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.012em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-2.453em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span></span></span></span></span></div>
+上式离散化后等效为以下公式：
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3324em;vertical-align:-0.9721em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9721em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.3324em;vertical-align:-0.9721em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9721em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9857em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-2.453em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.3991em;vertical-align:-0.9721em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9721em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+上式再移个项：
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9857em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-2.453em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div>
+，原理就是PWM的原理+平行四边形定则
+注意这两个公式里U<sub>ref</sub>、U4、U6都是矢量！矢量相加要用平行四边形定则！
+
+<p>其中Tref、T4、T6分别为总作用时间（一个开关周期）、U4的作用时间、U6的作用时间，U0* 就是U0或U7，零矢量就是调节Uref幅值使用的，对Uref的方向无影响。</p>
+<p>Tref很短，跟PWM一样，周期需要毫秒级、微妙级，才能有好的矢量合成效果。</p>
+<p>这种合成方法与PWM的原理非常像，其实就是PWM的原理，所以这个利用平均值等效原理的类似PWM的矢量合成方法叫做：
+<em>SVPWM（space vector PWM）空间矢量的PWM。</em></p>
+<p>如果想生成Uref，首先需要固定Tref，也就是SVPWM频率，设频率为10KHz，也就是Tref=1/10K秒，固定不变。
+然后需要确定T4、T6，也就是U4的作用时间和U6的作用时间
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826110402.png" alt="Pasted image 20250826110402">
+以Uref为斜边的三角形，通过<mark>正弦公式</mark>得到：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.113em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+其中规定 |U4| = |U6| = 2/3 Udc，Udc是电源电压，又叫母线电压
+因为：
+![Pasted image 20250826110712](/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826110712.png)
+每一相的相电压最大就是 2/3 Udc，所以这里要限幅。
+
+<p><mark>所以得到非零矢量的作用时间：</mark></p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
+其中m为SVPWM的调制系数（即调制比），<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.263em;vertical-align:-0.836em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9561em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;">3</span></span><span style="top:-2.9161em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.0839em;"><span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="mord mathbf">U</span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">∣</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>而零矢量作用时间为
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/2</span></span></span></span></span></div>这样就确定了T4、T6的值
+
+<ul>
+<li><p>T0为什么等于T7？
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826111356.png" alt="Pasted image 20250826111356">
+  <mark>上图就是以第一扇区为例，实际的SVPWM应用中，3路PWM的样子。</mark>
+  在实际电路控制中，<strong>为了尽量减小MOS管开关损耗</strong>，需要考虑如何生成合适的PWM波形，降低MOS管开关次数。所以，在SVPWM中将基本矢量作用顺序的分配规则定为：每次开关状态转换时，<strong>只更改三相中的一相</strong>。同时为了使得所产生的波形对称并且降低噪声，<strong>并对零矢量的作用时间进行均分处理</strong>。</p>
+<p>  第一个扇区是这样找，其他五个扇区也是完全一样的方式：</p>
+<p>  SVPWM开关切换顺序表
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826111534.png" alt="Pasted image 20250826111534"></p>
+</li>
+</ul>
+<p>为了实现对称的PWM波形，需要确定各个扇区内的开关切换顺序。在第一扇区中，当从U4切换到U0时，只需对A相控制上下桥臂的两个场效应管进行开关切换动作，如果由U4切换到U7，则需同时对B、C相桥式电路中的场效应管进行开关切换动作，此时由于场效应管内电路通断引起的开关损耗将增大一倍。因此：
+==在切换U4、U2、U1时，要配合零电压矢量U0；
+在切换U6、U3、U5时，要配合零电压矢量U7；==</p>
+<ul>
+<li>C语言写的SVPWM算法，<em>这是FOC控制的核心算法</em>：<em>电机完全靠这个函数转起来</em>，这个函数的输入参数有三个：
+  <mark>Uq和Ud</mark>是目标交轴电压和直轴电压。对于控制中小型电机时，Ud一直设为0即可，只需要控制Uq的大小来间接控制电流大小，也就是间接控制扭矩大小。
+  第三个参数<mark>angle</mark>就是转子当前电角度</li>
+</ul>
+<pre><code class="language-C">void FOC_SVPWM(float Uq, float Ud, float angle) {
+    int sector;  //sector即扇区
+    float Uout = _sqrt(Ud * Ud + Uq * Uq) / VOLTAGE_LIMIT; 
+    // VOLTAGE_LIMIT是宏定义，就是电源电压，12V电源的话它就=12。
+    //希望Ud一直=0，所以这里的Ud一般都=0，所以这句代码可以简化成：
+    // Uout = Uq / VOLTAGE_LIMIT;
+    angle = _normalizeAngle(angle +  atan2(Uq, Ud));   
+    //这是最核心的一句。_normalizeAngle函数附在后面，先去看看这个函数。
+    //angle就是编码器实时读取的当前电角度值，范围是0~360度，atan2函数是math.h中的函
+    //数，用于求角度的反正切值，需要你自己去百度搜下这个函数的用法。
+    //这里我们发现，由于Ud是一直=0的，所以当Uq&gt;0时，atan2(Uq,0)=π/2；
+    //当Uq&lt;0时，atan2(Uq,0)=-π/2
+    //为什么说这里是核心？因为就是这里让目标电压矢量一直超前或滞后于当前角度90°。
+ 
+    sector = floor(angle / _PI_3) + 1;
+    //angle是0~360度的电角度，首先要判断当前angle在哪个扇区，前面的图划分的六个扇区。
+    float T1 = _SQRT3 * _sin(sector * _PI_3 - angle) * Uout;   
+    float T2 = _SQRT3 * _sin(angle - (sector - 1.0f) * _PI_3) * Uout;
+    float T0 = 1 - T1 - T2; 
+    //上面这三个公式就是我们之前解三角形得到的求T4和T6的公式，并进行了推广，推广到
+    //所有的扇区通用的公式。其中T1+T2+T0=1
+    float Ta, Tb, Tc;
+    //下面的代码非常重要，牵扯到真正PWM的生成了。Case 1也就是我们之前分析的第一扇区，
+    看懂下面的代码我们要回忆前面的那张svpwm图，也就是代码下方的图：
+    
+    //这里的PWM也跟以前的那种控制舵机的PWM不一样！之前我们用的PWM都默认是左对齐，
+    //但这里的PWM是中心对齐的！这里非常非常重要！这个对齐方式的参数需要在PWM配置的库
+    //函数里调，后面会讲。看代码下面的PWM图，再对比下面的case 1里的代码就能看懂了。
+    //其他五个扇区同理。
+        switch (sector) {
+            case 1:
+                Ta = T1 + T2 + T0 / 2;
+                Tb = T2 + T0 / 2;
+                Tc = T0 / 2;
+                break;
+            case 2:
+                Ta = T1 + T0 / 2;
+                Tb = T1 + T2 + T0 / 2;
+                Tc = T0 / 2;
+                break;
+            case 3:
+                Ta = T0 / 2;
+                Tb = T1 + T2 + T0 / 2;
+                Tc = T2 + T0 / 2;
+                break;
+            case 4:
+                Ta = T0 / 2;
+                Tb = T1 + T0 / 2;
+                Tc = T1 + T2 + T0 / 2;
+                break;
+            case 5:
+                Ta = T2 + T0 / 2;
+                Tb = T0 / 2;
+                Tc = T1 + T2 + T0 / 2;
+                break;
+            case 6:
+                Ta = T1 + T2 + T0 / 2;
+                Tb = T0 / 2;
+                Tc = T1 + T0 / 2;
+                break;
+            default:
+                // possible error state
+                Ta = 0;
+                Tb = 0;
+                Tc = 0;
+    }
+    // transform duty cycle from [0,1] to [0,_PWM_RANGE]
+    // _PWM_RANGE是个宏定义，与生成pwm的定时器的自动重装载值有关、
+    // _PWM_RANGE=TIM_arr
+    TIM_SetCompare1(TIM1,_PWM_RANGE*Ta);
+    TIM_SetCompare2(TIM1,_PWM_RANGE*Tb);
+    TIM_SetCompare3(TIM1,_PWM_RANGE*Tc);
+}
+</code></pre>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826115537.png" alt="Pasted image 20250826115537">
+_normalizing函数：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826115555.png" alt="Pasted image 20250826115555"></p>
+<hr>
+<h2 id="八-foc驱动器电路设计">八、FOC驱动器电路设计<a hidden class="anchor" aria-hidden="true" href="#八-foc驱动器电路设计">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826162029.png" alt="Pasted image 20250826162029">
+就像直流有刷电机需要L298N的H桥电路，
+FOC电机驱动电路的核心是：三相全桥逆变器。</p>
+<p>上图只是最基础的模型，由6个MOS管组成，还需要加很多的外部电路，比如：</p>
+<ol>
+<li>mos管都需要栅极驱动器</li>
+<li>电源输入、降压模块</li>
+<li>电机连接端子等</li>
+</ol>
+<p>完整的三相全桥逆变器电路：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826163938.png" alt="Pasted image 20250826163938">
+	1. 每个MOS管连接一个2.2R栅极电阻用于限制电流上升速度，从而减小因为高速上升的电流导致的干扰和噪声；
+	2. 在每个栅极电阻上并联反向二极管用以将栅极电荷回流和保护MOS管免受栅极到源极之间的反向电压冲击。</p>
+<p>并且每一个半桥电路的上下桥臂都共用一个栅极驱动器，EG3014
+<a href="/posts/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F-%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%88%B6%E9%80%A0/#eg3014">EG3014</a>
+三个半桥电路就需要三个EG3014:
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826165715.png" alt="Pasted image 20250826165715"></p>
+<p>以A相的半桥电路为例：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826170119.png" alt="Pasted image 20250826170119"></p>
+<p>以上是三相全桥逆变器电路的详细设计，但是mos管外置的电路是用来驱动大功率电机的，但是现在想控制一款小电流小扭矩的无刷电机，<mark>找一款MOS管集成在芯片内的芯片</mark>，如下</p>
+<h3 id="drv8313">DRV8313<a hidden class="anchor" aria-hidden="true" href="#drv8313">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826170433.png" alt="Pasted image 20250826170433">
+<mark>三个——<em>半H桥</em>——驱动器IC。<em>半H桥</em>就是半桥。</mark>
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826171823.png" alt="Pasted image 20250826171823">
+芯片内部以及外部接线示意图</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826173421.png" alt="Pasted image 20250826173421">
+<em>CP1和CP2外接一个103、耐压要大于两倍电源电压的飞跨电容</em>，飞跨电容是电荷泵的内容，这里的电荷泵可以先理解为一个降压的DCDC开关电源，把电源电压降压给MOS管的高端供电，跟EG3014的自举电容的作用是一样的。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180346.png" alt="Pasted image 20250826180346">
+<mark>IN1，IN2，IN3</mark>分别是三路PWM输入，分别单独控制三个半桥电路，并且芯片内部会给半桥电路自动生成互补波形，很省事。
+EN1，EN2，EN3 直接3.3V就行了，使能引脚。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180440.png" alt="Pasted image 20250826180440">
+<mark>VM</mark>是电源电压，8.2V~60V，给电机提供电能，所以需要接储能电容和旁路电容储能和滤波</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180555.png" alt="Pasted image 20250826180555">
+<mark>VCP</mark>引脚是引出的高端栅极驱动的电压，官方要求这个引脚要连接一个104电容到VM</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180700.png" alt="Pasted image 20250826180700">
+低电平分别使能复位、睡眠模式、错位模式。都用不到，全部上拉
+别的引脚不需要管了</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180750.png" alt="Pasted image 20250826180750">
+注意芯片底部也有一个焊盘：thermal pad
+<mark>一定要焊上</mark>，连接到PCB方便散热的功能</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250826180915.png" alt="Pasted image 20250826180915">
+IN1、IN2、IN3直接接STM32的PWM
+OUT1、OUT2、OUT3直接接电机三根线</p>
+<p>完整的驱动器电路：
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827105522.png" alt="Pasted image 20250827105522">
+左边都是老朋友了
+右边有个AMS1117-5.0，用于将12V电池降为5V的LDO</p>
+<p><mark>SPX3819-3.3是一个降压到3.3V的LDO</mark>，选它而不是AMS1117-3.3是因为它<mark>体积小</mark>，想把驱动器体积做的尽量小</p>
+<p>TJA1050是CAN通信芯片</p>
+<ul>
+<li><strong>AS5600</strong>
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827110541.png" alt="Pasted image 20250827110541">
+  第一次见，有上拉电阻的SCL、SDA，这是一个IIC协议的传感器
+  <mark>这个芯片是个磁编码器</mark></li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827110724.png" alt="Pasted image 20250827110724">
+上图这个有A相B相的编码器，且两个方波相差90°，叫<mark>增量式编码器</mark></p>
+<p>而AS5600编码器完全不是上面这种两个方波的，AS5600是一个iic传感器，<strong>用法更像是MPU6050</strong></p>
+<p>AS5600属于<mark>绝对式编码器</mark>，返回的内容就是iic协议的角度值
+<img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827111144.png" alt="Pasted image 20250827111144"></p>
+<ul>
+<li>AS5600 如何检测电机的绝对角度
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827111606.png" alt="Pasted image 20250827111606">
+  将磁铁用胶水黏在电机后转轴上
+  <img loading="lazy" decoding="async" src="/assets/blog/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/images/Pasted%20image%2020250827112035.png" alt="Pasted image 20250827112035">
+  <mark>有了这块磁铁，磁编码器就可以通过感受磁铁旋转时的磁场变化去感知角度。</mark>
+  <strong>其中AS5600芯片距离圆形磁铁的距离应该保持在0.5mm~2mm之间。这就涉及机械安装问题了，买铜柱的时候要选好尺寸，控制好距离</strong></li>
+</ul>
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/">电机控制</a></li></ul><nav class="paginav"><a class="prev" href="/posts/载波相位引入在-pyrtklib-中的实现研究/"><span class="title">« 上一篇</span><br><span>载波相位引入在 pyRTKLIB 中的实现研究</span></a><a class="next" href="/posts/机器视觉/"><span class="title">下一篇 »</span><br><span>机器视觉</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>

@@ -4,13 +4,48 @@
   <link>https://zhr0529.cn/posts/</link>
   <description>Zhanghr 的个人博客</description>
   <language>zh-CN</language>
-  <lastBuildDate>Wed, 29 Jul 2026 10:41:33 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 30 Jul 2026 09:54:11 GMT</lastBuildDate>
   <item>
-      <title>STM32第一部分学习</title>
-      <link>https://zhr0529.cn/posts/stm32第一部分学习/</link>
-      <pubDate>Sat, 26 Apr 2025 06:48:45 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/stm32第一部分学习/</guid>
-      <description>STM32 外设学习笔记：GPIO、定时器、串口、ADC 与 DMA。</description>
+      <title>C1 - 有监督的机器学习：回归和分类</title>
+      <link>https://zhr0529.cn/posts/c1-有监督的机器学习-回归和分类/</link>
+      <pubDate>Sun, 29 Mar 2026 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/c1-有监督的机器学习-回归和分类/</guid>
+      <description>有监督学习、回归、分类与梯度下降学习笔记。</description>
+    </item>
+<item>
+      <title>载波相位引入在 pyRTKLIB 中的实现研究</title>
+      <link>https://zhr0529.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</link>
+      <pubDate>Tue, 21 Oct 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</guid>
+      <description>GNSS 载波相位观测在 pyRTKLIB 中的引入与实现记录。</description>
+    </item>
+<item>
+      <title>电机控制</title>
+      <link>https://zhr0529.cn/posts/电机控制/</link>
+      <pubDate>Thu, 31 Jul 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/电机控制/</guid>
+      <description>直流有刷电机、电机驱动与控制学习笔记。</description>
+    </item>
+<item>
+      <title>机器视觉</title>
+      <link>https://zhr0529.cn/posts/机器视觉/</link>
+      <pubDate>Wed, 30 Jul 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/机器视觉/</guid>
+      <description>MicroPython 机器视觉与常用图像处理学习笔记。</description>
+    </item>
+<item>
+      <title>STM32第二部分学习（待命中）</title>
+      <link>https://zhr0529.cn/posts/stm32第二部分学习/</link>
+      <pubDate>Thu, 10 Jul 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/stm32第二部分学习/</guid>
+      <description>STM32 寄存器、串口、总线与常用外设学习笔记。</description>
+    </item>
+<item>
+      <title>硬件基本功：电路设计及制造</title>
+      <link>https://zhr0529.cn/posts/硬件基本功-电路设计及制造/</link>
+      <pubDate>Mon, 30 Jun 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/硬件基本功-电路设计及制造/</guid>
+      <description>电路基础、供电保护、PCB 设计与制造学习笔记。</description>
     </item>
 <item>
       <title>【理论】Linux学习笔记</title>
@@ -27,11 +62,25 @@
       <description>AI8051U 32bit 单片机学习笔记。</description>
     </item>
 <item>
+      <title>STM32第一部分学习</title>
+      <link>https://zhr0529.cn/posts/stm32第一部分学习/</link>
+      <pubDate>Sat, 29 Mar 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/stm32第一部分学习/</guid>
+      <description>STM32 外设学习笔记：GPIO、定时器、串口、ADC 与 DMA。</description>
+    </item>
+<item>
+      <title>SPI、UART、RS232、RS485、IIC 通信总线协议</title>
+      <link>https://zhr0529.cn/posts/通信总线协议/</link>
+      <pubDate>Fri, 28 Mar 2025 16:00:00 GMT</pubDate>
+      <guid>https://zhr0529.cn/posts/通信总线协议/</guid>
+      <description>串行通信基础与常用通信总线协议学习笔记。</description>
+    </item>
+<item>
       <title>（杂）旅游攻略合集</title>
       <link>https://zhr0529.cn/posts/旅游攻略合集/</link>
       <pubDate>Wed, 22 Jan 2025 03:46:38 GMT</pubDate>
       <guid>https://zhr0529.cn/posts/旅游攻略合集/</guid>
-      <description>天津、广州、澳门、香港等地的旅行路线备忘。</description>
+      <description>旅行路线备忘与分享</description>
     </item>
 <item>
       <title>随想</title>
@@ -59,7 +108,7 @@
       <link>https://zhr0529.cn/posts/日记-第一篇/</link>
       <pubDate>Tue, 19 Nov 2024 06:50:31 GMT</pubDate>
       <guid>https://zhr0529.cn/posts/日记-第一篇/</guid>
-      <description>关于大学、专业选择和个人网站的第一篇日记。</description>
+      <description>这是一篇日记</description>
     </item>
 <item>
       <title>【理论】Linux学习笔记</title>

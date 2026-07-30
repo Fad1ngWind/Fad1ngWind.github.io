@@ -12,17 +12,22 @@
 
 .math-block {
   margin: 1.25rem 0;
-  padding: 1rem 1.2rem;
+  padding: 1rem 0;
   overflow-x: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--code-bg);
-  text-align: center;
+  overflow-y: hidden;
 }
 
-.math-block code {
-  padding: 0;
-  background: transparent;
+.math-block .katex-display {
+  margin: 0;
+  padding-inline: 1rem;
+}
+
+.post-content .katex {
+  font-size: 1.04em;
+}
+
+.math-error {
+  color: #b42318;
   white-space: pre-wrap;
 }
 

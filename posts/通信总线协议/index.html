@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>SPI、UART、RS232、RS485、IIC 通信总线协议 | Zhanghr</title>
+  <meta name="description" content="串行通信基础与常用通信总线协议学习笔记。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/通信总线协议/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/通信总线协议/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="SPI、UART、RS232、RS485、IIC 通信总线协议">
+  <meta property="og:description" content="串行通信基础与常用通信总线协议学习笔记。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2025-03-29T00:00:00+08:00">
+  <meta property="article:modified_time" content="2025-03-29T00:00:00+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SPI、UART、RS232、RS485、IIC 通信总线协议">
+  <meta name="twitter:description" content="串行通信基础与常用通信总线协议学习笔记。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SPI、UART、RS232、RS485、IIC 通信总线协议","datePublished":"2025-03-29T00:00:00+08:00","dateModified":"2025-03-29T00:00:00+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/通信总线协议/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">SPI、UART、RS232、RS485、IIC 通信总线协议</h1>
+      <div class="post-meta"><span title="2025-03-29 00:00:00 +0800 CST">March 29, 2025</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#名词解释" aria-label="名词解释">名词解释</a></li><li class="toc-level-3"><a href="#串-并行" aria-label="串/并行">串/并行</a></li><li class="toc-level-3"><a href="#同-异步" aria-label="同/异步">同/异步</a></li><li class="toc-level-3"><a href="#全双工-半双工" aria-label="全双工/半双工">全双工/半双工</a></li><li class="toc-level-3"><a href="#波特率" aria-label="波特率">波特率</a></li><li class="toc-level-2"><a href="#uart帧串口通信" aria-label="UART帧串口通信">UART帧串口通信</a></li><li class="toc-level-2"><a href="#exynos4412下的uart控制器" aria-label="Exynos4412下的UART控制器">Exynos4412下的UART控制器</a></li><li class="toc-level-2"><a href="#rs232-rs485协议" aria-label="RS232、RS485协议">RS232、RS485协议</a></li><li class="toc-level-2"><a href="#iic总线协议" aria-label="IIC总线协议">IIC总线协议</a></li><li class="toc-level-2"><a href="#spi通信协议" aria-label="SPI通信协议">SPI通信协议</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><h2 id="名词解释">名词解释<a hidden class="anchor" aria-hidden="true" href="#名词解释">#</a></h2>
+<h3 id="串-并行">串/并行<a hidden class="anchor" aria-hidden="true" href="#串-并行">#</a></h3>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-30%20100825.png" alt="屏幕截图 2025-03-30 100825">
+特点： 数据逐位传输，传输线少，长距离传输时成本低，但数据的传输控制较复杂。按照实现数据同步的方式，可以分为同步串行和异步串行两种。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-30%20100931.png" alt="屏幕截图 2025-03-30 100931">
+特点： 多位数据同时传输，传输控制简单，传输速度快，但是在长距离传输时硬件成本较高</p>
+<h3 id="同-异步">同/异步<a hidden class="anchor" aria-hidden="true" href="#同-异步">#</a></h3>
+<ul>
+<li><p><strong>同步总线</strong>：指互联的部件或设备均通过统一的时钟进行同步，即所有的互联的部件或设备都必须使用同一个时钟（同步时钟），在规定的时钟节拍内进行规定的总线操作，来完成部件或设备之间的信息交换。</p>
+</li>
+<li><p><strong>异步总线</strong>：指没有统一的时钟而依靠各部件或设备内部定时操作，所有部件或设备是以信号握手的方式进行，即发送设备和接受设备互用请求（request）和确认（acknowledgement）信号来协调动作，总线操作时序不是固定的。因此，异步总线能兼容多种不同的设备，而且不必担心时钟变形或同步问题使得总线长度不受限制。</p>
+</li>
+</ul>
+<h3 id="全双工-半双工">全双工/半双工<a hidden class="anchor" aria-hidden="true" href="#全双工-半双工">#</a></h3>
+<p><img loading="lazy" decoding="async" src="https://i0.hdslb.com/bfs/note/0813f52f8e846056bce3417c3276048506c2ef65.png" alt="img"></p>
+<h3 id="波特率">波特率<a hidden class="anchor" aria-hidden="true" href="#波特率">#</a></h3>
+<p>串口异步通讯中由于没有时钟信号，所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码。</p>
+<p>波特率是指每秒钟传送二进制数码的位数，以bit/s（bps）为单位。</p>
+<p> 常用的波特率有： 9600、 19200、 38400、 57600和115200；</p>
+<p>波特率为115200， 表示每秒传输115200位，且每一位数据在数</p>
+<p>据线上持续时间为Tbit = 1/115200 ≈ 8.68us。</p>
+<hr>
+<h2 id="uart帧串口通信">UART帧串口通信<a hidden class="anchor" aria-hidden="true" href="#uart帧串口通信">#</a></h2>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-30%20101129.png" alt="屏幕截图 2025-03-30 101129"></p>
+<ul>
+<li><p>串行，全双工，异步通讯</p>
+</li>
+<li><p>空闲时，RXD和TXD默认高电平</p>
+</li>
+<li><p>数据起始位为低电平</p>
+</li>
+<li><p>串口发送数据过程中，低位在前，高位在后</p>
+</li>
+<li><p>串口数据一般为8位</p>
+</li>
+<li><p>串口柯选择是否开启数据校验</p>
+<p><em><strong>校验位</strong></em>：单个字节数据校验，对数据中高低电平个数进行计数</p>
+<p>常见的有奇偶校验</p>
+</li>
+<li><p>停止位：高电平，一般有 1，1.5，2位</p>
+</li>
+<li><p>串口传输速率：波特率，表示1秒传输数据位数。</p>
+</li>
+</ul>
+<p>​	想通电平情况下，如低电平高电平。通过掐时间确认数据为01还是0011</p>
+<ul>
+<li><strong>累计误差消除</strong>：</li>
+</ul>
+<p>​	两个单片机通讯，波特率可能会存在一定误差，如果单个数据字节长度过长，</p>
+<p>​	会导致误差累加，严重时会导致数据错误。所以规定串口传送的字符数据位为5～8位。</p>
+<ul>
+<li>硬件连接：</li>
+</ul>
+<p>​	交叉连接，单片机A的TXD与单片机B的RXD相连，单片机A的RXD与单片机B的TXD相连</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-30%20101255.png" alt="屏幕截图 2025-03-30 101255"></p>
+<hr>
+<h2 id="exynos4412下的uart控制器">Exynos4412下的UART控制器<a hidden class="anchor" aria-hidden="true" href="#exynos4412下的uart控制器">#</a></h2>
+<ol>
+<li><strong>多通道支持</strong>：支持多个 UART 通道，允许同时进行多个串口通信。</li>
+<li><strong>高数据传输速率</strong>：支持高达 3 Mbps 的数据传输速率，适合高速通信需求。</li>
+<li><strong>可配置参数</strong>：支持波特率、数据位、停止位和校验位等参数的配置，灵活适应不同应用。</li>
+<li><strong>FIFO 缓存</strong>：内置 FIFO 缓存，减少 CPU 中断频率，提高数据处理效率。</li>
+<li><strong>中断支持</strong>：支持多种中断源，如接收中断、发送中断等，便于高效处理数据。</li>
+<li><strong>硬件流控制</strong>：支持 RTS/CTS 硬件流控制，确保数据传输的可靠性。</li>
+<li><strong>调试功能</strong>：提供调试功能，方便开发和调试串口通信。</li>
+<li><strong>兼容性</strong>：与标准的串行通信协议兼容，易于与其他设备连接。</li>
+</ol>
+<hr>
+<h2 id="rs232-rs485协议">RS232、RS485协议<a hidden class="anchor" aria-hidden="true" href="#rs232-rs485协议">#</a></h2>
+<p>物理协议，依赖串口
+抗干扰能力差，通信距离短</p>
+ <img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/9d63be658e269b7dbc5be55b3a7c423bb2953b97.png@1192w.webp" alt="img" style="zoom: 80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/8ce42bec12cbe0de47b9ea7ac0cc335c7acdcab3.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/7ab18a9be1e3df14066337b61bd717252dfbe41a.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/17eeac0ba32f6b9e0e5a08ab3bd0af1203ab2afd.png@1192w.webp" alt="img" style="zoom: 80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/dc413703d3bfd13429ebcefdb810d5d1ab856435.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+
+
+<h2 id="iic总线协议">IIC总线协议<a hidden class="anchor" aria-hidden="true" href="#iic总线协议">#</a></h2>
+<ul>
+<li>SCL低电平决定发射器发送数据，高电平接收器接收数据</li>
+</ul>
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/8ce1feb7f2ce09d303321d761916f39a188ce2a3.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/2b6cade85d1b12a6136e92951d472169ad8787f6.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/d0e2736d226d1cd5edf5af0473b4d02b8b81d729.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/18bd04382c0fce0e91b0ef62acf01e5e6b3b5fd4.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/b59a6c9fa10b32ebafc49b99a994cacf68fb9241.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/4b7c3628ad73af62e37d0ebe0a1247f53537b8a2.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+
+
+<h2 id="spi通信协议">SPI通信协议<a hidden class="anchor" aria-hidden="true" href="#spi通信协议">#</a></h2>
+<p>高速：相对I2C，串口</p>
+<p>SPI （同步全双工）协议是由摩托罗拉公司提出的通讯协议(Serial Peripheral Interface)，即串行外围设备接口，是一种高速全双工的通信总线。它被广泛地使用在 ADC、 LCD 等设备与 MCU 间，要求通讯速率较高的场合。</p>
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/ff45d0d0df065a8c8278e33b1ebc015258d1dfe0.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/edeec314cdaf670685e7222c38d3187e131d5f9c.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/862169ba6f2a9c57a059bcbf5ff3b75bf38267e9.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/73d3b018b408ade273c8986926d14f10eb7a94ee.png@1192w.webp" alt="img" style="zoom:80%;" />
+
+<img loading="lazy" decoding="async" src="https://i1.hdslb.com/bfs/note/17c8366392e60f6ec5318b33015ca28be878f67c.png@1192w.webp" alt="img" style="zoom:80%;" />
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">通信协议</a></li></ul><nav class="paginav"><a class="prev" href="/posts/stm32第一部分学习/"><span class="title">« 上一篇</span><br><span>STM32第一部分学习</span></a><a class="next" href="/posts/旅游攻略合集/"><span class="title">下一篇 »</span><br><span>（杂）旅游攻略合集</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>
