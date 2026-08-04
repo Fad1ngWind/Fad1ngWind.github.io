@@ -1,6 +1,49 @@
+.post-single {
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+.post-title {
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.post-content h1 {
+  font-size: 30px;
+}
+
+.post-content h2 {
+  font-size: 25px;
+}
+
+.post-content h3 {
+  font-size: 20px;
+}
+
+.post-content .article-terms {
+  padding: 14px 18px;
+  border-inline-start-color: var(--secondary);
+  border-radius: 0 6px 6px 0;
+  background: var(--code-bg);
+}
+
+.post-content .article-terms > :last-child {
+  margin-bottom: 0;
+}
+
+.post-content .article-callout-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
+}
+
 .post-content img {
+  max-width: 88%;
+  max-height: 72vh;
   height: auto;
   margin-inline: auto;
+  object-fit: contain;
 }
 
 .post-content mark {
@@ -85,6 +128,19 @@
 }
 
 @media (max-width: 640px) {
+  .post-single {
+    font-size: 15.5px;
+  }
+
+  .post-title {
+    font-size: 30px;
+  }
+
+  .post-content img {
+    max-width: 100%;
+    max-height: none;
+  }
+
   .legacy-timeline {
     padding-left: 1.1rem;
   }
