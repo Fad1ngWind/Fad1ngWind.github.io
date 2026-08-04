@@ -1,0 +1,13 @@
+{
+  "name": "zhr-blog-import-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "blog:import": "node tools/import-blog-posts.mjs",
+    "blog:check": "node tools/import-blog-posts.mjs --check"
+  },
+  "dependencies": {
+    "katex": "0.16.11",
+    "marked": "17.0.5"
+  }
+}
