@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记 | Zhanghr</title>
+  <meta name="description" content="记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记">
+  <meta property="og:description" content="记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2026-08-04T20:39:20+08:00">
+  <meta property="article:modified_time" content="2026-08-04T20:39:20+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记">
+  <meta name="twitter:description" content="记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记","datePublished":"2026-08-04T20:39:20+08:00","dateModified":"2026-08-04T20:39:20+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记</h1>
+      <div class="post-meta"><span title="2026-08-04 20:39:20 +0800 CST">August 4, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#从-wls-结果上做位置修正" aria-label="从 WLS 结果上做位置修正">从 WLS 结果上做位置修正</a></li><li class="toc-level-2"><a href="#初版-pinn-并没有直接得到好结果" aria-label="初版 PINN 并没有直接得到好结果">初版 PINN 并没有直接得到好结果</a></li><li class="toc-level-2"><a href="#最后保留的物理约束" aria-label="最后保留的物理约束">最后保留的物理约束</a></li><li class="toc-level-2"><a href="#实验结果" aria-label="实验结果">实验结果</a></li><li class="toc-level-2"><a href="#这次记录下来的几点" aria-label="这次记录下来的几点">这次记录下来的几点</a></li><li class="toc-level-2"><a href="#相关材料" aria-label="相关材料">相关材料</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><p>这段时间主要在整理一套面向城市道路的 GNSS/INS 融合定位方法。城市峡谷中的伪距观测经常受到遮挡、多路径和 NLOS 信号影响，单点定位结果会出现明显偏移，天方向尤其不稳定。INS 能够提供短时间内连续的运动信息，但低成本 IMU 的误差又会随积分累积。因此，这次没有直接做完整的惯导递推，而是先保留 GNSS 加权最小二乘解算，再让网络学习它与参考位置之间的误差。</p>
+<h2 id="从-wls-结果上做位置修正">从 WLS 结果上做位置修正<a hidden class="anchor" aria-hidden="true" href="#从-wls-结果上做位置修正">#</a></h2>
+<p>整个方案的起点比较直接。每个历元先用伪距完成 WLS 解算，网络不回归绝对坐标，只预测 ENU 坐标系下的位置修正量：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1461em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">final</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">WLS</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">NN</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span></div>
+
+
+
+<p>这样处理后，卫星几何关系仍由传统解算负责，网络只需要学习复杂环境中的误差补偿。相比直接预测位置，修正量的范围更集中，训练时也更容易做归一化。</p>
+<p>输入特征最后整理为 78 维。其中 50 维来自按高度角选取的 10 颗卫星，每颗卫星保留信噪比、高度角、伪距残差、码减载波散度和残差历元间变化；21 维用于描述 IMU 与接收机速度反映的短时运动；剩余 7 维记录 HDOP、VDOP、PDOP、卫星数量、残差 RMS 和 WLS 收敛状态等上下文信息。网络采用双分支结构，卫星分支通过共享映射和注意力汇聚逐星特征，另一分支处理运动与解算质量信息，融合后输出三维位置修正量。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E5%9F%BA%E4%BA%8Epinn%E5%92%8C%E5%8E%86%E5%85%83%E9%97%B4%E8%BF%9E%E7%BB%AD%E6%80%A7%E7%BA%A6%E6%9D%9F%E7%9A%84-gnss-ins-%E8%9E%8D%E5%90%88%E5%AE%9A%E4%BD%8D%E7%A0%94%E7%A9%B6%E6%89%8B%E8%AE%B0/assets/pinn-gnss-ins-note/system-architecture-paper.png" alt="GNSS/INS 融合定位系统结构"></p>
+<h2 id="初版-pinn-并没有直接得到好结果">初版 PINN 并没有直接得到好结果<a hidden class="anchor" aria-hidden="true" href="#初版-pinn-并没有直接得到好结果">#</a></h2>
+<p>最初设计 PINN 损失时，我把接收机速度当作较可靠的监督信息，让网络同时预测位置修正和速度，并加入位置速度一致性约束。训练能够正常收敛，但测试误差明显高于之前的普通网络。继续检查后发现，当时拿来比较的旧基线使用了更长的训练时间段，与测试区间发生了重叠。原先看起来很好的结果并不是公平的测试结果。</p>
+<blockquote>
+<p><strong>阶段记录｜先把基线重新做对</strong></p>
+<p>现象：旧模型测试误差低于训练误差，而两个版本的训练样本数量明显不同。</p>
+<p>排查：训练结束时间进入了测试区间，模型提前见过部分测试数据。</p>
+<p>处理：统一时间边界，按连续时间块重新划分训练集、验证集和测试集，再比较是否加入物理约束。</p>
+</blockquote>
+<p>另一个影响更大的问题来自时间基准。GNSS 观测采用 GPS time，参考轨迹在转换时需要处理 18 秒闰秒偏移。没有对齐时，模型学习的是不同时间位置之间的差值，GNSS-only、普通网络和 PINN 的结果都会一起失真。修正时间对齐后，各方法的误差才回到能够继续分析的范围。这次排查也让我把数据划分和时间同步固定成训练前的必要检查，而不是等结果异常后再处理。</p>
+<h2 id="最后保留的物理约束">最后保留的物理约束<a hidden class="anchor" aria-hidden="true" href="#最后保留的物理约束">#</a></h2>
+<p>数据问题处理完后，PINN 的重点重新放回相邻历元的位置关系。相邻两个历元的修正量变化，应当与速度积分位移和 WLS 位移之间的差保持一致：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">kin</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2413em;vertical-align:-0.35em;"></span><span class="mop"><span class="mord mathrm">Huber</span></span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord">Δ</span><span class="mord"><span class="mord mathbf">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5812em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">v</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">ˉ</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.016em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">Δ</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">GNSS</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">.</span></span></span></span></span></div>
+
+
+
+<p>完整损失由数据拟合、历元连续性、天向速率和残差幅度正则组成：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">data</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord mathnormal">ρ</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mopen"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">kin</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">kin</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">alt</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">alt</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing size1">)</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.01389em;">reg</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.01389em;">reg</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span></div>
+
+
+
+<p>训练前 20 个 epoch 不启用运动约束，之后再用 20 个 epoch 线性增加权重，避免网络尚未学会基本位置修正时就被平滑项限制。幅度正则则对模长超过阈值的修正量施加软惩罚，用来减少极端环境下的过补偿。速度信息最终仍作为输入特征保留，但不再作为硬监督目标。多次实验中，直接监督速度没有带来稳定收益，反而容易把受遮挡影响的速度误差写进训练梯度。</p>
+<blockquote>
+<p><strong>阶段记录｜约束并不是越多越好</strong></p>
+<p>初步方案：位置、速度、运动学和平滑项同时加入损失。</p>
+<p>实验结果：速度监督的贡献不稳定，残差幅度正则对大误差抑制更明显。</p>
+<p>最终决定：速度用于描述运动状态，训练目标集中在位置拟合、历元连续性和修正幅度。</p>
+</blockquote>
+<h2 id="实验结果">实验结果<a hidden class="anchor" aria-hidden="true" href="#实验结果">#</a></h2>
+<p>实验使用 GVINS 的 urban_driving 序列。GNSS-only 的二维和三维 RMSE 分别为 11.12 m 和 36.03 m；普通无约束网络将三维 RMSE 降到 17.75 m；加入物理约束后，二维 RMSE 为 8.40 m，三维 RMSE 为 13.09 m。相对 GNSS-only，三维误差降低 63.7%；相对无约束网络，三维误差进一步降低 26.2%。三维 P95 也从 61.4 m 降到 24.8 m，说明改善主要体现在城市峡谷中容易出现的大误差历元。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E5%9F%BA%E4%BA%8Epinn%E5%92%8C%E5%8E%86%E5%85%83%E9%97%B4%E8%BF%9E%E7%BB%AD%E6%80%A7%E7%BA%A6%E6%9D%9F%E7%9A%84-gnss-ins-%E8%9E%8D%E5%90%88%E5%AE%9A%E4%BD%8D%E7%A0%94%E7%A9%B6%E6%89%8B%E8%AE%B0/assets/pinn-gnss-ins-note/error-comparison.png" alt="不同方法的定位误差综合对比"></p>
+<p>轨迹图中的差异在天方向最明显。GNSS-only 存在持续的垂向偏移，无约束网络仍会产生较大的局部修正，而加入连续性和幅度约束后，天向跳变有所收敛。这里并不能说明网络已经替代传统组合导航，但至少表明训练阶段加入合理的运动约束，能够改善单纯逐历元回归带来的不稳定输出。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E5%9F%BA%E4%BA%8Epinn%E5%92%8C%E5%8E%86%E5%85%83%E9%97%B4%E8%BF%9E%E7%BB%AD%E6%80%A7%E7%BA%A6%E6%9D%9F%E7%9A%84-gnss-ins-%E8%9E%8D%E5%90%88%E5%AE%9A%E4%BD%8D%E7%A0%94%E7%A9%B6%E6%89%8B%E8%AE%B0/assets/pinn-gnss-ins-note/trajectory-comparison.png" alt="urban_driving 序列轨迹对比"></p>
+<h2 id="这次记录下来的几点">这次记录下来的几点<a hidden class="anchor" aria-hidden="true" href="#这次记录下来的几点">#</a></h2>
+<p>消融实验中，去掉残差幅度正则后三维 RMSE 上升到 15.49 m，它对结果的影响大于单独去掉历元连续性约束。这说明当前数据上的主要问题不只是相邻历元不平滑，网络在异常观测下给出过大的修正同样需要控制。</p>
+<p>回看整个过程，真正占用时间的并不是网络层数，而是确认训练与测试是否独立、不同传感器的时间是否对齐，以及每一项约束使用的观测量是否足够可靠。现在的方案仍只在一个城市道路序列上完成验证，后续还需要增加不同路线、接收机和遮挡条件下的实验，再判断这些约束能否保持同样的效果。</p>
+<h2 id="相关材料">相关材料<a hidden class="anchor" aria-hidden="true" href="#相关材料">#</a></h2>
+<ul>
+<li>基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位方法</li>
+<li>GVINS: Tightly Coupled GNSS-Visual-Inertial Fusion for Smooth and Consistent State Estimation</li>
+</ul>
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/gnss/">GNSS</a></li><li><a href="/tags/ins/">INS</a></li><li><a href="/tags/pinn/">PINN</a></li></ul><nav class="paginav"><a class="next" href="/posts/c1-有监督的机器学习-回归和分类/"><span class="title">下一篇 »</span><br><span>C1 - 有监督的机器学习：回归和分类</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>

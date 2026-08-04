@@ -19,12 +19,20 @@ const SITE_ROOT = path.resolve(
 const SOURCE_ROOT = path.resolve(
   process.env.BLOG_SOURCE_ROOT || path.join(os.homedir(), "_posts"),
 );
+const RESEARCH_ROOT = path.resolve(
+  process.env.BLOG_RESEARCH_ROOT ||
+    path.join(os.homedir(), "基于PINN和历元间连续性约束的GNSSINS融合定位方法"),
+);
 const KATEX_DIST_ROOT = path.dirname(require.resolve("katex"));
 const SITE_URL = "https://zhr0529.cn";
 const AUTHOR = "ZHR";
 
 function sourcePath(...segments) {
   return path.join(SOURCE_ROOT, ...segments);
+}
+
+function researchSourcePath(...segments) {
+  return path.join(RESEARCH_ROOT, ...segments);
 }
 
 const legacyImports = [
@@ -79,6 +87,20 @@ const legacyImports = [
 ];
 
 const currentImports = [
+  {
+    source: researchSourcePath(
+      "基于PINN和历元间连续性约束的GNSSINS融合定位研究手记.md",
+    ),
+    slug: "基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记",
+    title: "基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记",
+    date: "2026-08-04 20:39:20",
+    category: "理论",
+    tags: ["GNSS", "INS", "PINN"],
+    summary:
+      "记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。",
+    copyLocalImages: true,
+    stripTitleHeading: true,
+  },
   {
     source: sourcePath("posts", "电机控制", "电机控制.md"),
     slug: "电机控制",
@@ -868,7 +890,12 @@ async function importPosts() {
   for (const config of imports) {
     const source = await fs.readFile(config.source, "utf8");
     const { data, body } = parseFrontMatter(source);
-    const markdown = preprocessMarkdown(await copyLocalImages(body, config));
+    const articleBody = config.stripTitleHeading
+      ? body.replace(/^#\s+[^\n]+\r?\n+/, "")
+      : body;
+    const markdown = preprocessMarkdown(
+      await copyLocalImages(articleBody, config),
+    );
     let html = marked.parse(markdown, { gfm: true, breaks: false });
     html = html
       .replace(/<img\b/g, '<img loading="lazy" decoding="async"')

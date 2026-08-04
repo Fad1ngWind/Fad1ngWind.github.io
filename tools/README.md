@@ -33,3 +33,9 @@ BLOG_SITE_ROOT=/path/to/preview npm run blog:import
 ```bash
 BLOG_SOURCE_ROOT=/path/to/_posts npm run blog:import
 ```
+
+研究资料默认从当前用户主目录下的 `基于PINN和历元间连续性约束的GNSSINS融合定位方法` 文件夹读取。如需使用其他位置，可以在运行时指定：
+
+```bash
+BLOG_RESEARCH_ROOT=/path/to/research-folder npm run blog:import
+```
