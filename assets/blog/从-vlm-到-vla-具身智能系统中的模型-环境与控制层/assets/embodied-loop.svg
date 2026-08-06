@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+  <title id="title">具身智能闭环</title>
+  <desc id="desc">环境观测依次经过感知理解、任务规划、动作策略和控制执行，机器人动作改变环境并产生新的观测。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#4263eb"/>
+    </marker>
+    <style>
+      .title { font: 700 38px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; fill: #172b4d; }
+      .label { font: 650 28px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; fill: #172b4d; }
+      .sub { font: 400 20px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; fill: #5e6c84; }
+      .arrow { stroke: #4263eb; stroke-width: 5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1400" height="720" rx="28" fill="#f7f9fc"/>
+  <text x="700" y="70" text-anchor="middle" class="title">具身智能的感知—决策—行动闭环</text>
+
+  <rect x="70" y="210" width="230" height="150" rx="24" fill="#e7f5ff" stroke="#4dabf7" stroke-width="3"/>
+  <text x="185" y="270" text-anchor="middle" class="label">环境观测</text>
+  <text x="185" y="312" text-anchor="middle" class="sub">图像、深度、状态</text>
+
+  <rect x="370" y="210" width="230" height="150" rx="24" fill="#e5dbff" stroke="#845ef7" stroke-width="3"/>
+  <text x="485" y="270" text-anchor="middle" class="label">感知与理解</text>
+  <text x="485" y="312" text-anchor="middle" class="sub">对象、空间、语义</text>
+
+  <rect x="670" y="210" width="230" height="150" rx="24" fill="#fff3bf" stroke="#fcc419" stroke-width="3"/>
+  <text x="785" y="270" text-anchor="middle" class="label">任务规划</text>
+  <text x="785" y="312" text-anchor="middle" class="sub">子目标与技能选择</text>
+
+  <rect x="970" y="210" width="230" height="150" rx="24" fill="#d3f9d8" stroke="#40c057" stroke-width="3"/>
+  <text x="1085" y="270" text-anchor="middle" class="label">动作策略</text>
+  <text x="1085" y="312" text-anchor="middle" class="sub">动作或动作序列</text>
+
+  <path d="M300 285 H355" class="arrow"/>
+  <path d="M600 285 H655" class="arrow"/>
+  <path d="M900 285 H955" class="arrow"/>
+
+  <rect x="970" y="475" width="230" height="150" rx="24" fill="#ffe3e3" stroke="#fa5252" stroke-width="3"/>
+  <text x="1085" y="535" text-anchor="middle" class="label">控制与执行</text>
+  <text x="1085" y="577" text-anchor="middle" class="sub">轨迹、速度、力矩</text>
+  <path d="M1085 360 V455" class="arrow"/>
+
+  <rect x="370" y="475" width="360" height="150" rx="24" fill="#e6fcf5" stroke="#20c997" stroke-width="3"/>
+  <text x="550" y="535" text-anchor="middle" class="label">机器人与物理环境交互</text>
+  <text x="550" y="577" text-anchor="middle" class="sub">动作改变物体、位姿与接触状态</text>
+  <path d="M970 550 H750" class="arrow"/>
+  <path d="M370 550 H185 Q105 550 105 470 V380" class="arrow"/>
+
+  <text x="700" y="686" text-anchor="middle" class="sub">闭环意味着系统必须依据动作后的新观测继续判断，而不是一次性生成完整答案后停止</text>
+</svg>

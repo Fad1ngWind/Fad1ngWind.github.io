@@ -23,6 +23,18 @@ const RESEARCH_ROOT = path.resolve(
   process.env.BLOG_RESEARCH_ROOT ||
     path.join(os.homedir(), "基于PINN和历元间连续性约束的GNSSINS融合定位方法"),
 );
+const EMBODIED_AI_ROOT = path.resolve(
+  process.env.BLOG_EMBODIED_AI_ROOT ||
+    path.join(
+      os.homedir(),
+      "Documents",
+      "Codex",
+      "2026-08-06",
+      "referenced-chatgpt-conversation-this-is-an-2",
+      "outputs",
+      "vla-vlm-embodied-ai-blog",
+    ),
+);
 const KATEX_DIST_ROOT = path.dirname(require.resolve("katex"));
 const SITE_URL = "https://zhr0529.cn";
 const AUTHOR = "ZHR";
@@ -33,6 +45,10 @@ function sourcePath(...segments) {
 
 function researchSourcePath(...segments) {
   return path.join(RESEARCH_ROOT, ...segments);
+}
+
+function embodiedAiSourcePath(...segments) {
+  return path.join(EMBODIED_AI_ROOT, ...segments);
 }
 
 const legacyImports = [
@@ -87,6 +103,20 @@ const legacyImports = [
 ];
 
 const currentImports = [
+  {
+    source: embodiedAiSourcePath(
+      "从 VLM 到 VLA：具身智能系统中的模型、环境与控制层.md",
+    ),
+    slug: "从-vlm-到-vla-具身智能系统中的模型-环境与控制层",
+    title: "从 VLM 到 VLA：具身智能系统中的模型、环境与控制层",
+    date: "2026-08-06 11:21:18",
+    category: "理论",
+    tags: ["具身智能", "VLM", "VLA", "机器人"],
+    summary:
+      "梳理 LLM、VLM、VLA、世界模型与具身智能的边界，以及仿真、训练、规划和控制在机器人闭环中的位置。",
+    copyLocalImages: true,
+    stripTitleHeading: true,
+  },
   {
     source: researchSourcePath(
       "基于PINN和历元间连续性约束的GNSSINS融合定位研究手记.md",
@@ -349,11 +379,17 @@ function renderMath(markdown) {
     .map((section, sectionIndex) => {
       if (sectionIndex % 2 === 1) return section;
 
-      const withBlocks = section.replace(
-        /\$\$([\s\S]*?)\$\$/g,
-        (_, formula) =>
-          `\n\n<div class="math-block">${renderFormula(formula, true)}</div>\n\n`,
-      );
+      const withBlocks = section
+        .replace(
+          /\\\[([\s\S]*?)\\\]/g,
+          (_, formula) =>
+            `\n\n<div class="math-block">${renderFormula(formula, true)}</div>\n\n`,
+        )
+        .replace(
+          /\$\$([\s\S]*?)\$\$/g,
+          (_, formula) =>
+            `\n\n<div class="math-block">${renderFormula(formula, true)}</div>\n\n`,
+        );
 
       return withBlocks
         .split(/\r?\n/)
@@ -362,10 +398,15 @@ function renderMath(markdown) {
             .split(/(`[^`\n]*`)/g)
             .map((part, partIndex) => {
               if (partIndex % 2 === 1) return part;
-              return part.replace(
-                /(^|[^\\])\$([^$\n]+?)(?<!\\)\$/g,
-                (_, prefix, formula) => `${prefix}${renderFormula(formula, false)}`,
-              );
+              return part
+                .replace(
+                  /\\\((.+?)\\\)/g,
+                  (_, formula) => renderFormula(formula, false),
+                )
+                .replace(
+                  /(^|[^\\])\$([^$\n]+?)(?<!\\)\$/g,
+                  (_, prefix, formula) => `${prefix}${renderFormula(formula, false)}`,
+                );
             })
             .join(""),
         )
@@ -859,6 +900,8 @@ async function auditRenderedPosts() {
     if (/\[![^\]]+\]/.test(html)) issues.push(`${entry.name}：残留提示块标记`);
     if (/class="math-error"/.test(html)) issues.push(`${entry.name}：存在公式渲染错误`);
     if (/\$\$[\s\S]*?\$\$/.test(html)) issues.push(`${entry.name}：残留块级公式标记`);
+    if (/\\\[[\s\S]*?\\\]/.test(html)) issues.push(`${entry.name}：残留 \\[...\\] 公式标记`);
+    if (/\\\([^\n]*?\\\)/.test(html)) issues.push(`${entry.name}：残留 \\(...\\) 公式标记`);
 
     for (const match of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
       const source = match[1];

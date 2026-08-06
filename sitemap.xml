@@ -6,6 +6,7 @@
   <url><loc>https://zhr0529.cn/search/</loc></url>
   <url><loc>https://zhr0529.cn/categories/</loc></url>
   <url><loc>https://zhr0529.cn/tags/</loc></url>
+  <url><loc>https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/</loc></url>
   <url><loc>https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/</loc></url>
   <url><loc>https://zhr0529.cn/posts/c1-有监督的机器学习-回归和分类/</loc></url>
   <url><loc>https://zhr0529.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</loc></url>
@@ -26,6 +27,10 @@
   <url><loc>https://zhr0529.cn/categories/%E7%90%86%E8%AE%BA/</loc></url>
   <url><loc>https://zhr0529.cn/categories/%E5%AE%9E%E6%93%8D/</loc></url>
   <url><loc>https://zhr0529.cn/categories/%E6%97%A5%E8%AE%B0/</loc></url>
+  <url><loc>https://zhr0529.cn/tags/%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD/</loc></url>
+  <url><loc>https://zhr0529.cn/tags/vlm/</loc></url>
+  <url><loc>https://zhr0529.cn/tags/vla/</loc></url>
+  <url><loc>https://zhr0529.cn/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/</loc></url>
   <url><loc>https://zhr0529.cn/tags/gnss/</loc></url>
   <url><loc>https://zhr0529.cn/tags/ins/</loc></url>
   <url><loc>https://zhr0529.cn/tags/pinn/</loc></url>

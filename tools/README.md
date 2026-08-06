@@ -39,3 +39,9 @@ BLOG_SOURCE_ROOT=/path/to/_posts npm run blog:import
 ```bash
 BLOG_RESEARCH_ROOT=/path/to/research-folder npm run blog:import
 ```
+
+具身智能文章默认从当前用户文档目录下的对应输出文件夹读取。如需使用其他位置，可以在运行时指定：
+
+```bash
+BLOG_EMBODIED_AI_ROOT=/path/to/vla-vlm-embodied-ai-blog npm run blog:import
+```

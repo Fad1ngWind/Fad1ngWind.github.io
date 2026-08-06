@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN" dir="auto" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="index, follow">
+  <title>从 VLM 到 VLA：具身智能系统中的模型、环境与控制层 | Zhanghr</title>
+  <meta name="description" content="梳理 LLM、VLM、VLA、世界模型与具身智能的边界，以及仿真、训练、规划和控制在机器人闭环中的位置。">
+  <meta name="author" content="ZHR">
+  <link rel="canonical" href="https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/">
+  <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+  <link rel="icon" href="/assets/homepage/favicon.svg?v=original-flower-2026" type="image/svg+xml">
+  <meta name="theme-color" content="#2e2e33">
+  <meta property="og:url" content="https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/">
+  <meta property="og:site_name" content="Zhanghr">
+  <meta property="og:title" content="从 VLM 到 VLA：具身智能系统中的模型、环境与控制层">
+  <meta property="og:description" content="梳理 LLM、VLM、VLA、世界模型与具身智能的边界，以及仿真、训练、规划和控制在机器人闭环中的位置。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2026-08-06T11:21:18+08:00">
+  <meta property="article:modified_time" content="2026-08-06T11:21:18+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="从 VLM 到 VLA：具身智能系统中的模型、环境与控制层">
+  <meta name="twitter:description" content="梳理 LLM、VLM、VLA、世界模型与具身智能的边界，以及仿真、训练、规划和控制在机器人闭环中的位置。">
+  <link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="/assets/homepage/blog-import.css">
+  <script>
+    const savedTheme = localStorage.getItem("pref-theme");
+    document.documentElement.dataset.theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从 VLM 到 VLA：具身智能系统中的模型、环境与控制层","datePublished":"2026-08-06T11:21:18+08:00","dateModified":"2026-08-06T11:21:18+08:00","author":{"@type":"Person","name":"ZHR"},"mainEntityOfPage":"https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/"}</script>
+</head>
+<body id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/" accesskey="h" title="Zhanghr (Alt + H)">Zhanghr</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="切换明暗主题 (Alt + T)" aria-label="切换明暗主题">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        <li><a href="/archives/" title="归档"><span>归档</span></a></li>
+        <li><a href="/search/" title="搜索 (Alt + /)" accesskey="/"><span>搜索</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main"><article class="post-single">
+    <header class="post-header">
+      <div class="breadcrumbs"><a href="/">首页</a>&nbsp;»&nbsp;<a href="/posts/">博客</a></div>
+      <h1 class="post-title entry-hint-parent">从 VLM 到 VLA：具身智能系统中的模型、环境与控制层</h1>
+      <div class="post-meta"><span title="2026-08-06 11:21:18 +0800 CST">August 6, 2026</span>&nbsp;·&nbsp;<span>18 min</span>&nbsp;·&nbsp;<span>ZHR</span></div>
+    </header>
+    <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">目录</span></summary>
+      <div class="inner"><ul><li class="toc-level-2"><a href="#一-完整技术框架" aria-label="一、完整技术框架">一、完整技术框架</a></li><li class="toc-level-2"><a href="#二-llm-以语言序列为核心的大模型" aria-label="二、LLM：以语言序列为核心的大模型">二、LLM：以语言序列为核心的大模型</a></li><li class="toc-level-4"><a href="#mllm-与-lmm" aria-label="MLLM 与 LMM">MLLM 与 LMM</a></li><li class="toc-level-2"><a href="#三-vlm-视觉信息与语言对齐" aria-label="三、VLM：视觉信息与语言对齐">三、VLM：视觉信息与语言对齐</a></li><li class="toc-level-2"><a href="#四-vla-多模态模型直接预测动作" aria-label="四、VLA：多模态模型直接预测动作">四、VLA：多模态模型直接预测动作</a></li><li class="toc-level-2"><a href="#五-具身智能" aria-label="五、具身智能">五、具身智能</a></li><li class="toc-level-2"><a href="#六-真实世界与仿真" aria-label="六、真实世界与仿真">六、真实世界与仿真</a></li><li class="toc-level-2"><a href="#七-世界模型-学习环境如何随动作变化" aria-label="七、世界模型：学习环境如何随动作变化">七、世界模型：学习环境如何随动作变化</a></li><li class="toc-level-2"><a href="#八-策略-规划与控制" aria-label="八、策略、规划与控制">八、策略、规划与控制</a></li><li class="toc-level-4"><a href="#策略" aria-label="策略">策略</a></li><li class="toc-level-4"><a href="#任务规划与运动规划" aria-label="任务规划与运动规划">任务规划与运动规划</a></li><li class="toc-level-4"><a href="#控制" aria-label="控制">控制</a></li><li class="toc-level-2"><a href="#九-机器人模型如何训练" aria-label="九、机器人模型如何训练">九、机器人模型如何训练</a></li><li class="toc-level-4"><a href="#1-自监督与多模态预训练" aria-label="1. 自监督与多模态预训练">1. 自监督与多模态预训练</a></li><li class="toc-level-4"><a href="#2-模仿学习与行为克隆" aria-label="2. 模仿学习与行为克隆">2. 模仿学习与行为克隆</a></li><li class="toc-level-4"><a href="#3-强化学习" aria-label="3. 强化学习">3. 强化学习</a></li><li class="toc-level-4"><a href="#4-离线学习" aria-label="4. 离线学习">4. 离线学习</a></li><li class="toc-level-4"><a href="#5-联合训练与协同微调" aria-label="5. 联合训练与协同微调">5. 联合训练与协同微调</a></li><li class="toc-level-4"><a href="#6-跨机器人数据与动作对齐" aria-label="6. 跨机器人数据与动作对齐">6. 跨机器人数据与动作对齐</a></li><li class="toc-level-4"><a href="#7-微调-参数高效适配与量化" aria-label="7. 微调、参数高效适配与量化">7. 微调、参数高效适配与量化</a></li><li class="toc-level-2"><a href="#十-一个完整任务怎样执行" aria-label="十、一个完整任务怎样执行">十、一个完整任务怎样执行</a></li><li class="toc-level-2"><a href="#十一-常见误区" aria-label="十一、常见误区">十一、常见误区</a></li><li class="toc-level-4"><a href="#vlm-能描述动作-因此就是-vla" aria-label="VLM 能描述动作，因此就是 VLA">VLM 能描述动作，因此就是 VLA</a></li><li class="toc-level-4"><a href="#vla-等于完整的具身智能系统" aria-label="VLA 等于完整的具身智能系统">VLA 等于完整的具身智能系统</a></li><li class="toc-level-4"><a href="#端到端模型不需要控制器" aria-label="端到端模型不需要控制器">端到端模型不需要控制器</a></li><li class="toc-level-4"><a href="#真实世界数据就是未经处理的原始数据" aria-label="真实世界数据就是未经处理的原始数据">真实世界数据就是未经处理的原始数据</a></li><li class="toc-level-4"><a href="#仿真数据足够多就能完全替代真实数据" aria-label="仿真数据足够多就能完全替代真实数据">仿真数据足够多就能完全替代真实数据</a></li><li class="toc-level-4"><a href="#世界模型就是更大的-vlm-或视频生成模型" aria-label="世界模型就是更大的 VLM 或视频生成模型">世界模型就是更大的 VLM 或视频生成模型</a></li><li class="toc-level-4"><a href="#具身智能只研究人形机器人" aria-label="具身智能只研究人形机器人">具身智能只研究人形机器人</a></li><li class="toc-level-4"><a href="#模型规模越大-机器人泛化就一定越好" aria-label="模型规模越大，机器人泛化就一定越好">模型规模越大，机器人泛化就一定越好</a></li><li class="toc-level-2"><a href="#十二-术语速查表" aria-label="十二、术语速查表">十二、术语速查表</a></li><li class="toc-level-2"><a href="#结语" aria-label="结语">结语</a></li><li class="toc-level-2"><a href="#参考资料" aria-label="参考资料">参考资料</a></li></ul></div>
+    </details>
+  </div>
+    <div class="post-content"><p>大语言模型、视觉语言模型、视觉语言动作模型、世界模型和具身智能经常出现在同一段讨论中，但它们并不处于同一个分类层级。LLM、VLM、VLA 描述模型处理的信息和输出形式；世界模型描述对环境动态的建模方式；具身智能描述智能体通过身体与环境持续交互的研究方向；真实世界与仿真则是数据产生和系统运行的环境。</p>
+<p>区分这些术语，最有效的方法不是比较模型名称，而是依次确认四件事：系统接收什么输入、产生什么输出、输出是否会改变环境、动作之后是否还会根据新观测继续决策。</p>
+<h2 id="一-完整技术框架">一、完整技术框架<a hidden class="anchor" aria-hidden="true" href="#一-完整技术框架">#</a></h2>
+<p>具身系统的基本运行方式是闭环：传感器获取当前观测，系统理解任务和环境状态，规划下一步行动，机器人执行动作，随后再次观察动作造成的结果。只要环境会变化、观测存在误差或动作可能失败，这个循环就不能省略。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E4%BB%8E-vlm-%E5%88%B0-vla-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%B1%82/assets/embodied-loop.svg" alt="具身智能的感知—决策—行动闭环"></p>
+<p>在工程系统中，这个闭环通常包含以下层次：</p>
+<ol>
+<li>传感器层采集 RGB 图像、深度图、点云、关节位置、末端位姿、力觉和触觉等数据。</li>
+<li>感知与理解层识别对象、空间关系、可操作区域、任务条件和当前执行状态。</li>
+<li>任务规划层把自然语言目标拆成子目标，选择技能，并决定执行顺序。</li>
+<li>策略层根据观测和任务生成动作或一段动作序列。</li>
+<li>运动规划与控制层处理碰撞约束、逆运动学、轨迹跟踪、速度、位置或力矩控制。</li>
+<li>执行与反馈层检查动作结果，识别失败并触发重试、纠正或重新规划。</li>
+</ol>
+<p>这些功能可以由一个端到端模型承担一部分，也可以由多个专用模块组合完成。VLA 是其中的一类策略模型，不是整个机器人系统的同义词。</p>
+<h2 id="二-llm-以语言序列为核心的大模型">二、LLM：以语言序列为核心的大模型<a hidden class="anchor" aria-hidden="true" href="#二-llm-以语言序列为核心的大模型">#</a></h2>
+<p>LLM 是 Large Language Model 的缩写，中文通常写作大语言模型。它通过大规模文本训练学习语言序列的统计结构，现代 LLM 大多采用 Transformer 架构。其核心接口可以写成：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div>
+
+
+
+<p>模型根据已有 token 序列预测后续 token，再通过连续生成完成问答、摘要、代码生成和任务分解等工作。Transformer 论文给出了以注意力机制为核心的序列建模架构，GPT-3 则展示了扩大自回归语言模型后形成的少样本任务能力。</p>
+<p>LLM 可以为机器人生成高层步骤，也可以调用外部工具，但普通 LLM 并不天然接收相机图像、关节状态和力觉数据，也不天然输出满足机器人动力学约束的控制量。语言计划与物理动作之间仍然存在感知落地、状态估计、动作生成和安全控制等环节。</p>
+<h4 id="mllm-与-lmm">MLLM 与 LMM<a hidden class="anchor" aria-hidden="true" href="#mllm-与-lmm">#</a></h4>
+<p>MLLM 通常展开为 Multimodal Large Language Model，强调以语言模型为核心接入图像、视频、音频等模态。LMM 展开为 Large Multimodal Model，范围更宽，不一定把语言置于绝对中心。论文和产品文档中经常混用这两个名称，因此阅读时应优先看模型的输入、输出和训练目标，而不是只看缩写。</p>
+<h2 id="三-vlm-视觉信息与语言对齐">三、VLM：视觉信息与语言对齐<a hidden class="anchor" aria-hidden="true" href="#三-vlm-视觉信息与语言对齐">#</a></h2>
+<p>VLM 是 Vision-Language Model 的缩写，中文为视觉语言模型。它联合处理图像或视频与文本，使视觉内容能够被语言查询、描述或用于推理。常见接口包括：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord text"><span class="mord cjk_fallback">图像或视频</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">文本</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">文本、类别、坐标或跨模态表示</span></span></span></span></span></span></div>
+
+
+
+<p>VLM 的输出并不局限于自然语言。CLIP 通过图像与文本的对比学习获得共享表示，适合开放词汇分类和检索；带生成式语言模型的 VLM 可以完成图像描述、视觉问答、OCR、目标定位和视觉推理。PaLM-E 进一步把视觉和连续状态估计编码接入语言模型，能够处理机器人规划等具身任务，但它在论文中的定位仍是具身多模态语言模型，并不等同于直接输出低层控制动作的 VLA。</p>
+<p>对机器人而言，VLM 的主要价值是把任务语言与视觉场景关联起来。它可以判断目标物体、关系和语义条件，也可以生成操作步骤。若输出仍是文本计划、目标标签或坐标，系统还需要策略、运动规划和控制模块才能执行。</p>
+<h2 id="四-vla-多模态模型直接预测动作">四、VLA：多模态模型直接预测动作<a hidden class="anchor" aria-hidden="true" href="#四-vla-多模态模型直接预测动作">#</a></h2>
+<p>VLA 是 Vision-Language-Action Model 的缩写，中文为视觉语言动作模型。RT-2 论文把这类模型定义为同时利用视觉、语言和机器人动作数据，并把机器人动作纳入统一建模过程的模型。其典型接口是：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord text"><span class="mord cjk_fallback">视觉观测</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord text"><span class="mord cjk_fallback">语言任务</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">机器人状态或历史</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">动作或动作序列</span></span></span></span></span></span></div>
+
+
+
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E4%BB%8E-vlm-%E5%88%B0-vla-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%B1%82/assets/vlm-vla-boundary.svg" alt="VLM 与 VLA 的输入输出边界"></p>
+<p>RT-2 将连续机器人动作离散化为 token，使动作数据可以与视觉语言任务共同训练。OpenVLA 采用视觉编码器与 Llama 2 语言模型组成 7B 参数模型，在 Open X-Embodiment 的 97 万条真实机器人轨迹上训练，并同样预测离散化动作。这里的动作可表示末端执行器的位姿增量、旋转、夹爪开合或其他机器人相关控制维度。</p>
+<p>离散动作 token 只是 VLA 的一种实现。VLA 也可以预测连续动作，用扩散模型生成动作分布，或一次预测多个时间步的动作块。决定模型是否属于 VLA 的关键不是动作是否文本化，而是模型是否把视觉、语言条件与可执行动作映射放在同一个策略中学习。</p>
+<p>VLA 相比 VLM 多完成了从语义理解到动作选择的一段映射，但仍不代表模型输出可以不经处理直接写入电机。实际部署通常还要加入动作反归一化、坐标系转换、可达性检查、碰撞检测、速度与力矩限制、急停逻辑和底层控制器。</p>
+<h2 id="五-具身智能">五、具身智能<a hidden class="anchor" aria-hidden="true" href="#五-具身智能">#</a></h2>
+<p>具身智能不是某一种模型，而是一类研究问题：智能体具有可感知和可行动的身体，在环境中通过连续交互完成任务，并让行动结果影响后续观测与决策。</p>
+<p>这个定义有三个边界需要明确。</p>
+<p>第一，具身智能不等于人形机器人。机械臂、移动机器人、无人机、自动驾驶系统和带虚拟身体的仿真智能体都可以构成具身系统。身体形态会决定传感器、动作空间、可达范围和动力学约束，研究中常用 embodiment 表示这种载体及其能力边界。</p>
+<p>第二，机器人不一定具有具身智能。按照固定轨迹重复焊接的工业机器人具备物理身体，但如果它不根据环境变化进行感知和闭环决策，通常不会被作为具身智能系统讨论。</p>
+<p>第三，具身智能并不要求所有模块都由神经网络实现。学习模型可以负责感知、技能选择或策略，传统运动规划、状态估计和反馈控制仍然可以承担关键功能。系统是否具身，取决于它是否通过身体与环境形成感知—决策—行动闭环，而不是取决于模型数量或端到端程度。</p>
+<h2 id="六-真实世界与仿真">六、真实世界与仿真<a hidden class="anchor" aria-hidden="true" href="#六-真实世界与仿真">#</a></h2>
+<p>真实世界在机器人学习中通常指物理机器人、真实传感器、真实物体和真实场地组成的运行环境。真实世界数据来自实际执行过程，因此会包含传感器噪声、照明变化、相机标定误差、摩擦、柔性、接触不确定性、通信延迟、执行器磨损和人为干扰。训练或评估时还必须考虑设备成本、操作安全、恢复时间和数据采集速度。</p>
+<p>仿真环境由物理引擎、渲染器和任务逻辑构成。它可以快速生成大量交互数据，精确读取系统状态，方便重置场景，也允许测试危险动作。MuJoCo、Isaac Sim、Gazebo、PyBullet、Habitat 和 ManiSkill 都属于常见仿真平台或生态，但它们覆盖的物理精度、传感器模拟、任务类型和计算效率并不相同。</p>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E4%BB%8E-vlm-%E5%88%B0-vla-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%B1%82/assets/mujoco-body-geom-site.png" alt="MuJoCo 中的 body、geom 与 site 元素"></p>
+<p>仿真不等于真实世界的完整复制。仿真模型省略或近似了材料形变、摩擦变化、相机噪声、线缆干扰和硬件老化等因素，由此形成 sim-to-real gap，也称仿真到现实差距。常用缩小方法包括：</p>
+<ul>
+<li>系统辨识：用真实测量估计质量、摩擦、延迟和执行器参数。</li>
+<li>域随机化：在训练时随机改变纹理、光照、相机、物理参数和物体布局，减少策略对单一仿真条件的依赖。</li>
+<li>域适配：对齐仿真数据与真实数据的特征或分布。</li>
+<li>真实数据微调：先在仿真中获得基础能力，再用少量真实轨迹适配。</li>
+<li>混合训练：同时使用仿真数据、真实数据和模型生成的数据。</li>
+</ul>
+<p><img loading="lazy" decoding="async" src="/assets/blog/%E4%BB%8E-vlm-%E5%88%B0-vla-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%B1%82/assets/mujoco-procedural-terrain.png" alt="MuJoCo 中的程序化地形生成"></p>
+<p>​					 MuJoCo 中的程序化地形生成示例</p>
+<p>域随机化论文展示了只用随机纹理仿真图像训练的目标定位模型向真实抓取任务迁移的结果。这个方法说明增加仿真变化有助于迁移，但不能推出真实数据已经不再需要。接触丰富、柔性物体、精细装配和长期运行等任务仍然高度依赖真实系统校准与评估。</p>
+<h2 id="七-世界模型-学习环境如何随动作变化">七、世界模型：学习环境如何随动作变化<a hidden class="anchor" aria-hidden="true" href="#七-世界模型-学习环境如何随动作变化">#</a></h2>
+<p>世界模型是对环境动态的可学习表示。它根据当前状态或观测以及候选动作，预测下一状态、下一观测、奖励、终止概率或这些量的潜在表示。一个常见形式是：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div>
+
+
+
+<p>当高维图像先被编码为潜在状态时，模型也可以在潜在空间中预测未来。Ha 与 Schmidhuber 的 World Models 将环境压缩表示、时间动态模型和控制器组合起来；DreamerV3 则在学习到的环境模型中预测未来并改进策略。</p>
+<p>世界模型可以支持多种用途：</p>
+<ul>
+<li>在执行前模拟多个动作后果，辅助规划和模型预测控制。</li>
+<li>在潜在空间中生成训练轨迹，降低真实交互成本。</li>
+<li>预测碰撞、失败、奖励或任务终止。</li>
+<li>估计不可直接观测的状态，帮助策略利用历史信息。</li>
+</ul>
+<p>世界模型与 VLA 不是互斥概念，也不是上下位关系。VLA 可以完全不显式预测未来，只学习观测到动作的映射；也可以在内部或外部接入世界模型，对候选动作进行评估。能够生成视频的模型也不自动成为机器人世界模型，只有当它能在动作条件下提供对决策有用的环境动态预测时，这个称呼才更准确。</p>
+<h2 id="八-策略-规划与控制">八、策略、规划与控制<a hidden class="anchor" aria-hidden="true" href="#八-策略-规划与控制">#</a></h2>
+<p>这三个词都与行动有关，但处理的时间尺度和约束不同。</p>
+<h4 id="策略">策略<a hidden class="anchor" aria-hidden="true" href="#策略">#</a></h4>
+<p>策略 policy 描述在给定状态、观测和任务条件下如何选择动作：</p>
+<div class="math-block"><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2952em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">≤</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2452em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span></span></span></div>
+
+
+
+<p>其中 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6757em;vertical-align:-0.2452em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2952em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">≤</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2452em;"><span></span></span></span></span></span></span></span></span></span> 是当前及历史观测，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span></span></span> 是任务条件。策略可以是确定性的，也可以输出动作概率分布。VLA、Diffusion Policy 和 RT-1 都可以作为策略模型。策略学习关注从数据或交互中获得动作映射。</p>
+<h4 id="任务规划与运动规划">任务规划与运动规划<a hidden class="anchor" aria-hidden="true" href="#任务规划与运动规划">#</a></h4>
+<p>任务规划决定做什么以及先后顺序，例如定位目标、接近目标、抓取、移动和放置。SayCan 使用语言模型给出的技能相关性与技能价值函数结合，在机器人已有技能中选择可行步骤。</p>
+<p>运动规划决定身体怎样从当前构型移动到目标构型，通常要满足关节限制、碰撞约束、速度限制和动力学条件。它的输出可能是关节路径、末端轨迹或带时间参数的运动序列。</p>
+<h4 id="控制">控制<a hidden class="anchor" aria-hidden="true" href="#控制">#</a></h4>
+<p>控制器负责让真实机器人跟踪目标位置、速度、轨迹或力。位置控制、速度控制、阻抗控制和力矩控制都属于这一层。控制频率通常高于高层规划和视觉策略频率，但具体数值由机器人、传感器和任务决定。</p>
+<p>任务规划、策略和控制可以组成分层系统，也可以由端到端模型跨越部分边界。工程上仍应保留明确的接口，因为安全约束、实时性和故障诊断通常需要独立处理。</p>
+<h2 id="九-机器人模型如何训练">九、机器人模型如何训练<a hidden class="anchor" aria-hidden="true" href="#九-机器人模型如何训练">#</a></h2>
+<h4 id="1-自监督与多模态预训练">1. 自监督与多模态预训练<a hidden class="anchor" aria-hidden="true" href="#1-自监督与多模态预训练">#</a></h4>
+<p>模型先在文本、图像—文本对、视频或无标注机器人数据上学习通用表示。CLIP 的图文对比学习、VLM 的生成式视觉语言训练都属于这一类。预训练可以提高语义能力和视觉泛化，但网络数据不会自动提供准确的机器人动作知识。</p>
+<h4 id="2-模仿学习与行为克隆">2. 模仿学习与行为克隆<a hidden class="anchor" aria-hidden="true" href="#2-模仿学习与行为克隆">#</a></h4>
+<p>行为克隆把专家轨迹中的观测—动作对作为监督数据，直接训练策略预测专家动作。数据可以由人工遥操作、示教器、脚本控制器、传统规划器或已有策略产生。</p>
+<p>行为克隆的主要问题是训练时看到的状态来自专家，部署时的状态却会被模型自身误差逐步改变。DAgger 通过迭代收集当前策略访问到的状态并请求专家标注，缓解这种分布偏移。实践中还会使用数据重采样、噪声注入、失败恢复轨迹和在线纠正来覆盖偏离状态。</p>
+<h4 id="3-强化学习">3. 强化学习<a hidden class="anchor" aria-hidden="true" href="#3-强化学习">#</a></h4>
+<p>强化学习根据环境反馈优化累计回报。它适合目标可以通过奖励表达、但难以逐步标注正确动作的任务。训练可以发生在真实机器人、仿真环境或学习到的世界模型中。机器人强化学习必须额外处理探索安全、样本效率、奖励设计和硬件损耗。</p>
+<h4 id="4-离线学习">4. 离线学习<a hidden class="anchor" aria-hidden="true" href="#4-离线学习">#</a></h4>
+<p>离线模仿学习或离线强化学习只使用预先收集的数据集训练，不在训练过程中持续访问真实环境。它便于复用大规模轨迹并降低在线风险，但策略容易在数据覆盖范围之外失真，因此需要谨慎评估分布外动作。</p>
+<h4 id="5-联合训练与协同微调">5. 联合训练与协同微调<a hidden class="anchor" aria-hidden="true" href="#5-联合训练与协同微调">#</a></h4>
+<p>RT-2 同时使用机器人轨迹和互联网视觉语言任务进行协同微调，把动作离散化后与文本 token 放入统一输出空间。OpenVLA 则从预训练 VLM 出发，在多来源真实机器人演示上训练动作预测。联合训练的目标是保留视觉语言语义能力，同时建立观测到动作的映射。</p>
+<h4 id="6-跨机器人数据与动作对齐">6. 跨机器人数据与动作对齐<a hidden class="anchor" aria-hidden="true" href="#6-跨机器人数据与动作对齐">#</a></h4>
+<p>不同机器人拥有不同关节数、相机位置、工作空间和控制接口，不能直接把原始动作拼接到同一数据集中。Open X-Embodiment 将 22 种机器人数据整理为标准格式，并训练 RT-X 研究跨机器人迁移。实际处理通常包括统一坐标约定、动作归一化、时间对齐、缺失模态处理和机器人身份条件化。</p>
+<h4 id="7-微调-参数高效适配与量化">7. 微调、参数高效适配与量化<a hidden class="anchor" aria-hidden="true" href="#7-微调-参数高效适配与量化">#</a></h4>
+<p>通用策略部署到新机器人或新场景时，通常仍需任务数据。全量微调会更新全部参数，参数高效方法只训练少量适配参数，量化则降低显存和推理成本。OpenVLA 提供了 LoRA 微调和量化部署方案，但模型许可证、基础模型许可证、数据许可证和代码许可证需要分别检查，不能只依据代码仓库许可证判断模型是否可商用。</p>
+<h2 id="十-一个完整任务怎样执行">十、一个完整任务怎样执行<a hidden class="anchor" aria-hidden="true" href="#十-一个完整任务怎样执行">#</a></h2>
+<p>以把红色杯子放到托盘为例，完整链路可以拆成以下步骤：</p>
+<ol>
+<li>接收任务：语言模块解析目标物体、目标位置和完成条件。</li>
+<li>获取观测：相机、深度传感器和机器人状态接口提供当前信息。</li>
+<li>场景理解：VLM 或感知模型识别红色杯子、托盘、障碍物和空间关系。</li>
+<li>状态落地：系统把语言中的对象与图像区域、三维位置和可操作部位对应起来。</li>
+<li>任务规划：系统决定接近、预抓取、闭合夹爪、抬升、移动、放置和撤离等阶段。</li>
+<li>动作生成：VLA 或专用策略根据当前观测预测末端位姿增量、夹爪动作或动作块。</li>
+<li>安全与运动约束：规划器或安全层检查碰撞、关节范围、速度和工作空间限制。</li>
+<li>底层控制：控制器把轨迹转换成执行器可跟踪的指令，并处理位置、速度或力反馈。</li>
+<li>闭环校正：系统重新观察杯子是否抓稳、是否滑动、托盘位置是否变化，并调整动作。</li>
+<li>完成判断：视觉、力觉或任务状态判断杯子是否稳定放入托盘；失败时执行重试或重新规划。</li>
+</ol>
+<p>VLM 可以主要承担第 3 至第 5 步，VLA 可以覆盖第 3 至第 6 步的一部分，世界模型可以在第 5 至第 7 步预测动作后果。无论模型覆盖多少步骤，真实系统仍需第 7 至第 10 步的约束、执行与反馈。</p>
+<h2 id="十一-常见误区">十一、常见误区<a hidden class="anchor" aria-hidden="true" href="#十一-常见误区">#</a></h2>
+<h4 id="vlm-能描述动作-因此就是-vla">VLM 能描述动作，因此就是 VLA<a hidden class="anchor" aria-hidden="true" href="#vlm-能描述动作-因此就是-vla">#</a></h4>
+<p>不成立。VLM 输出一段操作文字，与输出和机器人动作空间对齐、能进入控制链路的动作表示不同。判断依据应是训练数据、输出空间和执行接口。</p>
+<h4 id="vla-等于完整的具身智能系统">VLA 等于完整的具身智能系统<a hidden class="anchor" aria-hidden="true" href="#vla-等于完整的具身智能系统">#</a></h4>
+<p>不成立。VLA 是策略模型的一种。传感器同步、状态估计、运动规划、安全控制、执行器驱动、故障恢复和完成检测仍属于系统的一部分。</p>
+<h4 id="端到端模型不需要控制器">端到端模型不需要控制器<a hidden class="anchor" aria-hidden="true" href="#端到端模型不需要控制器">#</a></h4>
+<p>不成立。端到端通常表示从多模态观测直接预测较高层动作，但电机驱动仍需要实时控制、限幅和安全保护。端到端描述学习接口，不代表物理执行链路消失。</p>
+<h4 id="真实世界数据就是未经处理的原始数据">真实世界数据就是未经处理的原始数据<a hidden class="anchor" aria-hidden="true" href="#真实世界数据就是未经处理的原始数据">#</a></h4>
+<p>不成立。真实数据也要经过时间同步、标定、清洗、切片、动作归一化和质量筛选。真实世界描述数据来源，不描述数据处理程度。</p>
+<h4 id="仿真数据足够多就能完全替代真实数据">仿真数据足够多就能完全替代真实数据<a hidden class="anchor" aria-hidden="true" href="#仿真数据足够多就能完全替代真实数据">#</a></h4>
+<p>不成立。仿真可以扩大覆盖范围并降低成本，但模型误差会在接触、摩擦、柔性和传感器噪声中暴露。最终能力仍需在目标硬件和目标环境中验证。</p>
+<h4 id="世界模型就是更大的-vlm-或视频生成模型">世界模型就是更大的 VLM 或视频生成模型<a hidden class="anchor" aria-hidden="true" href="#世界模型就是更大的-vlm-或视频生成模型">#</a></h4>
+<p>不成立。世界模型的核心是预测环境状态如何在动作条件下演化，并服务于决策。生成视觉上合理的视频不足以证明其物理预测适合控制。</p>
+<h4 id="具身智能只研究人形机器人">具身智能只研究人形机器人<a hidden class="anchor" aria-hidden="true" href="#具身智能只研究人形机器人">#</a></h4>
+<p>不成立。具身智能关注身体、环境和闭环交互，人形只是一种 embodiment。</p>
+<h4 id="模型规模越大-机器人泛化就一定越好">模型规模越大，机器人泛化就一定越好<a hidden class="anchor" aria-hidden="true" href="#模型规模越大-机器人泛化就一定越好">#</a></h4>
+<p>不成立。机器人能力还受训练数据覆盖、动作标注质量、控制频率、传感器配置、机器人形态和安全约束影响。扩大模型不能弥补动作数据或系统接口的根本缺失。</p>
+<h2 id="十二-术语速查表">十二、术语速查表<a hidden class="anchor" aria-hidden="true" href="#十二-术语速查表">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文</th>
+<th>典型输入</th>
+<th>典型输出</th>
+<th>关键边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LLM</td>
+<td>大语言模型</td>
+<td>文本 token</td>
+<td>文本或结构化 token</td>
+<td>以语言序列建模为核心，不天然连接机器人动作空间</td>
+</tr>
+<tr>
+<td>MLLM</td>
+<td>多模态大语言模型</td>
+<td>文本、图像、视频、音频等</td>
+<td>文本、结构化结果或多模态内容</td>
+<td>通常以 LLM 为核心接入其他模态</td>
+</tr>
+<tr>
+<td>LMM</td>
+<td>大型多模态模型</td>
+<td>多种模态</td>
+<td>多种模态或表示</td>
+<td>比 MLLM 更宽泛，实际文献中常混用</td>
+</tr>
+<tr>
+<td>VLM</td>
+<td>视觉语言模型</td>
+<td>图像或视频、文本</td>
+<td>文本、类别、坐标或表示</td>
+<td>建立视觉与语言的对应关系，不必输出机器人动作</td>
+</tr>
+<tr>
+<td>VLA</td>
+<td>视觉语言动作模型</td>
+<td>视觉、语言、机器人状态或历史</td>
+<td>动作、动作 token 或动作块</td>
+<td>输出与机器人动作空间对齐，可进入行动链路</td>
+</tr>
+<tr>
+<td>具身智能</td>
+<td>通过身体与环境交互的智能系统与研究方向</td>
+<td>感知、任务、身体状态</td>
+<td>持续决策与行动</td>
+<td>强调感知—决策—行动闭环，不限定机器人外形</td>
+</tr>
+<tr>
+<td>Embodiment</td>
+<td>身体形态及能力边界</td>
+<td>传感器、关节、执行器、工作空间</td>
+<td>可感知和可执行的范围</td>
+<td>同一任务在不同机器人上会形成不同状态与动作空间</td>
+</tr>
+<tr>
+<td>真实世界</td>
+<td>物理运行与数据采集环境</td>
+<td>真实传感器和物理状态</td>
+<td>带噪声、延迟和风险的交互数据</td>
+<td>是环境类别，不是模型类型</td>
+</tr>
+<tr>
+<td>仿真</td>
+<td>计算机生成的物理与视觉环境</td>
+<td>场景、物理参数、控制指令</td>
+<td>合成观测、状态和反馈</td>
+<td>便于扩展与重置，但存在仿真到现实差距</td>
+</tr>
+<tr>
+<td>世界模型</td>
+<td>环境动态预测模型</td>
+<td>当前状态或观测、动作</td>
+<td>未来状态、观测、奖励或潜变量</td>
+<td>关注动作条件下的未来演化，不等同于策略</td>
+</tr>
+<tr>
+<td>Policy</td>
+<td>策略</td>
+<td>状态或观测、任务</td>
+<td>动作分布或动作</td>
+<td>回答当前条件下采取什么动作</td>
+</tr>
+<tr>
+<td>Task Planning</td>
+<td>任务规划</td>
+<td>目标、场景、技能集合</td>
+<td>子目标与技能顺序</td>
+<td>处理做什么和先后顺序</td>
+</tr>
+<tr>
+<td>Motion Planning</td>
+<td>运动规划</td>
+<td>起点、终点、机器人模型、障碍物</td>
+<td>无碰撞路径或轨迹</td>
+<td>处理身体怎样移动</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>控制</td>
+<td>目标轨迹、实时状态</td>
+<td>位置、速度或力矩指令</td>
+<td>高频跟踪与稳定执行</td>
+</tr>
+<tr>
+<td>Behavior Cloning</td>
+<td>行为克隆</td>
+<td>专家观测—动作对</td>
+<td>模仿专家的策略</td>
+<td>简单有效，但容易受分布偏移影响</td>
+</tr>
+<tr>
+<td>Reinforcement Learning</td>
+<td>强化学习</td>
+<td>环境交互与奖励</td>
+<td>最大化累计回报的策略</td>
+<td>依赖奖励、探索和交互成本</td>
+</tr>
+<tr>
+<td>Sim-to-Real</td>
+<td>仿真到现实迁移</td>
+<td>仿真训练结果、少量真实数据</td>
+<td>可在真实系统工作的模型</td>
+<td>需要处理视觉和动力学差异</td>
+</tr>
+</tbody></table>
+<h2 id="结语">结语<a hidden class="anchor" aria-hidden="true" href="#结语">#</a></h2>
+<p>这些术语可以放在同一条系统链路上理解：LLM 提供语言知识与任务分解能力，VLM 把语言与视觉场景对齐，VLA 进一步把多模态条件映射到机器人动作，世界模型预测动作可能造成的未来变化，规划器和控制器把决策变成满足约束的物理运动。具身智能覆盖的是这条链路与环境反复交互的完整闭环，真实世界和仿真则决定数据与反馈从哪里产生。</p>
+<p>因此，阅读一篇机器人论文时，先确认输入、输出、训练数据、动作空间和部署闭环，比依据模型名称判断能力更可靠。</p>
+<h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ol>
+<li>Vaswani, A. et al. 2017. <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener noreferrer">Attention Is All You Need</a>. NeurIPS 2017.</li>
+<li>Brown, T. B. et al. 2020. <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener noreferrer">Language Models are Few-Shot Learners</a>. NeurIPS 2020.</li>
+<li>Radford, A. et al. 2021. <a href="https://arxiv.org/abs/2103.00020" target="_blank" rel="noopener noreferrer">Learning Transferable Visual Models From Natural Language Supervision</a>. ICML 2021.</li>
+<li>Duan, J. et al. 2022. <a href="https://arxiv.org/abs/2103.04918" target="_blank" rel="noopener noreferrer">A Survey of Embodied AI: From Simulators to Research Tasks</a>. IEEE Transactions on Emerging Topics in Computational Intelligence.</li>
+<li>Driess, D. et al. 2023. <a href="https://arxiv.org/abs/2303.03378" target="_blank" rel="noopener noreferrer">PaLM-E: An Embodied Multimodal Language Model</a>. ICML 2023.</li>
+<li>Brohan, A. et al. 2022. <a href="https://arxiv.org/abs/2212.06817" target="_blank" rel="noopener noreferrer">RT-1: Robotics Transformer for Real-World Control at Scale</a>. arXiv preprint.</li>
+<li>Brohan, A. et al. 2023. <a href="https://arxiv.org/abs/2307.15818" target="_blank" rel="noopener noreferrer">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</a>. Conference on Robot Learning 2023.</li>
+<li>Kim, M. J. et al. 2024. <a href="https://arxiv.org/abs/2406.09246" target="_blank" rel="noopener noreferrer">OpenVLA: An Open-Source Vision-Language-Action Model</a>. Conference on Robot Learning 2024.</li>
+<li>O’Neill, A. et al. 2023. <a href="https://arxiv.org/abs/2310.08864" target="_blank" rel="noopener noreferrer">Open X-Embodiment: Robotic Learning Datasets and RT-X Models</a>. IEEE International Conference on Robotics and Automation 2024.</li>
+<li>Ahn, M. et al. 2022. <a href="https://arxiv.org/abs/2204.01691" target="_blank" rel="noopener noreferrer">Do As I Can, Not As I Say: Grounding Language in Robotic Affordances</a>. arXiv preprint.</li>
+<li>Chi, C. et al. 2023. <a href="https://arxiv.org/abs/2303.04137" target="_blank" rel="noopener noreferrer">Diffusion Policy: Visuomotor Policy Learning via Action Diffusion</a>. Robotics: Science and Systems 2023.</li>
+<li>Ross, S., Gordon, G. J., and Bagnell, J. A. 2011. <a href="https://arxiv.org/abs/1011.0686" target="_blank" rel="noopener noreferrer">A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</a>. AISTATS 2011.</li>
+<li>Tobin, J. et al. 2017. <a href="https://arxiv.org/abs/1703.06907" target="_blank" rel="noopener noreferrer">Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World</a>. IEEE/RSJ International Conference on Intelligent Robots and Systems 2017.</li>
+<li>Ha, D. and Schmidhuber, J. 2018. <a href="https://arxiv.org/abs/1803.10122" target="_blank" rel="noopener noreferrer">World Models</a>. arXiv preprint.</li>
+<li>Hafner, D. et al. 2023. <a href="https://arxiv.org/abs/2301.04104" target="_blank" rel="noopener noreferrer">Mastering Diverse Domains through World Models</a>. arXiv preprint.</li>
+<li>Todorov, E., Erez, T., and Tassa, Y. 2012. <a href="https://doi.org/10.1109/IROS.2012.6386109" target="_blank" rel="noopener noreferrer">MuJoCo: A Physics Engine for Model-Based Control</a>. IEEE/RSJ International Conference on Intelligent Robots and Systems 2012.</li>
+</ol>
+<hr>
+</div>
+    <footer class="post-footer"><ul class="post-tags"><li><a href="/tags/%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD/">具身智能</a></li><li><a href="/tags/vlm/">VLM</a></li><li><a href="/tags/vla/">VLA</a></li><li><a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/">机器人</a></li></ul><nav class="paginav"><a class="next" href="/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/"><span class="title">下一篇 »</span><br><span>基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记</span></a></nav></footer>
+  </article></main>
+  <footer class="footer"><span>&copy; 2026 <a href="/">Zhanghr</a></span> · <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &amp; <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener noreferrer" target="_blank">PaperMod</a></span></footer>
+  <a href="#top" aria-label="返回顶部" title="返回顶部 (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"></path></svg>
+  </a>
+  <script>
+    const menu = document.getElementById("menu");
+    const savedMenuPosition = localStorage.getItem("menu-scroll-position");
+    if (menu && savedMenuPosition) menu.scrollLeft = Number.parseInt(savedMenuPosition, 10);
+    if (menu) menu.addEventListener("scroll", () => localStorage.setItem("menu-scroll-position", menu.scrollLeft));
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const id = anchor.getAttribute("href").slice(1);
+        const target = id === "top" ? document.documentElement : document.getElementById(decodeURIComponent(id));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+      });
+    });
+    const topLink = document.getElementById("top-link");
+    addEventListener("scroll", () => {
+      const visible = document.documentElement.scrollTop > 800;
+      topLink.style.visibility = visible ? "visible" : "hidden";
+      topLink.style.opacity = visible ? "1" : "0";
+    }, { passive: true });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      localStorage.setItem("pref-theme", next);
+    });
+  </script>
+</body>
+</html>
