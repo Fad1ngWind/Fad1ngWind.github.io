@@ -4,13 +4,13 @@
   var metadata = {
     zh: {
       lang: "zh-CN",
-      title: "花蕊的世界｜净世新生",
+      title: "消逝的风",
       description: "张华睿的个人主页，记录 GNSS/INS、深度学习定位、智能车竞赛、中国机器人大赛暨 RoboCup 中国赛和嵌入式开发经历。",
       ogDescription: "GNSS/INS、深度学习定位、智能车竞赛与嵌入式开发经历。"
     },
     en: {
       lang: "en",
-      title: "花蕊的世界｜净世新生",
+      title: "消逝的风",
       description: "Huarui Zhang's research and competition work in GNSS/INS, learning-based positioning, intelligent cars, robotics, and embedded systems.",
       ogDescription: "Research and competition work in GNSS/INS, intelligent cars, robotics, and embedded systems."
     }
