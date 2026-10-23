@@ -91,6 +91,58 @@
     }
   }
 
+  function loadDeferredImage(image) {
+    var source = image.dataset.src;
+
+    if (!source) {
+      return;
+    }
+
+    image.src = source;
+    image.removeAttribute("data-src");
+  }
+
+  function loadNearbyCarouselImages(track, targetLeft) {
+    var trackLeft = track.getBoundingClientRect().left;
+
+    track.querySelectorAll("img[data-src]").forEach(function (image) {
+      var card = image.closest(".news-card");
+
+      if (!card) {
+        return;
+      }
+
+      var cardLeft = card.getBoundingClientRect().left - trackLeft + track.scrollLeft;
+
+      if (cardLeft + card.offsetWidth >= targetLeft - 215 &&
+          cardLeft <= targetLeft + track.clientWidth + 215) {
+        loadDeferredImage(image);
+      }
+    });
+  }
+
+  function observeDeferredImages() {
+    var images = document.querySelectorAll("img[data-src]");
+
+    if (!("IntersectionObserver" in window)) {
+      images.forEach(loadDeferredImage);
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          loadDeferredImage(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "300px 0px" });
+
+    images.forEach(function (image) {
+      observer.observe(image);
+    });
+  }
+
   document.querySelectorAll("[data-lang-option]").forEach(function (button) {
     button.addEventListener("click", function () {
       setLanguage(button.dataset.langOption, true);
@@ -101,9 +153,13 @@
     button.addEventListener("click", function () {
       var track = document.getElementById("news-track");
       var direction = Number(button.dataset.carouselDirection);
+      var targetLeft = Math.max(0, track.scrollLeft + direction * 430);
+
+      loadNearbyCarouselImages(track, targetLeft);
       track.scrollBy({ left: direction * 430, behavior: "smooth" });
     });
   });
 
+  observeDeferredImages();
   setLanguage(initialLanguage(), false);
 })();

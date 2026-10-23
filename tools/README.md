@@ -45,3 +45,27 @@ BLOG_RESEARCH_ROOT=/path/to/research-folder npm run blog:import
 ```bash
 BLOG_EMBODIED_AI_ROOT=/path/to/vla-vlm-embodied-ai-blog npm run blog:import
 ```
+
+## 首页资源更新
+
+首页使用 WebP 展示图片，原 JPG/PNG 素材保留用于重新导出。照片推荐质量 82，流程图推荐质量 88，例如：
+
+```bash
+cwebp -mt -m 6 -q 82 assets/homepage/media/profile-2.jpg -o assets/homepage/media/profile-2.webp
+```
+
+头像保留 `src` 和 `fetchpriority="high"`。延迟加载的图片使用 `data-src`、`loading="lazy"` 和 `decoding="async"`；`home.js` 会在图片接近可视区域时填写 `src`，不支持 IntersectionObserver 的浏览器会一次加载全部图片。
+
+`noto-serif-sc-name-500.woff2` 只包含“张华睿”，保留现有姓名字形。完整中文字库及字体许可证均保留；更改姓名时，需要重新生成字体子集并同步 `home.css` 的 `unicode-range`。
+
+Vercel 只为首页 WebP 图片和 WOFF2 字体设置一天的浏览器缓存。HTML、CSS、JavaScript 和简历 PDF 沿用默认重新验证策略，避免影响简历与页面更新。同名替换图片或字体时，需同步更改页面中的资源文件名或版本参数；修改 `home.js` 后更新首页脚本的 `v` 参数。
+
+发布前运行：
+
+```bash
+node --check assets/homepage/home.js
+git diff --check
+npm run blog:check
+```
+
+在本地浏览器确认姓名字形、轮播按钮和向下滚动时的图片加载正常。缓存响应头只能在部署后核验，本地预览服务器不会应用 `vercel.json`。
