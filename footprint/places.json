@@ -1889,5 +1889,583 @@
     "note": "",
     "zhNote": "",
     "photos": []
+  },
+  {
+    "id": "jp-poi-ja-f41632435b1c03",
+    "name": "东京国立博物馆",
+    "zhName": "东京国立博物馆",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.71906,
+    "lng": 139.77667,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-466d9cc0b8d32a",
+    "name": "东京晴空塔",
+    "zhName": "东京晴空塔",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.71014,
+    "lng": 139.81083,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-3d8ae54a9fde61",
+    "name": "东京塔",
+    "zhName": "东京塔",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.65861,
+    "lng": 139.74556,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-e92ab04ae6d307",
+    "name": "明治神宫",
+    "zhName": "明治神宫",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.67611,
+    "lng": 139.69917,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-b69776e5a4fdab",
+    "name": "秋叶原",
+    "zhName": "秋叶原",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.69836,
+    "lng": 139.77313,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-tokyo",
+    "name": "东京",
+    "zhName": "东京",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.69977,
+    "lng": 139.72276,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13103",
+    "name": "港区",
+    "zhName": "港区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.65669,
+    "lng": 139.73803,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13116",
+    "name": "丰岛区",
+    "zhName": "丰岛区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.73537,
+    "lng": 139.7128,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13118",
+    "name": "荒川区",
+    "zhName": "荒川区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.74212,
+    "lng": 139.77755,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13104",
+    "name": "新宿区",
+    "zhName": "新宿区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.69977,
+    "lng": 139.72276,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13113",
+    "name": "澁谷区",
+    "zhName": "澁谷区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.66313,
+    "lng": 139.70036,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13101",
+    "name": "千代田区",
+    "zhName": "千代田区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.69199,
+    "lng": 139.76305,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13106",
+    "name": "台东区",
+    "zhName": "台东区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.71388,
+    "lng": 139.78662,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-13107",
+    "name": "墨田区",
+    "zhName": "墨田区",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "东京都",
+      "zhLabel": "东京都"
+    },
+    "lat": 35.70754,
+    "lng": 139.81192,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-14204",
+    "name": "镰仓市",
+    "zhName": "镰仓市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "神奈川县",
+      "zhLabel": "神奈川县"
+    },
+    "lat": 35.32308,
+    "lng": 139.53154,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-14205",
+    "name": "藤泽市",
+    "zhName": "藤泽市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "神奈川县",
+      "zhLabel": "神奈川县"
+    },
+    "lat": 35.34437,
+    "lng": 139.47224,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-22222",
+    "name": "伊豆市",
+    "zhName": "伊豆市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "静冈县",
+      "zhLabel": "静冈县"
+    },
+    "lat": 34.94553,
+    "lng": 138.94681,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-22208",
+    "name": "伊东市",
+    "zhName": "伊东市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "静冈县",
+      "zhLabel": "静冈县"
+    },
+    "lat": 34.96476,
+    "lng": 139.09284,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-e2f9c2e9614c0d",
+    "name": "伏见稻荷大社",
+    "zhName": "伏见稻荷大社",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "京都府",
+      "zhLabel": "京都府"
+    },
+    "lat": 34.96694,
+    "lng": 135.77306,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-50c1f064da73bb",
+    "name": "清水寺",
+    "zhName": "清水寺",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "京都府",
+      "zhLabel": "京都府"
+    },
+    "lat": 34.99483,
+    "lng": 135.785,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-d99085060c08c1",
+    "name": "平等院",
+    "zhName": "平等院",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "京都府",
+      "zhLabel": "京都府"
+    },
+    "lat": 34.88929,
+    "lng": 135.80769,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-city-26100",
+    "name": "京都市",
+    "zhName": "京都市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "京都府",
+      "zhLabel": "京都府"
+    },
+    "lat": 35.00553,
+    "lng": 135.75515,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-26204",
+    "name": "宇治市",
+    "zhName": "宇治市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "京都府",
+      "zhLabel": "京都府"
+    },
+    "lat": 34.89477,
+    "lng": 135.79784,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-fcc8bf63413bef",
+    "name": "春日大社",
+    "zhName": "春日大社",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "奈良县",
+      "zhLabel": "奈良县"
+    },
+    "lat": 34.68139,
+    "lng": 135.84833,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-0fdf77ffb34aa6",
+    "name": "药师寺",
+    "zhName": "药师寺",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "奈良县",
+      "zhLabel": "奈良县"
+    },
+    "lat": 34.66836,
+    "lng": 135.78431,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-29201",
+    "name": "奈良市",
+    "zhName": "奈良市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "奈良县",
+      "zhLabel": "奈良县"
+    },
+    "lat": 34.68407,
+    "lng": 135.80632,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-96feb1502cb846",
+    "name": "大坂城",
+    "zhName": "大坂城",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "大阪府",
+      "zhLabel": "大阪府"
+    },
+    "lat": 34.68738,
+    "lng": 135.52584,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-0a86b67ea02b0e",
+    "name": "道顿堀",
+    "zhName": "道顿堀",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "大阪府",
+      "zhLabel": "大阪府"
+    },
+    "lat": 34.66861,
+    "lng": 135.50139,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-dde06e799f2495",
+    "name": "日本环球影城",
+    "zhName": "日本环球影城",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "大阪府",
+      "zhLabel": "大阪府"
+    },
+    "lat": 34.66472,
+    "lng": 135.43306,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-ja-2a52eaf29a0ba0",
+    "name": "通天阁",
+    "zhName": "通天阁",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "大阪府",
+      "zhLabel": "大阪府"
+    },
+    "lat": 34.65254,
+    "lng": 135.50633,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-city-27100",
+    "name": "大阪市",
+    "zhName": "大阪市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "大阪府",
+      "zhLabel": "大阪府"
+    },
+    "lat": 34.63581,
+    "lng": 135.49825,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-osm-11089385405",
+    "name": "九十九岛",
+    "zhName": "九十九岛",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "长崎县",
+      "zhLabel": "长崎县"
+    },
+    "lat": 33.1614527,
+    "lng": 129.6790033,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-poi-osm-5336401732",
+    "name": "眼镜桥",
+    "zhName": "眼镜桥",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "长崎县",
+      "zhLabel": "长崎县"
+    },
+    "lat": 32.7472925,
+    "lng": 129.8799892,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "jp-42202",
+    "name": "佐世保市",
+    "zhName": "佐世保市",
+    "country": "Japan",
+    "zhCountry": "日本",
+    "continent": "Asia",
+    "region": {
+      "label": "长崎县",
+      "zhLabel": "长崎县"
+    },
+    "lat": 33.18224,
+    "lng": 129.72326,
+    "note": "",
+    "zhNote": "",
+    "photos": []
   }
 ]
