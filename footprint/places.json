@@ -1158,5 +1158,719 @@
     "note": "",
     "zhNote": "",
     "photos": []
+  },
+  {
+    "id": "cn-poi-5a-204",
+    "name": "三峡大坝-屈原故里旅游区",
+    "zhName": "三峡大坝-屈原故里旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.8322782,
+    "lng": 110.9947209,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-205",
+    "name": "三峡人家风景区",
+    "zhName": "三峡人家风景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.7965528,
+    "lng": 111.162357,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-420100",
+    "name": "武汉市",
+    "zhName": "武汉市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.58678,
+    "lng": 114.29314,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-420500",
+    "name": "宜昌市",
+    "zhName": "宜昌市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.70506,
+    "lng": 111.28517,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-429006",
+    "name": "天门市",
+    "zhName": "天门市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.65541,
+    "lng": 113.15984,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-421000",
+    "name": "荆州市",
+    "zhName": "荆州市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "湖北省",
+      "zhLabel": "湖北省"
+    },
+    "lat": 30.32941,
+    "lng": 112.23242,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-440100",
+    "name": "广州市",
+    "zhName": "广州市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "广东省",
+      "zhLabel": "广东省"
+    },
+    "lat": 23.12784,
+    "lng": 113.27529,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-440300",
+    "name": "深圳市",
+    "zhName": "深圳市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "广东省",
+      "zhLabel": "广东省"
+    },
+    "lat": 22.54968,
+    "lng": 114.08082,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-440400",
+    "name": "珠海市",
+    "zhName": "珠海市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "广东省",
+      "zhLabel": "广东省"
+    },
+    "lat": 22.22795,
+    "lng": 113.54891,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-283",
+    "name": "峨眉山景区",
+    "zhName": "峨眉山景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 29.53,
+    "lng": 103.77,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-294",
+    "name": "海螺沟景区",
+    "zhName": "海螺沟景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 29.567,
+    "lng": 101.95,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-284",
+    "name": "乐山大佛景区",
+    "zhName": "乐山大佛景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 29.547541,
+    "lng": 103.78144,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-280",
+    "name": "青城山—都江堰旅游景区",
+    "zhName": "青城山—都江堰旅游景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 30.9117415,
+    "lng": 103.569195,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-285",
+    "name": "九寨沟",
+    "zhName": "九寨沟",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 33.083,
+    "lng": 103.916,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-513200",
+    "name": "阿坝藏族羌族自治州",
+    "zhName": "阿坝藏族羌族自治州",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 31.90203,
+    "lng": 102.21973,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-513300",
+    "name": "甘孜藏族自治州",
+    "zhName": "甘孜藏族自治州",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 30.05348,
+    "lng": 101.96229,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-510100",
+    "name": "成都市",
+    "zhName": "成都市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 30.66188,
+    "lng": 104.06323,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-510500",
+    "name": "泸州市",
+    "zhName": "泸州市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 28.89216,
+    "lng": 105.43976,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-511100",
+    "name": "乐山市",
+    "zhName": "乐山市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "四川省",
+      "zhLabel": "四川省"
+    },
+    "lat": 29.58477,
+    "lng": 103.75905,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-304",
+    "name": "梵净山旅游区",
+    "zhName": "梵净山旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "贵州省",
+      "zhLabel": "贵州省"
+    },
+    "lat": 27.84,
+    "lng": 108.77,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-298",
+    "name": "黄果树瀑布",
+    "zhName": "黄果树瀑布",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "贵州省",
+      "zhLabel": "贵州省"
+    },
+    "lat": 25.9954112,
+    "lng": 105.6762495,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-520400",
+    "name": "安顺市",
+    "zhName": "安顺市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "贵州省",
+      "zhLabel": "贵州省"
+    },
+    "lat": 26.2491,
+    "lng": 105.92885,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-520100",
+    "name": "贵阳市",
+    "zhName": "贵阳市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "贵州省",
+      "zhLabel": "贵州省"
+    },
+    "lat": 26.58187,
+    "lng": 106.70971,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-520300",
+    "name": "遵义市",
+    "zhName": "遵义市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "贵州省",
+      "zhLabel": "贵州省"
+    },
+    "lat": 27.71014,
+    "lng": 106.93342,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-extra-16",
+    "name": "洱海",
+    "zhName": "洱海",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 25.7830826,
+    "lng": 100.181115,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-extra-28",
+    "name": "虎跳峡",
+    "zhName": "虎跳峡",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 27.2044019,
+    "lng": 100.1206446,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-311",
+    "name": "丽江古城景区",
+    "zhName": "丽江古城景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 26.8764641,
+    "lng": 100.2420474,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-310",
+    "name": "玉龙雪山景区",
+    "zhName": "玉龙雪山景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 27.1401378,
+    "lng": 100.2104791,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-530100",
+    "name": "昆明市",
+    "zhName": "昆明市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 25.04358,
+    "lng": 102.71081,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-532900",
+    "name": "大理白族自治州",
+    "zhName": "大理白族自治州",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 25.59247,
+    "lng": 100.22457,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-530700",
+    "name": "丽江市",
+    "zhName": "丽江市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 26.87566,
+    "lng": 100.2319,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-314",
+    "name": "香格里拉普达措景区",
+    "zhName": "香格里拉普达措景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 27.8648756,
+    "lng": 99.9510338,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-533400",
+    "name": "迪庆藏族自治州",
+    "zhName": "迪庆藏族自治州",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 27.83034,
+    "lng": 99.70536,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-610100",
+    "name": "西安市",
+    "zhName": "西安市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "陕西省",
+      "zhLabel": "陕西省"
+    },
+    "lat": 34.26474,
+    "lng": 108.94335,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-610400",
+    "name": "咸阳市",
+    "zhName": "咸阳市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "陕西省",
+      "zhLabel": "陕西省"
+    },
+    "lat": 34.33489,
+    "lng": 108.70045,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-810000",
+    "name": "香港特别行政区",
+    "zhName": "香港特别行政区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "香港特别行政区",
+      "zhLabel": "香港特别行政区"
+    },
+    "lat": 22.32005,
+    "lng": 114.17336,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-820000",
+    "name": "澳门特别行政区",
+    "zhName": "澳门特别行政区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "澳门特别行政区",
+      "zhLabel": "澳门特别行政区"
+    },
+    "lat": 22.19895,
+    "lng": 113.54909,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-820007",
+    "name": "路凼填海区",
+    "zhName": "路凼填海区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "澳门特别行政区",
+      "zhLabel": "澳门特别行政区"
+    },
+    "lat": 22.13663,
+    "lng": 113.5696,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-810005",
+    "name": "油尖旺区",
+    "zhName": "油尖旺区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "香港特别行政区",
+      "zhLabel": "香港特别行政区"
+    },
+    "lat": 22.3117,
+    "lng": 114.17333,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-810007",
+    "name": "九龙城区",
+    "zhName": "九龙城区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "香港特别行政区",
+      "zhLabel": "香港特别行政区"
+    },
+    "lat": 22.31251,
+    "lng": 114.19285,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-810018",
+    "name": "离岛区",
+    "zhName": "离岛区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "香港特别行政区",
+      "zhLabel": "香港特别行政区"
+    },
+    "lat": 22.28641,
+    "lng": 113.94612,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-810001",
+    "name": "中西区",
+    "zhName": "中西区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "香港特别行政区",
+      "zhLabel": "香港特别行政区"
+    },
+    "lat": 22.28198,
+    "lng": 114.15437,
+    "note": "",
+    "zhNote": "",
+    "photos": []
   }
 ]
