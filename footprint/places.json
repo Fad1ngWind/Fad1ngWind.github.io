@@ -1872,5 +1872,22 @@
     "note": "",
     "zhNote": "",
     "photos": []
+  },
+  {
+    "id": "cn-361100",
+    "name": "上饶市",
+    "zhName": "上饶市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "江西省",
+      "zhLabel": "江西省"
+    },
+    "lat": 28.44777,
+    "lng": 117.96615,
+    "note": "",
+    "zhNote": "",
+    "photos": []
   }
 ]
