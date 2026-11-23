@@ -1,0 +1,297 @@
+/* Adapted from dmego/home.github.io. See LICENSE. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("fonts/cormorant-garamond-title.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #fff;
+  background: #192b36;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.panel-cover {
+  --cover-accent: #9ed5ff;
+  --cover-glow: 95 168 255;
+  --cover-pulse: 3.8s;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 40px 24px;
+  place-items: center;
+  background: linear-gradient(145deg, #345363, #182631 68%, #111d27);
+  text-align: center;
+}
+
+.panel-cover[data-theme="amber"] {
+  --cover-accent: #ffd2a5;
+  --cover-glow: 242 153 85;
+  --cover-pulse: 3.3s;
+}
+
+.panel-cover[data-theme="leaf"] {
+  --cover-accent: #b9f0cc;
+  --cover-glow: 102 210 145;
+  --cover-pulse: 4s;
+}
+
+.panel-cover[data-theme="lilac"] {
+  --cover-accent: #e0d4ff;
+  --cover-glow: 172 147 246;
+  --cover-pulse: 3.6s;
+}
+
+.panel-wallpaper,
+.panel-cover--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-wallpaper {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+}
+
+.panel-wallpaper.is-loaded {
+  opacity: 1;
+}
+
+.panel-cover--overlay {
+  background: rgb(0 0 0 / 55%);
+}
+
+.panel-main__content {
+  width: min(100%, 620px);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 40%);
+}
+
+.avatar-flip {
+  position: relative;
+  display: block;
+  width: min(128px, 32vw);
+  aspect-ratio: 1;
+  margin: 0 auto 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: none;
+  font: inherit;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 58%);
+  perspective: 900px;
+  isolation: isolate;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.avatar-flip::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 28px 6px rgb(var(--cover-glow) / 60%);
+  opacity: .75;
+  pointer-events: none;
+  content: "";
+  transition: opacity .35s ease;
+}
+
+.avatar-flip[aria-pressed="true"]::before {
+  opacity: 1;
+}
+
+.avatar-flip:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 5px;
+}
+
+.avatar-flip__back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  border-radius: 50%;
+  background: #172638;
+  font-size: .77rem;
+  letter-spacing: .07em;
+}
+
+.profilepic {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  backface-visibility: visible;
+  transform-origin: left center;
+  transition: transform .48s ease-in-out;
+}
+
+.avatar-flip[aria-pressed="true"] .profilepic {
+  transform: rotateY(-180deg);
+}
+
+.panel-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", Garamond, "Iowan Old Style", Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: .05em;
+  line-height: 1.2;
+}
+
+@media (max-width: 1100px) {
+  .panel-title { font-size: 2rem; }
+}
+
+@media (max-width: 340px) {
+  .panel-title { font-size: 1.5rem; }
+}
+
+.panel-cover__divider {
+  width: min(50%, 260px);
+  margin: 20px auto;
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 36%);
+}
+
+.panel-signature {
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-wrap: balance;
+  transition: color .2s ease, text-shadow .2s ease;
+}
+
+@media (max-width: 1100px) {
+  .panel-signature { font-size: .9rem; }
+}
+
+.panel-signature:hover {
+  color: var(--cover-accent);
+  text-shadow: 0 0 10px rgb(var(--cover-glow) / 72%);
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navigation a {
+  display: block;
+  min-width: 70px;
+  padding: 10px 15px;
+  border: 1px solid rgb(255 255 255 / 68%);
+  border-radius: 24px;
+  color: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.navigation li:hover > a,
+.navigation a:focus-visible {
+  border-color: var(--cover-accent);
+  background: rgb(255 255 255 / 12%);
+  box-shadow: 0 0 13px rgb(var(--cover-glow) / 45%);
+}
+
+.navigation a:focus-visible,
+.panel-socials a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.panel-socials {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panel-socials a {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: inherit;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.panel-socials a:hover,
+.panel-socials a:focus-visible {
+  background: rgb(255 255 255 / 16%);
+  color: var(--cover-accent);
+}
+
+.panel-socials svg {
+  width: 21px;
+  height: 21px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cover-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes cover-halo {
+    0%, 100% { opacity: .75; }
+    50% { opacity: 1; }
+  }
+
+  .avatar-flip,
+  .panel-title,
+  .panel-cover__divider,
+  .panel-signature,
+  .panel-main__content nav,
+  .panel-socials { animation: cover-enter .42s ease-out backwards; }
+  .panel-title { animation-delay: .06s; }
+  .panel-cover__divider { animation-delay: .11s; }
+  .panel-signature { animation-delay: .15s; }
+  .panel-main__content nav { animation-delay: .2s; }
+  .panel-socials { animation-delay: .26s; }
+
+  .avatar-flip:not([aria-pressed="true"])::before { animation: cover-halo var(--cover-pulse) ease-in-out; }
+  .navigation li:hover > a,
+  .navigation a:focus-visible { transform: translateY(-3px); }
+  .panel-socials a:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-flip::before,
+  .profilepic,
+  .panel-signature,
+  .navigation a,
+  .panel-socials a {
+    transition: none;
+  }
+}

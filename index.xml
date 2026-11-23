@@ -1,134 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
   <title>Zhanghr</title>
-  <link>https://zhr0529.cn/</link>
+  <link>https://www.zhr8997.cn/</link>
   <description>Zhanghr 的个人博客</description>
   <language>zh-CN</language>
   <lastBuildDate>Thu, 06 Aug 2026 09:21:16 GMT</lastBuildDate>
   <item>
       <title>从 VLM 到 VLA：具身智能系统中的模型、环境与控制层</title>
-      <link>https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/</link>
+      <link>https://www.zhr8997.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/</link>
       <pubDate>Thu, 06 Aug 2026 03:21:18 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/</guid>
+      <guid>https://www.zhr8997.cn/posts/从-vlm-到-vla-具身智能系统中的模型-环境与控制层/</guid>
       <description>梳理 LLM、VLM、VLA、世界模型与具身智能的边界，以及仿真、训练、规划和控制在机器人闭环中的位置。</description>
     </item>
 <item>
       <title>基于 PINN 和历元间连续性约束的 GNSS/INS 融合定位研究手记</title>
-      <link>https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/</link>
+      <link>https://www.zhr8997.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/</link>
       <pubDate>Tue, 04 Aug 2026 12:39:20 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/</guid>
+      <guid>https://www.zhr8997.cn/posts/基于pinn和历元间连续性约束的-gnss-ins-融合定位研究手记/</guid>
       <description>记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。</description>
     </item>
 <item>
       <title>C1 - 有监督的机器学习：回归和分类</title>
-      <link>https://zhr0529.cn/posts/c1-有监督的机器学习-回归和分类/</link>
+      <link>https://www.zhr8997.cn/posts/c1-有监督的机器学习-回归和分类/</link>
       <pubDate>Sun, 29 Mar 2026 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/c1-有监督的机器学习-回归和分类/</guid>
+      <guid>https://www.zhr8997.cn/posts/c1-有监督的机器学习-回归和分类/</guid>
       <description>有监督学习、回归、分类与梯度下降学习笔记。</description>
     </item>
 <item>
       <title>载波相位引入在 pyRTKLIB 中的实现研究</title>
-      <link>https://zhr0529.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</link>
+      <link>https://www.zhr8997.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</link>
       <pubDate>Tue, 21 Oct 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</guid>
+      <guid>https://www.zhr8997.cn/posts/载波相位引入在-pyrtklib-中的实现研究/</guid>
       <description>GNSS 载波相位观测在 pyRTKLIB 中的引入与实现记录。</description>
     </item>
 <item>
       <title>电机控制</title>
-      <link>https://zhr0529.cn/posts/电机控制/</link>
+      <link>https://www.zhr8997.cn/posts/电机控制/</link>
       <pubDate>Thu, 31 Jul 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/电机控制/</guid>
+      <guid>https://www.zhr8997.cn/posts/电机控制/</guid>
       <description>直流有刷电机、电机驱动与控制学习笔记。</description>
     </item>
 <item>
       <title>机器视觉</title>
-      <link>https://zhr0529.cn/posts/机器视觉/</link>
+      <link>https://www.zhr8997.cn/posts/机器视觉/</link>
       <pubDate>Wed, 30 Jul 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/机器视觉/</guid>
+      <guid>https://www.zhr8997.cn/posts/机器视觉/</guid>
       <description>MicroPython 机器视觉与常用图像处理学习笔记。</description>
     </item>
 <item>
       <title>STM32第二部分学习（待命中）</title>
-      <link>https://zhr0529.cn/posts/stm32第二部分学习/</link>
+      <link>https://www.zhr8997.cn/posts/stm32第二部分学习/</link>
       <pubDate>Thu, 10 Jul 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/stm32第二部分学习/</guid>
+      <guid>https://www.zhr8997.cn/posts/stm32第二部分学习/</guid>
       <description>STM32 寄存器、串口、总线与常用外设学习笔记。</description>
     </item>
 <item>
       <title>硬件基本功：电路设计及制造</title>
-      <link>https://zhr0529.cn/posts/硬件基本功-电路设计及制造/</link>
+      <link>https://www.zhr8997.cn/posts/硬件基本功-电路设计及制造/</link>
       <pubDate>Mon, 30 Jun 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/硬件基本功-电路设计及制造/</guid>
+      <guid>https://www.zhr8997.cn/posts/硬件基本功-电路设计及制造/</guid>
       <description>电路基础、供电保护、PCB 设计与制造学习笔记。</description>
     </item>
 <item>
       <title>【理论】Linux学习笔记</title>
-      <link>https://zhr0529.cn/posts/linux学习笔记-2025/</link>
+      <link>https://www.zhr8997.cn/posts/linux学习笔记-2025/</link>
       <pubDate>Wed, 09 Apr 2025 06:29:05 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/linux学习笔记-2025/</guid>
+      <guid>https://www.zhr8997.cn/posts/linux学习笔记-2025/</guid>
       <description>Linux 命令、权限、网络与进程管理。</description>
     </item>
 <item>
       <title>【理论】51单片机学习笔记（AI8051U，32bit）</title>
-      <link>https://zhr0529.cn/posts/51单片机学习笔记/</link>
+      <link>https://www.zhr8997.cn/posts/51单片机学习笔记/</link>
       <pubDate>Sun, 30 Mar 2025 03:07:22 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/51单片机学习笔记/</guid>
+      <guid>https://www.zhr8997.cn/posts/51单片机学习笔记/</guid>
       <description>AI8051U 32bit 单片机学习笔记。</description>
     </item>
 <item>
       <title>STM32第一部分学习</title>
-      <link>https://zhr0529.cn/posts/stm32第一部分学习/</link>
+      <link>https://www.zhr8997.cn/posts/stm32第一部分学习/</link>
       <pubDate>Sat, 29 Mar 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/stm32第一部分学习/</guid>
+      <guid>https://www.zhr8997.cn/posts/stm32第一部分学习/</guid>
       <description>STM32 外设学习笔记：GPIO、定时器、串口、ADC 与 DMA。</description>
     </item>
 <item>
       <title>SPI、UART、RS232、RS485、IIC 通信总线协议</title>
-      <link>https://zhr0529.cn/posts/通信总线协议/</link>
+      <link>https://www.zhr8997.cn/posts/通信总线协议/</link>
       <pubDate>Fri, 28 Mar 2025 16:00:00 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/通信总线协议/</guid>
+      <guid>https://www.zhr8997.cn/posts/通信总线协议/</guid>
       <description>串行通信基础与常用通信总线协议学习笔记。</description>
     </item>
 <item>
       <title>（杂）旅游攻略合集</title>
-      <link>https://zhr0529.cn/posts/旅游攻略合集/</link>
+      <link>https://www.zhr8997.cn/posts/旅游攻略合集/</link>
       <pubDate>Wed, 22 Jan 2025 03:46:38 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/旅游攻略合集/</guid>
+      <guid>https://www.zhr8997.cn/posts/旅游攻略合集/</guid>
       <description>旅行路线备忘与分享</description>
     </item>
 <item>
       <title>随想</title>
-      <link>https://zhr0529.cn/posts/随想/</link>
+      <link>https://www.zhr8997.cn/posts/随想/</link>
       <pubDate>Fri, 29 Nov 2024 15:01:15 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/随想/</guid>
+      <guid>https://www.zhr8997.cn/posts/随想/</guid>
       <description>往事总在回忆中被赋予寓意。</description>
     </item>
 <item>
       <title>【理论】《ARM Cortex-M3 权威指南》学习笔记</title>
-      <link>https://zhr0529.cn/posts/arm-cortex-m3学习笔记/</link>
+      <link>https://www.zhr8997.cn/posts/arm-cortex-m3学习笔记/</link>
       <pubDate>Fri, 29 Nov 2024 14:59:42 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/arm-cortex-m3学习笔记/</guid>
+      <guid>https://www.zhr8997.cn/posts/arm-cortex-m3学习笔记/</guid>
       <description>《ARM Cortex-M3 权威指南》阅读笔记。</description>
     </item>
 <item>
       <title>【前端】个人博客开发日记 - 基于 Hexo + Butterfly</title>
-      <link>https://zhr0529.cn/posts/个人博客开发日记/</link>
+      <link>https://www.zhr8997.cn/posts/个人博客开发日记/</link>
       <pubDate>Tue, 19 Nov 2024 15:41:57 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/个人博客开发日记/</guid>
+      <guid>https://www.zhr8997.cn/posts/个人博客开发日记/</guid>
       <description>第一版个人博客的搭建过程，基于 Hexo + Butterfly。</description>
     </item>
 <item>
       <title>【日记】</title>
-      <link>https://zhr0529.cn/posts/日记-第一篇/</link>
+      <link>https://www.zhr8997.cn/posts/日记-第一篇/</link>
       <pubDate>Tue, 19 Nov 2024 06:50:31 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/日记-第一篇/</guid>
+      <guid>https://www.zhr8997.cn/posts/日记-第一篇/</guid>
       <description>这是一篇日记</description>
     </item>
 <item>
       <title>【理论】Linux学习笔记</title>
-      <link>https://zhr0529.cn/posts/理论linux学习笔记/</link>
+      <link>https://www.zhr8997.cn/posts/理论linux学习笔记/</link>
       <pubDate>Mon, 08 Jul 2024 06:34:24 GMT</pubDate>
-      <guid>https://zhr0529.cn/posts/理论linux学习笔记/</guid>
+      <guid>https://www.zhr8997.cn/posts/理论linux学习笔记/</guid>
       <description>Linux 基础命令、目录结构、文件操作与权限管理。</description>
     </item>
 </channel></rss>

@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
+import { refreshBlogLayout } from "./blog-layout.mjs";
 
 const require = createRequire(import.meta.url);
 const { marked } = require("marked");
@@ -36,7 +37,7 @@ const EMBODIED_AI_ROOT = path.resolve(
     ),
 );
 const KATEX_DIST_ROOT = path.dirname(require.resolve("katex"));
-const SITE_URL = "https://zhr0529.cn";
+const SITE_URL = "https://www.zhr8997.cn";
 const AUTHOR = "ZHR";
 
 function sourcePath(...segments) {
@@ -127,7 +128,7 @@ const currentImports = [
     category: "理论",
     tags: ["GNSS", "INS", "PINN"],
     summary:
-      "记录一次从 GNSS 加权最小二乘误差补偿出发，经数据对齐、约束调整和消融验证完成 PINN-GNSS/INS 融合定位方案的过程。",
+      "从 GNSS 加权最小二乘误差补偿出发的 PINN-GNSS/INS 融合定位方案。",
     copyLocalImages: true,
     stripTitleHeading: true,
   },
@@ -753,14 +754,14 @@ function articlePage(post, previous, next) {
 function listPage(posts) {
   const main = `<header class="page-header">
     <div class="breadcrumbs"><a href="/">首页</a></div>
-    <h1>博客</h1>
-    <p>记录技术学习、竞赛之外的探索与生活。</p>
+    <h1>Blogs</h1>
+    <p>记录技术学习、竞赛之外的探索与生活</p>
   </header>
   ${posts.map(listEntry).join("\n")}`;
   return pageLayout({
     title: "博客",
     browserTitle: "博客｜ZHR",
-    description: "记录技术学习、竞赛之外的探索与生活。",
+    description: "记录技术学习、竞赛之外的探索与生活",
     relativePath: "/posts/",
     main,
     bodyClass: "list",
@@ -1064,15 +1065,15 @@ async function importPosts() {
     .join("\n");
   const homepageListPattern =
     /(<div class="writing-list">)[\s\S]*?(<\/div>\s*<\/section>)/;
-  if (!homepageListPattern.test(homepage)) {
-    throw new Error("未找到首页博客列表，已停止更新以避免误写。");
+  if (homepageListPattern.test(homepage)) {
+    const updatedHomepage = homepage.replace(
+      homepageListPattern,
+      `$1\n${homepageEntries}\n          <a href="archives/"><span>Archive</span><strong class="i18n" data-zh="查看全部文章" data-en="View all posts">查看全部文章</strong><i>↗</i></a>\n        $2`,
+    );
+    await fs.writeFile(homepagePath, updatedHomepage, "utf8");
   }
-  const updatedHomepage = homepage.replace(
-    homepageListPattern,
-    `$1\n${homepageEntries}\n          <a href="archives/"><span>Archive</span><strong class="i18n" data-zh="查看全部文章" data-en="View all posts">查看全部文章</strong><i>↗</i></a>\n        $2`,
-  );
-  await fs.writeFile(homepagePath, updatedHomepage, "utf8");
 
+  await refreshBlogLayout(SITE_ROOT);
   await auditRenderedPosts();
 
   console.log(`已导入 ${generated.length} 篇文章，博客总数 ${allPosts.length} 篇。`);
@@ -1083,6 +1084,9 @@ async function importPosts() {
 
 if (process.argv.includes("--check")) {
   await auditRenderedPosts();
+} else if (process.argv.includes("--layout-only")) {
+  const { pages, changed } = await refreshBlogLayout(SITE_ROOT);
+  console.log(`博客布局检查了 ${pages} 个页面，更新了 ${changed} 个。`);
 } else {
   await importPosts();
 }

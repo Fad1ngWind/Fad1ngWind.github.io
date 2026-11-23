@@ -1,0 +1,47 @@
+:root {
+  --readme-background: #f4f6f9;
+  --readme-paper: #fff;
+  --readme-line: #d0dae6;
+  --readme-text: #172434;
+  --readme-muted: #495b70;
+  --readme-blue: #294faa;
+  --readme-radius: .5rem;
+  --readme-width: 65rem;
+  --readme-frame: min(calc(100% - 3rem), var(--readme-width));
+  --readme-gutter: clamp(1rem, 3.5vw, 2rem);
+  --readme-font: "Avenir Next", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+.readme-site-header {
+  border-bottom: 1px solid var(--readme-nav-line, var(--readme-line));
+  background: var(--readme-nav-paper, var(--readme-paper));
+}
+
+.readme-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem 1.4rem;
+  width: var(--readme-frame);
+  margin-inline: auto;
+  padding-block: .82rem;
+  font: .88rem/1.65 var(--readme-font);
+}
+
+.readme-nav a { color: var(--readme-nav-muted, var(--readme-muted)); text-decoration: none; }
+.readme-nav a:hover { text-decoration: underline; }
+.readme-nav .home-link {
+  margin-inline-end: auto;
+  color: var(--readme-nav-text, var(--readme-text));
+}
+
+@media (min-width: 960px) {
+  :root { font-size: 67%; }
+}
+
+@media (max-width: 730px) {
+  :root { --readme-frame: calc(100% - 1.25rem); }
+  .readme-nav { padding-inline: .35rem; }
+}

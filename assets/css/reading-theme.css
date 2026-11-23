@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("../homepage/fonts/fraunces-latin.woff2") format("woff2");
+  font-weight: 500 600;
+  font-display: swap;
+}
+
+:root:root {
+  --theme: #f5f7f7;
+  --entry: #fff;
+  --primary: #202b31;
+  --secondary: #536771;
+  --tertiary: #dce6e8;
+  --content: #2f4149;
+  --code-bg: #edf2f3;
+  --border: #dbe4e6;
+}
+
+:root[data-theme="dark"] {
+  --theme: #16242d;
+  --entry: #1c2e38;
+  --primary: #e7eef0;
+  --secondary: #b2c5ce;
+  --tertiary: #36515f;
+  --content: #d5e2e7;
+  --code-bg: #203641;
+  --border: #354d5a;
+}
+
+body > .header {
+  border-bottom: 1px solid #31434b;
+  color: #f4f8f9;
+  background: #192b36;
+}
+
+.header .logo a,
+.main .page-header h1,
+.main .post-title,
+.main .entry-header h2 {
+  font-family: "Fraunces", "Songti SC", "Noto Serif CJK SC", Georgia, serif;
+  font-weight: 600;
+}
+
+.header a:hover {
+  color: #c5dfe8;
+}
+
+.post-entry:focus-within {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
+}
