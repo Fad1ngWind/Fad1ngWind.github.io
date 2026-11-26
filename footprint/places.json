@@ -834,8 +834,8 @@
     },
     "lat": 26.63892,
     "lng": 118.17347,
-    "note": "八闽第一峰 - 金饶山",
-    "zhNote": "八闽第一峰 - 金饶山",
+    "note": "武夷山与金饶山",
+    "zhNote": "武夷山与金饶山",
     "photos": [
       {
         "src": "/footprint/photos/cn-350700/001.jpg",
@@ -998,7 +998,38 @@
     "lng": 117.63011,
     "note": "永安、尤溪 -- 我的老家",
     "zhNote": "永安、尤溪 -- 我的老家",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-350400/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350400/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-350400/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350400/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-350400/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350400/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-350400/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350400/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-350400/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350400/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-350200",
@@ -1015,7 +1046,20 @@
     "lng": 118.10525,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-350200/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350200/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-350200/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-350200/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-350600",
@@ -1062,11 +1106,24 @@
       "label": "江西省",
       "zhLabel": "江西省"
     },
-    "lat": 29.34,
-    "lng": 117.8,
+    "lat": 26.61914,
+    "lng": 115.48287,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-157/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-157/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-157/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-157/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-360200",
@@ -1083,7 +1140,26 @@
     "lng": 117.2094,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-360200/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360200/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360200/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360200/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360200/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360200/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-poi-5a-151",
@@ -1100,7 +1176,32 @@
     "lng": 115.51,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-151/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-151/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-151/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-151/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-151/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-151/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-151/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-151/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-360100",
@@ -1117,7 +1218,38 @@
     "lng": 115.88731,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-360100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360100/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360100/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360100/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360100/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-360100/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-360100/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-poi-5a-11",
@@ -1865,7 +1997,20 @@
     "lng": 117.96615,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-361100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-361100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-361100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-361100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-poi-ja-f41632435b1c03",
@@ -2444,5 +2589,255 @@
     "note": "",
     "zhNote": "",
     "photos": []
+  },
+  {
+    "id": "cn-poi-5a-147",
+    "name": "白水洋·鸳鸯溪旅游景区",
+    "zhName": "白水洋·鸳鸯溪旅游景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 27.0591228,
+    "lng": 119.1216106,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-148",
+    "name": "福鼎太姥山旅游区",
+    "zhName": "福鼎太姥山旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 27.1163767,
+    "lng": 120.1921578,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-148/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-148/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-148/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-148/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-5a-142",
+    "name": "古田旅游区",
+    "zhName": "古田旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 25.48,
+    "lng": 117.35,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-138",
+    "name": "鼓浪屿风景名胜区",
+    "zhName": "鼓浪屿风景名胜区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 24.44,
+    "lng": 118.06,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-143",
+    "name": "冠豸山景区",
+    "zhName": "冠豸山景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 25.48,
+    "lng": 117.35,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-150",
+    "name": "湄洲岛妈祖文化旅游区",
+    "zhName": "湄洲岛妈祖文化旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 25.0694683,
+    "lng": 119.1349281,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-146",
+    "name": "清源山景区",
+    "zhName": "清源山景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 24.96,
+    "lng": 118.4,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-146/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-146/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-5a-149",
+    "name": "三坊七巷景区",
+    "zhName": "三坊七巷景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 26.088452,
+    "lng": 119.303186,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-149/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-149/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-5a-145",
+    "name": "泰宁风景旅游区",
+    "zhName": "泰宁风景旅游区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 26.849246,
+    "lng": 117.0632614,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-144",
+    "name": "土楼南靖（土楼（永定·南靖）旅游景区）",
+    "zhName": "土楼南靖（土楼（永定·南靖）旅游景区）",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 23.77,
+    "lng": 117.41,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-141",
+    "name": "土楼永定（土楼（永定·南靖）旅游景区）",
+    "zhName": "土楼永定（土楼（永定·南靖）旅游景区）",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 25.48,
+    "lng": 117.35,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-140",
+    "name": "武夷山",
+    "zhName": "武夷山",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "福建省",
+      "zhLabel": "福建省"
+    },
+    "lat": 27.668108,
+    "lng": 117.963042,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-140/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-140/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-140/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-140/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-140/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-140/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   }
 ]

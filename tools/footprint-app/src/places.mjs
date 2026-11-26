@@ -1,5 +1,17 @@
 const continents = new Set(["Asia", "NorthAmerica", "Europe", "Africa", "Oceania", "SouthAmerica", "Antarctica"]);
 const photoRoot = "/footprint/photos/";
+const scenicNameSuffix = /(?:旅游风景区|风景旅游区|风景名胜区|旅游景区|风景区|旅游区|景区)(?=\s*(?:（[^（）]+）|\([^()]+\))?\s*$)/u;
+
+/** @param {{ id: string, country: string, name: string, zhName: string }} place @param {boolean} isChinese */
+export function getPlaceDisplayName(place, isChinese) {
+  if (!isChinese) return place.name;
+  const isAdministrativePlace = (place.country === "China" && /^cn-\d{6}$/.test(place.id)) ||
+    (place.country === "Japan" && /^jp-(?:city-)?\d{5}$/.test(place.id));
+  if (isAdministrativePlace && place.zhName.length > 1 && place.zhName.endsWith("市")) {
+    return place.zhName.slice(0, -1);
+  }
+  return place.zhName.replace(scenicNameSuffix, (suffix, index) => index > 0 ? "" : suffix);
+}
 
 function isLocalPhoto(path) {
   return typeof path === "string" && path.startsWith(photoRoot) &&

@@ -39,6 +39,7 @@ import {
 
 import { feature } from "topojson-client";
 import landAtlas from "world-atlas/land-110m.json";
+import { getPlaceDisplayName } from "./places.mjs";
 
 
 export type FootprintPhoto = {
@@ -649,8 +650,8 @@ const createFootprintPlacesGeoJson = (places: FootprintPlace[]): FootprintPlaces
     properties: {
       id: place.id,
       color: getCountryStyle(place).color,
-      label: place.name,
-      zhLabel: place.zhName,
+      label: getPlaceDisplayName(place, false),
+      zhLabel: getPlaceDisplayName(place, true),
     },
     geometry: {
       type: "Point",
@@ -839,7 +840,7 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
   };
 
   const displayName = (place: FootprintPlace) =>
-    isChinese ? place.zhName : place.name;
+    getPlaceDisplayName(place, isChinese);
   const displayCountry = (place: FootprintPlace) =>
     isChinese ? place.zhCountry : countryStyles[place.country].label;
   const displayNote = (place: FootprintPlace) =>
