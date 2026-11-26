@@ -40,6 +40,7 @@ import {
 import { feature } from "topojson-client";
 import landAtlas from "world-atlas/land-110m.json";
 import { getPlaceDisplayName } from "./places.mjs";
+import { getGalleryTransformOrigin, navigateToListedPlace, reverseGalleryMotion } from "./place-navigation.mjs";
 
 
 export type FootprintPhoto = {
@@ -671,6 +672,7 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
   const isChinese = document.documentElement.lang.startsWith("zh");
   const [mapUnavailable, setMapUnavailable] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<FootprintPlace | null>(null);
+  const [galleryOrigin, setGalleryOrigin] = useState<string | undefined>();
   const [photoIndex, setPhotoIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const [photoLoading, setPhotoLoading] = useState(false);
@@ -690,6 +692,11 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
   const mapRef = useRef<MapLibreMap | null>(null);
   const initialMapStyleReadyRef = useRef(false);
   const placeTooltipRef = useRef<Popup | null>(null);
+  const listedPlaceTooltipRef = useRef<Popup | null>(null);
+  const cancelListNavigationRef = useRef<(() => void) | null>(null);
+  const galleryDialogRef = useRef<HTMLElement | null>(null);
+  const galleryScrimRef = useRef<HTMLDivElement | null>(null);
+  const galleryClosingRef = useRef(false);
   const photoViewportRef = useRef<HTMLDivElement | null>(null);
   const photoImageRef = useRef<HTMLImageElement | null>(null);
   const photoZoomRef = useRef(minPhotoZoom);
@@ -846,8 +853,16 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
   const displayNote = (place: FootprintPlace) =>
     isChinese ? place.zhNote : place.note;
 
-  const focusPlace = useCallback((place: FootprintPlace) => {
-    mapRef.current?.panTo(placeToLngLat(place), { duration: 0 });
+  const openPlace = useCallback((place: FootprintPlace) => {
+    galleryClosingRef.current = false;
+    const map = mapRef.current;
+    const bounds = mapContainerRef.current?.getBoundingClientRect();
+    setGalleryOrigin(map && bounds && initialMapStyleReadyRef.current
+      ? getGalleryTransformOrigin(map.project(placeToLngLat(place)), bounds, {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        })
+      : undefined);
     setPhotoIndex(0);
     setAutoPlay(false);
     setPhotoLoading(Boolean(place.photos?.length));
@@ -855,12 +870,64 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
     setSelectedPlace(place);
   }, []);
 
+  const cancelListNavigation = useCallback(() => {
+    cancelListNavigationRef.current?.();
+    cancelListNavigationRef.current = null;
+    listedPlaceTooltipRef.current?.remove();
+    listedPlaceTooltipRef.current = null;
+  }, []);
+
+  const focusPlace = useCallback((place: FootprintPlace) => {
+    cancelListNavigation();
+    mapRef.current?.panTo(placeToLngLat(place), { duration: 0 });
+    openPlace(place);
+  }, [cancelListNavigation, openPlace]);
+
+  const focusListedPlace = (place: FootprintPlace) => {
+    cancelListNavigation();
+    const map = mapRef.current;
+    if (!map || !initialMapStyleReadyRef.current) {
+      openPlace(place);
+      return;
+    }
+
+    mapContainerRef.current?.scrollIntoView({ behavior: "instant", block: "center" });
+    const center: [number, number] = [place.lng, place.lat];
+    cancelListNavigationRef.current = navigateToListedPlace(map, {
+      center,
+      reduceMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      reveal: () => {
+        listedPlaceTooltipRef.current = new maplibregl.Popup({
+          anchor: "bottom",
+          closeButton: false,
+          closeOnMove: true,
+          className: "footprint-place-tooltip",
+          offset: 12,
+        }).setLngLat(center).setText(displayName(place)).addTo(map);
+      },
+      openGallery: place.photos?.length ? () => openPlace(place) : undefined,
+    });
+  };
+
+  useEffect(() => cancelListNavigation, [cancelListNavigation]);
+
   const closeModal = () => {
-    setSelectedPlace(null);
-    setPhotoIndex(0);
+    if (galleryClosingRef.current) return;
+    galleryClosingRef.current = true;
     setAutoPlay(false);
-    setPhotoLoading(false);
-    setPhotoLoadError(false);
+
+    const dialog = galleryDialogRef.current;
+    const finish = () => {
+      if (galleryDialogRef.current !== dialog) return;
+      galleryClosingRef.current = false;
+      setSelectedPlace(null);
+      setPhotoIndex(0);
+      setPhotoLoading(false);
+      setPhotoLoadError(false);
+    };
+    const motion = reverseGalleryMotion([dialog, galleryScrimRef.current]);
+    if (motion) void motion.then(finish);
+    else finish();
   };
 
   const countryCount = useMemo(
@@ -1718,7 +1785,7 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
                                     <button
                                       type="button"
                                       key={place.id}
-                                      onClick={() => focusPlace(place)}
+                                      onClick={() => focusListedPlace(place)}
                                       className="group inline-flex max-w-full items-center gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-left transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 dark:hover:bg-slate-800"
                                     >
                                       <span className="min-w-0 break-words text-[13px] font-semibold leading-snug text-slate-800 group-hover:text-slate-950 dark:text-slate-100 dark:group-hover:text-white">
@@ -1756,14 +1823,18 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
       {selectedPlace &&
         createPortal(
           <div
-            className="fixed inset-0 z-[1200] flex items-center justify-center overflow-hidden bg-slate-950/55 px-3 py-4 backdrop-blur-sm sm:px-5"
+            className="footprint-photo-overlay fixed inset-0 z-[1200] flex items-center justify-center overflow-hidden px-3 py-4 sm:px-5"
             onClick={closeModal}
           >
+            <div ref={galleryScrimRef} className="footprint-photo-scrim" aria-hidden="true" />
             <article
+              ref={galleryDialogRef}
               className="footprint-photo-dialog flex w-[min(94vw,1120px)] flex-col overflow-hidden bg-white shadow-2xl"
+              data-map-origin={galleryOrigin ? "" : undefined}
               style={{
                 height: "min(92dvh, 860px)",
                 maxHeight: "calc(100dvh - 2rem)",
+                transformOrigin: galleryOrigin,
               }}
               onClick={(event) => event.stopPropagation()}
             >

@@ -2940,5 +2940,56 @@
         "zhCaption": ""
       }
     ]
+  },
+  {
+    "id": "cn-poi-5a-68",
+    "name": "东方明珠塔",
+    "zhName": "东方明珠塔",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "上海市",
+      "zhLabel": "上海市"
+    },
+    "lat": 31.2454138,
+    "lng": 121.5063787,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-70",
+    "name": "上海科技馆",
+    "zhName": "上海科技馆",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "上海市",
+      "zhLabel": "上海市"
+    },
+    "lat": 31.2243561,
+    "lng": 121.5478229,
+    "note": "",
+    "zhNote": "",
+    "photos": []
+  },
+  {
+    "id": "cn-poi-5a-71",
+    "name": "中国共产党一大·二大·四大纪念馆景区",
+    "zhName": "中国共产党一大·二大·四大纪念馆景区",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "上海市",
+      "zhLabel": "上海市"
+    },
+    "lat": 31.2303478,
+    "lng": 121.4733541,
+    "note": "",
+    "zhNote": "",
+    "photos": []
   }
 ]
