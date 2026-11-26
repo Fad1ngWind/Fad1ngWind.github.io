@@ -1,10 +1,18 @@
 const continents = new Set(["Asia", "NorthAmerica", "Europe", "Africa", "Oceania", "SouthAmerica", "Antarctica"]);
 const photoRoot = "/footprint/photos/";
 const scenicNameSuffix = /(?:旅游风景区|风景旅游区|风景名胜区|旅游景区|风景区|旅游区|景区)(?=\s*(?:（[^（）]+）|\([^()]+\))?\s*$)/u;
+const chinesePlaceDisplayNames = new Map([
+  ["cn-poi-5a-150", "湄洲岛"],
+  ["cn-poi-5a-144", "南靖土楼"],
+  ["cn-poi-5a-141", "永定土楼"],
+  ["jp-13113", "涩谷区"],
+]);
 
 /** @param {{ id: string, country: string, name: string, zhName: string }} place @param {boolean} isChinese */
 export function getPlaceDisplayName(place, isChinese) {
   if (!isChinese) return place.name;
+  const displayName = chinesePlaceDisplayNames.get(place.id);
+  if (displayName) return displayName;
   const isAdministrativePlace = (place.country === "China" && /^cn-\d{6}$/.test(place.id)) ||
     (place.country === "Japan" && /^jp-(?:city-)?\d{5}$/.test(place.id));
   if (isAdministrativePlace && place.zhName.length > 1 && place.zhName.endsWith("市")) {

@@ -1317,7 +1317,44 @@
     "lng": 114.29314,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-420100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-420100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-420100/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-420100/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-420100/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-420100/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-420100/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-420500",
@@ -1385,7 +1422,26 @@
     "lng": 113.27529,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-440100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-440100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-440100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-440100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-440100/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-440100/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-440300",
@@ -1504,7 +1560,86 @@
     "lng": 103.916,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/007.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/008.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/008.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/009.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/009.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/010.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/010.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/011.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/011.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/012.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/012.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-285/013.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-285/013.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-513200",
@@ -1558,23 +1693,6 @@
     "photos": []
   },
   {
-    "id": "cn-510500",
-    "name": "泸州市",
-    "zhName": "泸州市",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "四川省",
-      "zhLabel": "四川省"
-    },
-    "lat": 28.89216,
-    "lng": 105.43976,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
     "id": "cn-511100",
     "name": "乐山市",
     "zhName": "乐山市",
@@ -1587,23 +1705,6 @@
     },
     "lat": 29.58477,
     "lng": 103.75905,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-poi-5a-304",
-    "name": "梵净山旅游区",
-    "zhName": "梵净山旅游区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "贵州省",
-      "zhLabel": "贵州省"
-    },
-    "lat": 27.84,
-    "lng": 108.77,
     "note": "",
     "zhNote": "",
     "photos": []

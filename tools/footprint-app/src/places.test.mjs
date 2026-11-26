@@ -55,6 +55,24 @@ test("shortens generic scenic suffixes but keeps proper names and aliases", () =
   }
 });
 
+test("uses the requested Chinese display names and keeps unapproved shortenings out", async () => {
+  const source = await readFile(new URL("../../../footprint/places.json", import.meta.url), "utf8");
+  const places = new Map(JSON.parse(source).map((entry) => [entry.id, entry]));
+  for (const [id, zhName, display] of [
+    ["cn-poi-5a-150", "湄洲岛妈祖文化旅游区", "湄洲岛"],
+    ["cn-poi-5a-144", "土楼南靖（土楼（永定·南靖）旅游景区）", "南靖土楼"],
+    ["cn-poi-5a-141", "土楼永定（土楼（永定·南靖）旅游景区）", "永定土楼"],
+    ["jp-13113", "澁谷区", "涩谷区"],
+    ["cn-poi-5a-148", "福鼎太姥山旅游区", "福鼎太姥山"],
+    ["cn-poi-5a-314", "香格里拉普达措景区", "香格里拉普达措"],
+  ]) {
+    const attraction = places.get(id);
+    assert.equal(getPlaceDisplayName(attraction, true), display);
+    assert.equal(attraction.zhName, zhName);
+    assert.equal(getPlaceDisplayName(attraction, false), attraction.name);
+  }
+});
+
 test("accepts a visit with a local photo, with or without a separate preview", () => {
   assert.equal(validatePlaces([place])[0], place);
   const [photo] = place.photos;
