@@ -39,7 +39,7 @@ import {
 
 import { feature } from "topojson-client";
 import landAtlas from "world-atlas/land-110m.json";
-import { getPlaceDisplayName } from "./places.mjs";
+import { getChineseRegionDisplayName, getPlaceDisplayName } from "./places.mjs";
 import { getGalleryTransformOrigin, navigateToListedPlace, reverseGalleryMotion } from "./place-navigation.mjs";
 
 
@@ -1773,7 +1773,7 @@ const Footprint = ({ places }: { places: FootprintPlace[] }) => {
                                 {region && (
                                   <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-1 dark:border-slate-800">
                                     <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
-                                      {isChinese ? region.zhLabel : region.label}
+                                      {isChinese ? getChineseRegionDisplayName(region.zhLabel) : region.label}
                                     </span>
                                     <span className="shrink-0 text-[11px] text-slate-400 dark:text-slate-500">
                                       {placeCountLabel(regionPlaces.length, isChinese)}

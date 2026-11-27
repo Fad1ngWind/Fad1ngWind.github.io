@@ -8,6 +8,8 @@ const chinesePlaceDisplayNames = new Map([
   ["jp-13113", "涩谷区"],
 ]);
 
+export const getChineseRegionDisplayName = (name) => name.replace(/^(香港|澳门)特别行政区$/u, "$1");
+
 /** @param {{ id: string, country: string, name: string, zhName: string }} place @param {boolean} isChinese */
 export function getPlaceDisplayName(place, isChinese) {
   if (!isChinese) return place.name;
@@ -18,7 +20,7 @@ export function getPlaceDisplayName(place, isChinese) {
   if (isAdministrativePlace && place.zhName.length > 1 && place.zhName.endsWith("市")) {
     return place.zhName.slice(0, -1);
   }
-  return place.zhName.replace(scenicNameSuffix, (suffix, index) => index > 0 ? "" : suffix);
+  return getChineseRegionDisplayName(place.zhName).replace(scenicNameSuffix, (suffix, index) => index > 0 ? "" : suffix);
 }
 
 function isLocalPhoto(path) {

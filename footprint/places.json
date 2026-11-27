@@ -1790,9 +1790,34 @@
     },
     "lat": 25.7830826,
     "lng": 100.181115,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "note": "上关风，下关花，苍山雪，洱海月。",
+    "zhNote": "上关风，下关花，苍山雪，洱海月。",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-extra-16/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-16/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-extra-16/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-16/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-extra-16/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-16/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-extra-16/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-16/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-poi-extra-28",
@@ -1809,7 +1834,26 @@
     "lng": 100.1206446,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-extra-28/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-28/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-extra-28/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-28/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-extra-28/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-extra-28/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-poi-5a-311",
@@ -1824,9 +1868,16 @@
     },
     "lat": 26.8764641,
     "lng": 100.2420474,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "note": "丽江古城夜景。",
+    "zhNote": "丽江古城夜景。",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-311/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-311/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-poi-5a-310",
@@ -1843,7 +1894,32 @@
     "lng": 100.2104791,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-310/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-310/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-310/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-310/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-310/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-310/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-310/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-310/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-530100",
@@ -1860,7 +1936,32 @@
     "lng": 102.71081,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-530100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-530100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-530100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-530100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-530100/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-530100/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-530100/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-530100/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-532900",
@@ -1897,23 +1998,6 @@
     "photos": []
   },
   {
-    "id": "cn-poi-5a-314",
-    "name": "香格里拉普达措景区",
-    "zhName": "香格里拉普达措景区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "云南省",
-      "zhLabel": "云南省"
-    },
-    "lat": 27.8648756,
-    "lng": 99.9510338,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
     "id": "cn-533400",
     "name": "迪庆藏族自治州",
     "zhName": "迪庆藏族自治州",
@@ -1928,7 +2012,26 @@
     "lng": 99.70536,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-533400/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533400/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533400/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533400/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533400/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533400/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-610100",
@@ -1945,7 +2048,56 @@
     "lng": 108.94335,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-610100/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/007.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-610100/008.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-610100/008.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-610400",
@@ -1966,20 +2118,69 @@
   },
   {
     "id": "cn-810000",
-    "name": "香港特别行政区",
-    "zhName": "香港特别行政区",
+    "name": "香港",
+    "zhName": "香港",
     "country": "China",
     "zhCountry": "中国",
     "continent": "Asia",
     "region": {
-      "label": "香港特别行政区",
-      "zhLabel": "香港特别行政区"
+      "label": "香港",
+      "zhLabel": "香港"
     },
     "lat": 22.32005,
     "lng": 114.17336,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-810000/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/007.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-810000/008.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-810000/008.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-820000",
@@ -1989,99 +2190,69 @@
     "zhCountry": "中国",
     "continent": "Asia",
     "region": {
-      "label": "澳门特别行政区",
-      "zhLabel": "澳门特别行政区"
+      "label": "澳门",
+      "zhLabel": "澳门"
     },
     "lat": 22.19895,
     "lng": 113.54909,
     "note": "",
     "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-820007",
-    "name": "路凼填海区",
-    "zhName": "路凼填海区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "澳门特别行政区",
-      "zhLabel": "澳门特别行政区"
-    },
-    "lat": 22.13663,
-    "lng": 113.5696,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-810005",
-    "name": "油尖旺区",
-    "zhName": "油尖旺区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "香港特别行政区",
-      "zhLabel": "香港特别行政区"
-    },
-    "lat": 22.3117,
-    "lng": 114.17333,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-810007",
-    "name": "九龙城区",
-    "zhName": "九龙城区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "香港特别行政区",
-      "zhLabel": "香港特别行政区"
-    },
-    "lat": 22.31251,
-    "lng": 114.19285,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-810018",
-    "name": "离岛区",
-    "zhName": "离岛区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "香港特别行政区",
-      "zhLabel": "香港特别行政区"
-    },
-    "lat": 22.28641,
-    "lng": 113.94612,
-    "note": "",
-    "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "cn-810001",
-    "name": "中西区",
-    "zhName": "中西区",
-    "country": "China",
-    "zhCountry": "中国",
-    "continent": "Asia",
-    "region": {
-      "label": "香港特别行政区",
-      "zhLabel": "香港特别行政区"
-    },
-    "lat": 22.28198,
-    "lng": 114.15437,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-820000/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/007.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/008.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/008.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-820000/009.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-820000/009.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "cn-361100",
@@ -2990,6 +3161,193 @@
     "lng": 121.4733541,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-71/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-71/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-71/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-71/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-71/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-71/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-71/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-71/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-71/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-71/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-5a-312",
+    "name": "崇圣寺三塔",
+    "zhName": "崇圣寺三塔",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 25.7112274,
+    "lng": 100.1537795,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-5a-312/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-312/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-312/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-312/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-5a-312/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-5a-312/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-osm-1068747565",
+    "name": "纳帕海",
+    "zhName": "纳帕海",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 24.65672,
+    "lng": 93.02082,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-osm-1068747565/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-osm-1068747565/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-poi-osm-383079452",
+    "name": "无底湖",
+    "zhName": "无底湖",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 28.2492826,
+    "lng": 99.9721942,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-poi-osm-383079452/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-osm-383079452/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-osm-383079452/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-osm-383079452/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-poi-osm-383079452/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-poi-osm-383079452/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
+  },
+  {
+    "id": "cn-533401",
+    "name": "香格里拉市",
+    "zhName": "香格里拉市",
+    "country": "China",
+    "zhCountry": "中国",
+    "continent": "Asia",
+    "region": {
+      "label": "云南省",
+      "zhLabel": "云南省"
+    },
+    "lat": 27.8363076,
+    "lng": 99.7040577,
+    "note": "",
+    "zhNote": "",
+    "photos": [
+      {
+        "src": "/footprint/photos/cn-533401/001.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/002.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/003.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/004.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/005.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/006.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/cn-533401/007.jpg",
+        "previewSrc": "/footprint/photos/previews/cn-533401/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   }
 ]

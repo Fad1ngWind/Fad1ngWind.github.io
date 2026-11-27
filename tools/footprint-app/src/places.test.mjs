@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { getPlaceDisplayName, validatePlaces } from "./places.mjs";
+import { getChineseRegionDisplayName, getPlaceDisplayName, validatePlaces } from "./places.mjs";
 
 const place = {
   id: "test", name: "Test", zhName: "测试点", country: "Test Country", zhCountry: "测试国家",
@@ -24,6 +24,19 @@ test("shows shorter city names without changing stored names or English labels",
     assert.equal(city.zhName, `${short}市`);
     assert.equal(getPlaceDisplayName(city, false), city.name);
   }
+});
+
+test("shows Hong Kong and Macao without the administrative suffix", () => {
+  for (const [id, short] of [["cn-810000", "香港"], ["cn-820000", "澳门"]]) {
+    const official = `${short}特别行政区`;
+    const entry = { ...place, id, country: "China", zhName: official };
+    assert.equal(getPlaceDisplayName(entry, true), short);
+    assert.equal(getChineseRegionDisplayName(official), short);
+    assert.equal(getPlaceDisplayName(entry, false), entry.name);
+    assert.equal(entry.zhName, official);
+  }
+  assert.equal(getChineseRegionDisplayName("广西壮族自治区"), "广西壮族自治区");
+  assert.equal(getChineseRegionDisplayName("油尖旺区"), "油尖旺区");
 });
 
 test("keeps district, region and scenic names intact", () => {
@@ -55,9 +68,7 @@ test("shortens generic scenic suffixes but keeps proper names and aliases", () =
   }
 });
 
-test("uses the requested Chinese display names and keeps unapproved shortenings out", async () => {
-  const source = await readFile(new URL("../../../footprint/places.json", import.meta.url), "utf8");
-  const places = new Map(JSON.parse(source).map((entry) => [entry.id, entry]));
+test("uses the requested Chinese display names and keeps unapproved shortenings out", () => {
   for (const [id, zhName, display] of [
     ["cn-poi-5a-150", "湄洲岛妈祖文化旅游区", "湄洲岛"],
     ["cn-poi-5a-144", "土楼南靖（土楼（永定·南靖）旅游景区）", "南靖土楼"],
@@ -66,7 +77,7 @@ test("uses the requested Chinese display names and keeps unapproved shortenings 
     ["cn-poi-5a-148", "福鼎太姥山旅游区", "福鼎太姥山"],
     ["cn-poi-5a-314", "香格里拉普达措景区", "香格里拉普达措"],
   ]) {
-    const attraction = places.get(id);
+    const attraction = Object.freeze({ ...place, id, zhName });
     assert.equal(getPlaceDisplayName(attraction, true), display);
     assert.equal(attraction.zhName, zhName);
     assert.equal(getPlaceDisplayName(attraction, false), attraction.name);
