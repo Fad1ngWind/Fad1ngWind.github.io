@@ -2299,7 +2299,32 @@
     "lng": 139.77667,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-poi-ja-f41632435b1c03/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-f41632435b1c03/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-f41632435b1c03/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-f41632435b1c03/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-f41632435b1c03/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-f41632435b1c03/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-f41632435b1c03/004.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-f41632435b1c03/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-poi-ja-466d9cc0b8d32a",
@@ -2316,7 +2341,14 @@
     "lng": 139.81083,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-poi-ja-466d9cc0b8d32a/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-466d9cc0b8d32a/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-poi-ja-3d8ae54a9fde61",
@@ -2333,7 +2365,20 @@
     "lng": 139.74556,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-poi-ja-3d8ae54a9fde61/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-3d8ae54a9fde61/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-3d8ae54a9fde61/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-3d8ae54a9fde61/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-poi-ja-e92ab04ae6d307",
@@ -2350,7 +2395,14 @@
     "lng": 139.69917,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-poi-ja-e92ab04ae6d307/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-e92ab04ae6d307/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-poi-ja-b69776e5a4fdab",
@@ -2367,7 +2419,26 @@
     "lng": 139.77313,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-poi-ja-b69776e5a4fdab/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-b69776e5a4fdab/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-b69776e5a4fdab/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-b69776e5a4fdab/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-poi-ja-b69776e5a4fdab/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-poi-ja-b69776e5a4fdab/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-tokyo",
@@ -2384,29 +2455,25 @@
     "lng": 139.72276,
     "note": "",
     "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "jp-13103",
-    "name": "港区",
-    "zhName": "港区",
-    "country": "Japan",
-    "zhCountry": "日本",
-    "continent": "Asia",
-    "region": {
-      "label": "东京都",
-      "zhLabel": "东京都"
-    },
-    "lat": 35.65669,
-    "lng": 139.73803,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-tokyo/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-tokyo/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-tokyo/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-tokyo/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-13116",
-    "name": "丰岛区",
-    "zhName": "丰岛区",
+    "name": "池袋",
+    "zhName": "池袋",
     "country": "Japan",
     "zhCountry": "日本",
     "continent": "Asia",
@@ -2416,14 +2483,21 @@
     },
     "lat": 35.73537,
     "lng": 139.7128,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "note": "杨国福的门口排起了长队。",
+    "zhNote": "杨国福的门口排起了长队。",
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-13116/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13116/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-13118",
-    "name": "荒川区",
-    "zhName": "荒川区",
+    "name": "荒川",
+    "zhName": "荒川",
     "country": "Japan",
     "zhCountry": "日本",
     "continent": "Asia",
@@ -2433,14 +2507,27 @@
     },
     "lat": 35.74212,
     "lng": 139.77755,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "note": "到这里了才知道原来我们就住在大名鼎鼎的泪桥。",
+    "zhNote": "到这里了才知道原来我们就住在大名鼎鼎的泪桥。",
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-13118/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13118/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13118/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13118/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-13104",
-    "name": "新宿区",
-    "zhName": "新宿区",
+    "name": "新宿",
+    "zhName": "新宿",
     "country": "Japan",
     "zhCountry": "日本",
     "continent": "Asia",
@@ -2452,12 +2539,49 @@
     "lng": 139.72276,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-13104/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13104/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13104/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13104/004.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13104/005.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13104/006.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13104/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-13113",
-    "name": "澁谷区",
-    "zhName": "澁谷区",
+    "name": "涩谷",
+    "zhName": "涩谷",
     "country": "Japan",
     "zhCountry": "日本",
     "continent": "Asia",
@@ -2469,29 +2593,55 @@
     "lng": 139.70036,
     "note": "",
     "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "jp-13101",
-    "name": "千代田区",
-    "zhName": "千代田区",
-    "country": "Japan",
-    "zhCountry": "日本",
-    "continent": "Asia",
-    "region": {
-      "label": "东京都",
-      "zhLabel": "东京都"
-    },
-    "lat": 35.69199,
-    "lng": 139.76305,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-13113/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/004.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/005.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/006.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13113/007.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13113/007.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-13106",
-    "name": "台东区",
-    "zhName": "台东区",
+    "name": "浅草寺",
+    "zhName": "浅草寺",
     "country": "Japan",
     "zhCountry": "日本",
     "continent": "Asia",
@@ -2499,28 +2649,42 @@
       "label": "东京都",
       "zhLabel": "东京都"
     },
-    "lat": 35.71388,
-    "lng": 139.78662,
+    "lat": 35.71472222,
+    "lng": 139.79675,
     "note": "",
     "zhNote": "",
-    "photos": []
-  },
-  {
-    "id": "jp-13107",
-    "name": "墨田区",
-    "zhName": "墨田区",
-    "country": "Japan",
-    "zhCountry": "日本",
-    "continent": "Asia",
-    "region": {
-      "label": "东京都",
-      "zhLabel": "东京都"
-    },
-    "lat": 35.70754,
-    "lng": 139.81192,
-    "note": "",
-    "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-13106/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13106/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13106/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13106/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13106/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13106/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13106/004.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13106/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-13106/005.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-13106/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-14204",
@@ -2537,7 +2701,44 @@
     "lng": 139.53154,
     "note": "",
     "zhNote": "",
-    "photos": []
+    "photos": [
+      {
+        "src": "/footprint/photos/jp-14204/001.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/001.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-14204/002.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/002.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-14204/003.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/003.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-14204/004.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/004.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-14204/005.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/005.jpg",
+        "caption": "",
+        "zhCaption": ""
+      },
+      {
+        "src": "/footprint/photos/jp-14204/006.jpg",
+        "previewSrc": "/footprint/photos/previews/jp-14204/006.jpg",
+        "caption": "",
+        "zhCaption": ""
+      }
+    ]
   },
   {
     "id": "jp-14205",
@@ -3241,8 +3442,8 @@
       "label": "云南省",
       "zhLabel": "云南省"
     },
-    "lat": 24.65672,
-    "lng": 93.02082,
+    "lat": 27.8796165,
+    "lng": 99.640484,
     "note": "",
     "zhNote": "",
     "photos": [

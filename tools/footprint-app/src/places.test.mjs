@@ -74,6 +74,7 @@ test("uses the requested Chinese display names and keeps unapproved shortenings 
     ["cn-poi-5a-144", "土楼南靖（土楼（永定·南靖）旅游景区）", "南靖土楼"],
     ["cn-poi-5a-141", "土楼永定（土楼（永定·南靖）旅游景区）", "永定土楼"],
     ["jp-13113", "澁谷区", "涩谷区"],
+    ["jp-13113", "涩谷", "涩谷"],
     ["cn-poi-5a-148", "福鼎太姥山旅游区", "福鼎太姥山"],
     ["cn-poi-5a-314", "香格里拉普达措景区", "香格里拉普达措"],
   ]) {
